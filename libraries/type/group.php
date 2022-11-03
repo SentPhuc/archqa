@@ -31,5 +31,6 @@ $config['group'] = array(
     ),
     "Group Dư toán công trình" => array(
         "news" => array("dongia","loaicongtrinh","dichvuxaynha","mucdautu","mattien","hem","santhuong","bancong","loaimong","tangham","mai"),
+        "static" => array("mota-dutoan"),
     )
 );

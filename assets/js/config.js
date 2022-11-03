@@ -58,10 +58,10 @@ WEBSIETE.slickData = function(obj){
         if((config_responsive==true || config_mobile==true) && (lg_item && md_item && sm_item && xs_item))
         {
             var responsive = [
-                {breakpoint: 1024,settings:{slidesToShow: lg_item,}},
-                {breakpoint: 992,settings:{slidesToShow: md_item,}},
-                {breakpoint: 768,settings:{slidesToShow: sm_item,}},
-                {breakpoint: 480,settings:{slidesToShow: xs_item,}},
+            {breakpoint: 1024,settings:{slidesToShow: lg_item,}},
+            {breakpoint: 992,settings:{slidesToShow: md_item,}},
+            {breakpoint: 768,settings:{slidesToShow: sm_item,}},
+            {breakpoint: 480,settings:{slidesToShow: xs_item,}},
             ];        
         }
         obj.slick({
@@ -89,12 +89,6 @@ WEBSIETE.slickPage = function(){
 
 /* Back to top */
 WEBSIETE.BackToTop = function(){
-    $(window).scroll(function(){
-        if(!$('.scrollToTop').length) $("body").append('<div class="scrollToTop"><img src="'+images_top+'" alt="Go Top"/></div>');
-        if($(this).scrollTop() > 100) $('.scrollToTop').fadeIn();
-        else $('.scrollToTop').fadeOut();
-    });
-
     $('body').on("click",".scrollToTop",function() {
         $('html, body').animate({scrollTop : 0},800);
         return false; 
@@ -131,7 +125,7 @@ WEBSIETE.Tools = function(){
 WEBSIETE.Mmenu = function(){
     if($("#mmenu").exists())
     {
-        
+
     }
 };
 
@@ -198,10 +192,10 @@ WEBSIETE.ClickActidve = function(){
         $('#mmenu').click(function(){
             if ($(this).hasClass('active')) {
                 $(this).removeClass("active");
-                $("#main-mmneu").removeClass("active");
+                $("#main-mmenu").removeClass("active");
             } else {
                 $(this).addClass("active");
-                $("#main-mmneu").addClass("active");
+                $("#main-mmenu").addClass("active");
             }
         });
     }
@@ -221,6 +215,44 @@ WEBSIETE.ClickActidve = function(){
             }
         });
     }
+
+    if($(".action-menu").exists())
+    {
+        $('.cat-category').removeClass('active');
+        $('.action-menu').click(function(){
+            if ($(this).hasClass('active')) {
+                $(this).removeClass("active");
+                $(this).next('.cat-category').removeClass('active');
+            } else {
+                $(this).next('.cat-category').addClass('active');
+                $(this).addClass("active");
+            }
+        });
+    }
+};
+
+/* swiper */
+WEBSIETE.swiper = function(){
+    if($(".oc-bn").exists())
+    {
+        var swiper = new Swiper('.oc-bn', {
+            speed: 500,
+            preventClicks: true,
+            slidesPerView: "auto",
+            centeredSlides: true,
+            slideToClickedSlide: true,
+            loop: true,
+            paginationClickable: true,
+            navigation: {
+                nextEl: ".oc-next",
+                prevEl: ".oc-prev",
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+        });
+    }
 };
 
 /* Ready */
@@ -234,4 +266,5 @@ $(document).ready(function(){
     WEBSIETE.Videos();
     WEBSIETE.Search();
     WEBSIETE.ClickActidve();
+    WEBSIETE.swiper();
 });

@@ -1901,10 +1901,10 @@ class Functions
 				$menu_item = $this->db->rawQuery("select id, id_list, id_cat, ten$lang as ten, tenkhongdau$lang as tenkhongdau, photo from #_$table".'_item'." where FIND_IN_SET(id_cat, '".$this->joinAttr($menu_cat, 'id')."') $where $order_by");
 				$menu_sub = $this->db->rawQuery("select id, id_list, id_cat, id_item, ten$lang as ten, tenkhongdau$lang as tenkhongdau, photo from #_$table".'_sub'." where FIND_IN_SET(id_item, '".$this->joinAttr($menu_item, 'id')."') $where $order_by");
 			}
-			if (count($menu_list) > 0) {
+			if (count($menu_list) > 0 || count($menu) > 0) {
 				echo '<span class="action-menu"></span>';
 			}
-			$result = '<ul>';
+			$result = '<ul class="cat-category">';
 			if(count($lv) == 0)
 			{
 				foreach($menu as $i => $item) {

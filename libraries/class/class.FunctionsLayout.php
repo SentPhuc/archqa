@@ -70,7 +70,7 @@ class FunctionsLayout extends Functions
                     <?php if ($this->theme=="news") {?>
                         <?php if (!empty($item['mota'])) {?>
                             <div class="desc line-3">
-                                <?=$item['mota']?>
+                                <?=htmlspecialchars_decode($item['mota'])?>
                             </div>
                         <?php } ?>
                     <?php } ?>

@@ -5,7 +5,6 @@
     var company_name = '<?=(isset($setting['ten'.$lang]) && $setting['ten'.$lang] != '') ? addslashes($setting['ten'.$lang]) : ''?>';
     var time_now = '<?=date("d/m/Y",time())?>';
     var ship = <?=(isset($config['order']['ship']) && $config['order']['ship'] == true) ? 'true' : 'false'?>;
-    var images_top = 'assets/images/top.png';
     var config_responsive = '<?=$config['website']['responsive']?>';
     var config_mobile = '<?=$config['website']['mobile']?>';
     var COUNTPRODUCT = '<?=!empty($optsetting['countpro'])?$optsetting['countpro']:0?>';
@@ -31,6 +30,7 @@
     $js->setJs("./assets/magiczoomplus/magiczoomplus.js");
     $js->setJs("./assets/slick/slick.js");
     $js->setJs("./assets/fancybox3/jquery.fancybox.js");
+    $js->setJs("./assets/swiper/swiper-bundle.min.js");
     // $js->setJs("./assets/photobox/photobox.js");
     // $js->setJs("./assets/datetimepicker/php-date-formatter.min.js");
     // $js->setJs("./assets/datetimepicker/jquery.mousewheel.js");

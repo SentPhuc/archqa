@@ -16,6 +16,7 @@
     // $css->setCss("./assets/fotorama/fotorama.css");
     // $css->setCss("./assets/fotorama/fotorama-style.css");
     $css->setCss("./assets/magiczoomplus/magiczoomplus.css");
+    $css->setCss("./assets/swiper/swiper-bundle.min.css");
     // $css->setCss("./assets/datetimepicker/jquery.datetimepicker.css");
     // $css->setCss("./assets/owlcarousel2/owl.carousel.css");
     // $css->setCss("./assets/owlcarousel2/owl.theme.default.css");
