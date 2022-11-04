@@ -152,12 +152,6 @@ $config['static'][$nametype]['title_main'] = "Liên hệ";
 $config['static'][$nametype]['noidung'] = true;
 $config['static'][$nametype]['noidung_cke'] = true;
 
-/* Footer */
-$nametype = "footer";
-$config['static'][$nametype]['title_main'] = "Footer";
-$config['static'][$nametype]['noidung'] = true;
-$config['static'][$nametype]['noidung_cke'] = true;
-
 /* Seo page */
 $config['seopage']['page'] = array(
     "product" => "Sản phẩm",
@@ -167,6 +161,7 @@ $config['seopage']['page'] = array(
     "about" => "Giới thiệu",
     "catalog" => "Catalog",
     "contact" => "Liên hệ",
+    "du-toan-cong-trinh" => "Dự toán công trình",
     "tim-kiem" => "Tìm kiếm",
 );
 $config['seopage']['size_images'] = '300x200';

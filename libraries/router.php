@@ -90,37 +90,35 @@ require_once LIBRARIES."lang/lang$lang.php";
 
 /* Tối ưu link */
 $requick = array(
-	/* Sản phẩm */
-	array("tbl"=>"product_list","field"=>"idl","source"=>"product","com"=>"san-pham","type"=>"san-pham"),
-	array("tbl"=>"product_cat","field"=>"idc","source"=>"product","com"=>"san-pham","type"=>"san-pham"),
-	array("tbl"=>"product_item","field"=>"idi","source"=>"product","com"=>"san-pham","type"=>"san-pham"),
-	array("tbl"=>"product_sub","field"=>"ids","source"=>"product","com"=>"san-pham","type"=>"san-pham"),
-	array("tbl"=>"product_brand","field"=>"idb","source"=>"product","com"=>"thuong-hieu","type"=>"san-pham"),
-	array("tbl"=>"product","field"=>"id","source"=>"product","com"=>"san-pham","type"=>"san-pham",'menu'=>true),
+	/* Nhóm Sản phẩm */
+	array("tbl"=>"product_list","field"=>"idl","source"=>"product","com"=>"product","type"=>"product"),
+	array("tbl"=>"product_cat","field"=>"idc","source"=>"product","com"=>"product","type"=>"product"),
+	array("tbl"=>"product","field"=>"id","source"=>"product","com"=>"product","type"=>"product",'menu'=>true),/*Product*/
+	array("tbl"=>"news","field"=>"id","source"=>"news","com"=>"quy-trinh-dat-hang","type"=>"quy-trinh-dat-hang",'menu'=>false),/* Quy trình đặt hàng */
+	array("tbl"=>"tags","tbltag"=>"product","field"=>"id","source"=>"tags","com"=>"tags-product","type"=>"product",'menu'=>true),/* tags sản phẩm */
 
-	/* Tags */
-	array("tbl"=>"tags","tbltag"=>"product","field"=>"id","source"=>"tags","com"=>"tags-san-pham","type"=>"san-pham",'menu'=>true),
-	array("tbl"=>"tags","tbltag"=>"news","field"=>"id","source"=>"tags","com"=>"tags-tin-tuc","type"=>"tin-tuc",'menu'=>true),
+	/* Nhóm dự án */
+	array("tbl"=>"project_list","field"=>"idl","source"=>"project","com"=>"project","type"=>"project"),
+	array("tbl"=>"project","field"=>"id","source"=>"project","com"=>"project","type"=>"project",'menu'=>true),/*Project*/
 
-	/* Thư viện ảnh */
-	array("tbl"=>"product","field"=>"id","source"=>"product","com"=>"thu-vien-anh","type"=>"thu-vien-anh",'menu'=>true),
+	/* Nhóm Phẩm chất */
+	array("tbl"=>"news_list","field"=>"idl","source"=>"news","com"=>"quality","type"=>"quality"),
+	array("tbl"=>"news","field"=>"id","source"=>"news","com"=>"quality","type"=>"quality",'menu'=>true),/*quality*/
 
-	/* Video */
-	array("tbl"=>"photo","field"=>"id","source"=>"video","com"=>"video","type"=>"video",'menu'=>true),
+	/* Nhóm Nguồn cảm hứng */
+	array("tbl"=>"news_list","field"=>"idl","source"=>"news","com"=>"ideas-how-tos","type"=>"ideas-how-tos"),
+	array("tbl"=>"news","field"=>"id","source"=>"news","com"=>"ideas-how-tos","type"=>"ideas-how-tos",'menu'=>true),/*Ideas how tos*/
+	array("tbl"=>"news_list","field"=>"idl","source"=>"news","com"=>"videos","type"=>"videos"),
+	array("tbl"=>"news","field"=>"id","source"=>"news","com"=>"videos","type"=>"videos",'menu'=>true),/*Videos*/
 
-	/* Tin tức */
-	array("tbl"=>"news_list","field"=>"idl","source"=>"news","com"=>"tin-tuc","type"=>"tin-tuc"),
-	array("tbl"=>"news_cat","field"=>"idc","source"=>"news","com"=>"tin-tuc","type"=>"tin-tuc"),
-	array("tbl"=>"news_item","field"=>"idi","source"=>"news","com"=>"tin-tuc","type"=>"tin-tuc"),
-	array("tbl"=>"news_sub","field"=>"ids","source"=>"news","com"=>"tin-tuc","type"=>"tin-tuc"),
-	array("tbl"=>"news","field"=>"id","source"=>"news","com"=>"tin-tuc","type"=>"tin-tuc",'menu'=>true),
+	/* Nhóm giới thiệu */
+	array("tbl"=>"news","field"=>"id","source"=>"news","com"=>"about","type"=>"about",'menu'=>true),/*About*/
 
-	/* Bài viết */
-	array("tbl"=>"news","field"=>"id","source"=>"news","com"=>"tuyen-dung","type"=>"tuyen-dung",'menu'=>true),
-	array("tbl"=>"news","field"=>"id","source"=>"news","com"=>"chinh-sach","type"=>"chinh-sach",'menu'=>false),
+	/* Dự toán công trình */
+	array("tbl"=>"","field"=>"id","source"=>"","com"=>"du-toan-cong-trinh","type"=>"",'menu'=>true),
 
-	/* Trang tĩnh */
-	array("tbl"=>"static","field"=>"id","source"=>"static","com"=>"gioi-thieu","type"=>"gioi-thieu",'menu'=>true),
+	/* Dowload catalog */
+	array("tbl"=>"","field"=>"id","source"=>"","com"=>"dowload-catalog","type"=>"",'menu'=>true),
 
 	/* Liên hệ */
 	array("tbl"=>"","field"=>"id","source"=>"","com"=>"lien-he","type"=>"",'menu'=>true),
@@ -154,6 +152,14 @@ if($com != 'tim-kiem' && $com != 'account' && $com != 'sitemap')
 /* Switch coms */
 switch($com)
 {
+	case 'du-toan-cong-trinh':
+	$source = "project_estimation";
+	$template = "static/project_estimation";
+	$type = $com;
+	$seo->setSeo('type','object');
+	$title_crumb = 'Dự toán công trình';
+	break;
+
 	case 'lien-he':
 	$source = "contact";
 	$template = "static/static";
@@ -193,12 +199,12 @@ switch($com)
 	$title_crumb = null;
 	break;
 
-	case 'thuong-hieu':
+	case 'project':
 	$source = "product";
-	$template = "product/product";
-	$seo->setSeo('type','object');
-	$type = 'san-pham';
-	$title_crumb = null;
+	$template = isset($_GET['id']) ? "product/product_detail" : "product/product";
+	$seo->setSeo('type',isset($_GET['id']) ? "article" : "object");
+	$type = $com;
+	$title_crumb = 'Dự án';
 	break;
 
 	case 'san-pham':
@@ -217,7 +223,7 @@ switch($com)
 	$type = "san-pham";
 	break;
 
-	case 'tags-san-pham':
+	case 'tags-product':
 	$source = "tags";
 	$template = "product/product";
 	$type = $url_type;
@@ -226,36 +232,12 @@ switch($com)
 	$title_crumb = null;
 	break;
 
-	case 'tags-tin-tuc':
-	$source = "tags";
-	$template = "news/news";
-	$type = $url_type;
-	$table = $url_tbltag;
-	$seo->setSeo('type','object');
-	$title_crumb = null;
-	break;
-
-	case 'thu-vien-anh':
-	$source = "product";
-	$template = isset($_GET['id']) ? "static/static_detail" : "static/static";
-	$seo->setSeo('type',isset($_GET['id']) ? "article" : "object");
-	$type = $com;
-	$title_crumb = thuvienanh;
-	break;
-
 	case 'video':
 	$source = "static";
 	$template = "static/static";
 	$type = $com;
 	$seo->setSeo('type','object');
 	$title_crumb = "Video";
-	break;
-
-	case 'gio-hang':
-	$source = "order";
-	$template = 'order/order';
-	$title_crumb = giohang;
-	$seo->setSeo('type','object');
 	break;
 
 	case 'account':

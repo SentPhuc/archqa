@@ -9,12 +9,15 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
 
 /* Cấu hình upload */
 require_once LIBRARIES."constant.php";
-
+$port = null;
+if ($_SERVER['SERVER_PORT']) {
+	$port = ($_SERVER['SERVER_PORT']) ? ':'.$_SERVER['SERVER_PORT'] : "";
+}
 /* Cấu hình chung */
 $config = array(
 	'arrayDomainSSL' => array(),
 	'database' => array(
-		'server-name' => $_SERVER["SERVER_NAME"],
+		'server-name' => $_SERVER["SERVER_NAME"].$port,
 		'url' => '/Archqa/',
 		'type' => 'mysql',
 		'host' => 'localhost',

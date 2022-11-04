@@ -7,9 +7,10 @@ $social = $d->rawQuery("select ten$lang, photo, link from #_photo where type = ?
 $splistmenu = $d->rawQuery("select ten$lang as ten,titlesub$lang as titlesub,mota$lang as mota, tenkhongdau$lang as tenkhongdau, id,photo from #_product_list where type = ? and hienthi > 0 order by stt,id desc",array('product'));
 $aboutCamhung = $d->rawQueryOne("select ten$lang as ten, tenkhongdau$lang as tenkhongdau, id from #_news where type = ? and menu > 0 and hienthi > 0 order by stt,id desc limit 0,1",array('about'));
 $aboutPhamchat = $d->rawQuery("select ten$lang as ten, tenkhongdau$lang as tenkhongdau, id from #_news where type = ? and menu1 > 0 and hienthi > 0 order by stt,id desc limit 0,2",array('about'));
-
-$footer = $d->rawQueryOne("select ten$lang, noidung$lang from #_static where type = ? limit 0,1",array('footer'));
-$cs = $d->rawQuery("select ten$lang, tenkhongdauvi, tenkhongdauen, id, photo from #_news where type = ? and hienthi > 0 order by stt,id desc",array('chinh-sach'));
+$listProductFooter = $d->rawQuery("select ten$lang, tenkhongdauvi, tenkhongdauen, id, photo from #_product_list where type = ? and footer > 0 and hienthi > 0 order by stt,id desc",array('product'));
+$quytrinhFooter = $d->rawQuery("select ten$lang, tenkhongdauvi, tenkhongdauen, id, photo from #_news where type = ? and hienthi > 0 order by stt,id desc",array('quy-trinh-dat-hang'));
+$qualityFooter = $d->rawQuery("select ten$lang, tenkhongdauvi, tenkhongdauen, id, photo from #_news_list where type = ? and footer > 0 and hienthi > 0 order by stt,id desc",array('quality'));
+$aboutFooter = $d->rawQuery("select ten$lang, tenkhongdauvi, tenkhongdauen, id, photo from #_news where type = ? and hienthi > 0 order by stt,id desc",array('about'));
 
 if ($source=='index') {
     $slider = $d->rawQuery("select ten$lang, photo, link from #_photo where type = ? and hienthi > 0 order by stt,id desc",array('slide'));
@@ -17,8 +18,7 @@ if ($source=='index') {
     $project = $d->rawQuery("select ten$lang as ten, tenkhongdau$lang as tenkhongdau,photo, id from #_project where type = ? and noibat > 0 and hienthi > 0 order by stt,id desc",array('project'));
     $why = $d->rawQuery("select ten$lang as ten, mota$lang as mota, id, photo from #_news where type = ? and hienthi > 0 order by stt,id desc",array('vi-sao-chon-chung-toi'));
     $custumer = $d->rawQuery("select ten$lang as ten, mota$lang as mota from #_news where type = ? and hienthi > 0 order by stt,id desc",array('cam-nhanh-khach-hang'));
-    $newsnb = $d->rawQuery("select ten$lang, tenkhongdauvi, tenkhongdauen, mota$lang, ngaytao, id, photo from #_news where type = ? and noibat > 0 and hienthi > 0 order by stt,id desc",array('tin-tuc'));
-    $videonb = $d->rawQuery("select id from #_photo where noibat > 0 and type = ? and hienthi > 0",array('video'));
+    $motaDutoan = $d->rawQueryOne("select mota$lang as mota from #_static where type = ? limit 0,1",array('mota-dutoan'));
     $partner = $d->rawQuery("select ten$lang, link, photo from #_photo where type = ? and hienthi > 0 order by stt, id desc",array('doitac'));
 }
 

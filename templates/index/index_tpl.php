@@ -41,7 +41,7 @@
 						<?php foreach ($project as $key => $value) {?>
 							<div class="swiper-slide oc-s">
 								<a class="oc-box" href="<?=$value['tenkhongdau']?>" title="<?=$value['ten']?>">
-									<img loading="lazy" src="<?=THUMBS."/1010x600x1/".UPLOAD_PROJECT_L.$value['photo']?>" alt="<?=$value['ten']?>" class="oc-img">
+									<img onerror=src="<?=THUMBS."/1010x600x1/"?>assets/images/noimage.png" src="<?=THUMBS."/1010x600x1/".UPLOAD_PROJECT_L.$value['photo']?>" alt="<?=$value['ten']?>" class="oc-img">
 								</a>
 								<a class="oc-t line-1" href="<?=$value['tenkhongdau']?>" title="<?=$value['ten']?>"><?=$value['ten']?></a>
 							</div>
@@ -101,7 +101,6 @@
 		</div>
 	</div>
 <?php } ?>
-<?php include TEMPLATE.LAYOUT."project_estimation.php"; ?>
 <?php if(count($partner)) { ?>
 	<div class="wrap-partner pd70-0">
 		<div class="container">
@@ -112,4 +111,6 @@
 			<?=$func->get_photo("doitac","160x100x1","slick__page text-center",':show="8" :lg-item="5" :md-item="4" :sm-item="3" :xs-item="2" :autoplay="true"'); ?>
 		</div>
 	</div>
-	<?php } ?>
+<?php } ?>
+
+<?php include TEMPLATE.LAYOUT."project_estimation.php"; ?>

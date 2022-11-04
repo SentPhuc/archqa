@@ -63,7 +63,7 @@ foreach ($config['theme'][$nametype]['lv'] as $key => $value) {
         $config["product"][$nametype]["filter_$value"] = true;
         $config["product"][$nametype]["mota_$value"] = true;
         $config["product"][$nametype]["mota_cke_$value"] = true;
-        $config["product"][$nametype]["check_$value"] = array("noibat" => "Nổi bật","cat" => "Show cat In");
+        $config["product"][$nametype]["check_$value"] = array("noibat" => "Nổi bật","footer" => "Footer","cat" => "Show cat In");
         $config["product"][$nametype]["titlesub_$value"] = true;
         $config["product"][$nametype]["images_$value"] = true;
         $config["product"][$nametype]["show_images_$value"] = true;

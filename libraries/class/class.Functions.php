@@ -1579,10 +1579,40 @@ class Functions
 		}
 
 		/* Get select category */
-		public function get_select_category($table='', $id_parent='', $type='',$value='',$text=false, $title_select='Chọn danh mục')
+		public function get_select_categoryNodata($table='', $id_parent='', $type='',$value='',$text=false,$required=false,$valueDefault=true, $title_select='Chọn danh mục')
 		{
+			$requiredText = '';
+			if ($required==true) {
+				$requiredText = 'required';
+			}
 			$rows = $this->db->rawQuery("select tenvi, id from #_".$table." where type = ? order by stt,id desc",array($type));
-			$str = '<select id="'.$id_parent.'" name="data['.$id_parent.']" class="form-control select2"><option value="0">'.$title_select.'</option>';
+			$str = '<select '.$requiredText.' id="'.$id_parent.'" name="'.$id_parent.'" class="form-control select2">';
+			if($valueDefault==true) $str .= '<option value="0">'.$title_select.'</option>';
+			foreach($rows as $v)
+			{
+				if(isset($value) && ($v["id"] == (int)$value)) $selected = "selected";
+				else $selected = "";
+
+				$str .= '<option value='.$v["id"].' '.$selected.'>'.$v["tenvi"].'</option>';
+			}
+			$str .= '</select>';
+			if ($text==true) {
+				$rows = $this->db->rawQueryOne("select tenvi, id from #_".$table." where type = ? and id = ? order by stt,id desc",array($type,$value));
+				$str = $rows['tenvi'];
+			}
+			return $str;
+		}
+
+		/* Get select category */
+		public function get_select_category($table='', $id_parent='', $type='',$value='',$text=false,$required=false,$valueDefault=true, $title_select='Chọn danh mục')
+		{
+			$requiredText = '';
+			if ($required==true) {
+				$requiredText = 'required';
+			}
+			$rows = $this->db->rawQuery("select tenvi, id from #_".$table." where type = ? order by stt,id desc",array($type));
+			$str = '<select '.$requiredText.' id="'.$id_parent.'" name="data['.$id_parent.']" class="form-control select2">';
+			if($valueDefault==true) $str .= '<option value="0">'.$title_select.'</option>';
 			foreach($rows as $v)
 			{
 				if(isset($value) && ($v["id"] == (int)$value)) $selected = "selected";

@@ -190,7 +190,7 @@ foreach ($config['theme'][$nametype]['lv'] as $key => $value) {
     $config["news"][$nametype]["images_$value"] = true;
     $config["news"][$nametype]["show_images_$value"] = true;
     $config["news"][$nametype]["slug_$value"] = true;
-    $config["news"][$nametype]["check_$value"] = array();
+    $config["news"][$nametype]["check_$value"] = array('footer' => 'Footer');
     $config["news"][$nametype]["show_gallery_$value"] = false;
     $config["news"][$nametype]["gallery_$value"] = array();
     $config["news"][$nametype]["mota_$value"] = true;

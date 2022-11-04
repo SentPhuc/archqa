@@ -27,7 +27,7 @@
 			if($this->data)
 			{
 				$breadcumb .= '<ol class="breadcrumb">';
-				$breadcumb .= '<li class="breadcrumb-item"><a class="text-decoration-none" href="'.$config_base.'"><span>'.trangchu.'</span></a></li>';
+				$breadcumb .= '<li class="breadcrumb-item"><a class="text-decoration-none" href="'.$config_base.'"><span>Location: Home</span></a></li>';
 				$k = 1;
 				foreach($this->data as $key => $value)
 				{

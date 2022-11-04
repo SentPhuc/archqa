@@ -222,9 +222,9 @@ WEBSIETE.ClickActidve = function(){
         $('.action-menu').click(function(){
             if ($(this).hasClass('active')) {
                 $(this).removeClass("active");
-                $(this).next('.cat-category').removeClass('active');
+                $(this).next('.cat-category').stop().slideUp()
             } else {
-                $(this).next('.cat-category').addClass('active');
+                $(this).next('.cat-category').stop().slideDown();
                 $(this).addClass("active");
             }
         });

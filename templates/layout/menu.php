@@ -1,4 +1,4 @@
-<div class="menu">
+<div class="menu <?=($source!='index') ? "menuIn":""?>">
     <div class="container d-flex align-items-center justify-content-between">
         <div class="info-right d-flex align-items-center justify-content-between">
             <div id="mmenu"></div>
