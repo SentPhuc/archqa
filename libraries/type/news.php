@@ -257,7 +257,7 @@ $nametype = "loaicongtrinh";
 $config['news'][$nametype]['title_main'] = "Loại công trình";
 $config['news'][$nametype]['copy'] = true;
 $config['news'][$nametype]['copy_image'] = true;
-$config['news'][$nametype]['check'] = array();
+$config['news'][$nametype]['check'] = array('kind' => 'Chọn (loại nhà cấp 4)');
 $config['news'][$nametype]['gallery'] = array();
 $config['news'][$nametype]['dientich'] = true;
 $config['news'][$nametype]['phantram_dongia'] = true;

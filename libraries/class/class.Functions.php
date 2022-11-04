@@ -299,7 +299,7 @@ class Functions
 	}
 
 	/* Format money */
-	public function format_money($price=0, $unit='vnđ', $html=false)
+	public function format_money($price=0, $unit=' vnđ', $html=false)
 	{
 		$str = '';
 

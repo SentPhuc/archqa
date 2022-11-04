@@ -146,6 +146,12 @@ $config['static'][$nametype]['title_main'] = "Mô tả dự toán";
 $config['static'][$nametype]['mota'] = true;
 $config['static'][$nametype]['mota_cke'] = true;
 
+/* Thông tin chi tiết dự toán */
+$nametype = "detail-dutoan";
+$config['static'][$nametype]['title_main'] = "Thông tin chi tiết dự toán";
+$config['static'][$nametype]['mota'] = true;
+$config['static'][$nametype]['mota_cke'] = true;
+
 /* Liên hệ */
 $nametype = "lienhe";
 $config['static'][$nametype]['title_main'] = "Liên hệ";

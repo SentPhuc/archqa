@@ -1307,6 +1307,14 @@ ul.slick__page{
 .submit-project_estimation:hover{
 	background-color: var(--color__hover);
 }
+
+.estimated__results > h5{
+	line-height: 1.5;
+}
+
+.estimated__results table{
+	background: var(--color__cover);
+}
 /*End dự toán công trình*/
 
 /* Album */
@@ -1842,7 +1850,7 @@ ul.slick__page{
 /* Footer */
 .footer__top {
 	background-color: var(--color__cover);
-	padding: 48px 0 50px;
+	padding: 48px 0 30px;
 }
 
 .item__footer {
@@ -1853,7 +1861,7 @@ ul.slick__page{
 	width: 100%;
 	border-bottom: 1px solid var(--color__text);
 	padding-bottom: 30px;
-	margin-bottom: 64px;
+	margin-bottom: 40px;
 }
 
 .item__info-social{
@@ -1947,6 +1955,7 @@ ul.slick__page{
 	cursor: pointer;
 	height: 48px;
 	width: 100px;
+	text-indent: unset;
 }
 
 .footer__bottom {
@@ -1965,6 +1974,7 @@ ul.slick__page{
 	color: #303030;
 	padding-bottom: 18px;
 	margin-bottom: 25px;
+	font-family: var(--bold);
 }
 
 .copyright {
@@ -2072,6 +2082,11 @@ coccocgrammar {
 	text-transform: uppercase;
 	font-size: 11px;
 	padding: 8px 0;
+}
+
+.show-social a:hover{
+	color: var(--color__cover);
+	background-color: var(--color__orange);
 }
 
 .show-social a span.icon{
