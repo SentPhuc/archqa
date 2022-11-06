@@ -41,11 +41,11 @@
             </ul>
         </li>
         <li class="menu-parents">
-            <a href="about" title="Giới thiệu">Giới thiệu</a>
+            <a href="<?=$about['tenkhongdau']?>" title="Giới thiệu">Giới thiệu</a>
             <?=$func->ShowMenuMutil("about","news",@$config["theme"]["about"]['lv']);?>
         </li>
         <li class="pc-hide"><a href="dowload-catalog" title="Catalog">Catalog</a></li>
         <li><a href="du-toan-cong-trinh" title="Dự toán công trình">Dự toán công trình</a></li>
-        <li class="pc-hide"><a href="lien-he" title="Liên hệ">Liên hệ</a></li>
+        <li class="pc-hide"><a href="contact" title="Liên hệ">Liên hệ</a></li>
     </ul>
 </div>

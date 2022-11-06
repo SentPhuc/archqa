@@ -22,4 +22,6 @@
         $seo->setSeo('photo:height',$img_json_bar['h']);
         $seo->setSeo('photo:type',$img_json_bar['m']);
     }
+
+    $breadcrumbs = null;
 ?>

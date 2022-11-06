@@ -122,13 +122,11 @@ $linkSave = "index.php?com=newsletter&act=save&type=".$type."&p=".$curPage;
                 <?php } ?>
                 <?php if(isset($config['newsletter'][$type]['product']) && $config['newsletter'][$type]['product'] == true) { ?>
                     <div class="form-group">
-                        <label for="product">Danh mục sản phẩm:</label>
+                        <label for="product">Danh mục sản phẩm đã chọn:</label>
                         <ul class="list-group">
-                          <li class="list-group-item">Cras justo odio</li>
-                          <li class="list-group-item">Dapibus ac facilisis in</li>
-                          <li class="list-group-item">Morbi leo risus</li>
-                          <li class="list-group-item">Porta ac consectetur ac</li>
-                          <li class="list-group-item">Vestibulum at eros</li>
+                            <?php foreach ($list as $key => $value) {?>
+                                <li class="list-group-item <?=(in_array($value['id'],explode(',',$item['product']))) ? 'list-group-item-success':''?>"><i class="fas <?=(in_array($value['id'],explode(',',$item['product']))) ? 'fa-check':'fa-times'?> mr-2"></i> <?=$value['ten']?></li>
+                          <?php } ?>
                       </ul>
                   </div>
               <?php } ?>

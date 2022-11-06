@@ -7,7 +7,7 @@
     $css->setCss("./assets/mmenu/mmenu.css");
     $css->setCss("./assets/fancybox3/jquery.fancybox.css");
     $css->setCss("./assets/fancybox3/jquery.fancybox.style.css");
-    // $css->setCss("./assets/css/login.css");
+    $css->setCss("./assets/css/login.css");
     // $css->setCss("./assets/css/cart.css");
     // $css->setCss("./assets/photobox/photobox.css");
     $css->setCss("./assets/slick/slick.css");

@@ -1,6 +1,6 @@
-<div class="menu <?=($source!='index') ? "menuIn":""?>">
+<div class="menu <?=($source!='index') ? "menuIn":""?> <?=($banner==true) ? "menuInForBanner":""?>">
     <div class="container d-flex align-items-center justify-content-between">
-        <div class="info-right d-flex align-items-center justify-content-between">
+        <div class="info-left d-flex align-items-center justify-content-between">
             <div id="mmenu"></div>
             <?=$func->get_photo_static("logo",THUMBS."/144x26x2",true);?>
         </div>
@@ -46,7 +46,7 @@
                 <?php } ?>
             </li>
             <li><a class="transition <?php if($com=='dowload-catalog') echo 'active'; ?>" href="dowload-catalog" title="Catalog">Catalog</a></li>
-            <li><a class="transition <?php if($com=='lien-he') echo 'active'; ?>" href="lien-he" title="<?=lienhe?>"><?=lienhe?></a></li>
+            <li><a class="transition <?php if($com=='contact') echo 'active'; ?>" href="contact" title="<?=lienhe?>"><?=lienhe?></a></li>
             <li><a class="transition <?php if($com=='du-toan-cong-trinh') echo 'active'; ?>" href="du-toan-cong-trinh" title="Dự toán công trình">Dự toán công trình</a></li>
         </ul>
         <div class="info-right d-flex align-items-center justify-content-between">

@@ -1,6 +1,6 @@
 <?php  
 if(!defined('SOURCES')) die("Error");
-
+$banner = false;
 $motaDutoan = $d->rawQueryOne("select mota$lang as mota from #_static where type = ? limit 0,1",array('mota-dutoan'));
 $detailDutoan = $d->rawQueryOne("select mota$lang as mota from #_static where type = ? limit 0,1",array('detail-dutoan'));
 
@@ -35,7 +35,6 @@ $dataEstimation = false;
 $area = 0;
 $data = [];
 if (@$_GET['projectEstimation']==true) {
-
 
 	function calculateUnitPrice($area,$price){
 		return $area * $price;

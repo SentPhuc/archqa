@@ -19,26 +19,26 @@
 
 <!-- Js Files -->
 <?php
-    $js->setCache("filejs");
-    $js->setJs("./assets/js/jquery.min.js");
-    $js->setJs("./assets/bootstrap/bootstrap.js");
+$js->setCache("filejs");
+$js->setJs("./assets/js/jquery.min.js");
+$js->setJs("./assets/bootstrap/bootstrap.js");
     // $js->setJs("./assets/js/wow.min.js");
-    $js->setJs("./assets/mmenu/mmenu.js");
+$js->setJs("./assets/mmenu/mmenu.js");
     // $js->setJs("./assets/simplyscroll/jquery.simplyscroll.js");
     // $js->setJs("./assets/fotorama/fotorama.js");
     // $js->setJs("./assets/owlcarousel2/owl.carousel.js");
-    $js->setJs("./assets/magiczoomplus/magiczoomplus.js");
-    $js->setJs("./assets/slick/slick.js");
-    $js->setJs("./assets/fancybox3/jquery.fancybox.js");
-    $js->setJs("./assets/swiper/swiper-bundle.min.js");
+$js->setJs("./assets/magiczoomplus/magiczoomplus.js");
+$js->setJs("./assets/slick/slick.js");
+$js->setJs("./assets/fancybox3/jquery.fancybox.js");
+$js->setJs("./assets/swiper/swiper-bundle.min.js");
     // $js->setJs("./assets/photobox/photobox.js");
     // $js->setJs("./assets/datetimepicker/php-date-formatter.min.js");
     // $js->setJs("./assets/datetimepicker/jquery.mousewheel.js");
     // $js->setJs("./assets/datetimepicker/jquery.datetimepicker.js");
     // $js->setJs("./assets/toc/toc.js");
-    $js->setJs("./assets/js/functions.js");
-    $js->setJs("./assets/js/config.js");
-    echo $js->getJs();
+$js->setJs("./assets/js/functions.js");
+$js->setJs("./assets/js/config.js");
+echo $js->getJs();
 ?>
 
 <?php if(isset($config['googleAPI']['recaptcha']['active']) && $config['googleAPI']['recaptcha']['active'] == true) { ?>
@@ -56,6 +56,12 @@
                     recaptchaResponseContact.value = token;
                 });
             <?php } ?>
+            if ($("#recaptchaResponseGetquote").length) {
+                grecaptcha.execute('<?=$config['googleAPI']['recaptcha']['sitekey']?>', { action: 'getquote' }).then(function (token) {
+                    var recaptchaResponseGetquote = document.getElementById('recaptchaResponseGetquote');
+                    recaptchaResponseGetquote.value = token;
+                });
+            }
         });
     </script>
 <?php } ?>

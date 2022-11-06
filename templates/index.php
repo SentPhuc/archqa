@@ -4,19 +4,17 @@
     <?php include TEMPLATE.LAYOUT."head.php"; ?>
     <?php include TEMPLATE.LAYOUT."bundle_css.php"; ?>
 </head>
-<body class="<?=@$type?>">
+<!-- get type and css for template view-template-$type -->
+<body class="view-template-<?=@$type?> <?=!empty($idl) ? 'isList':''?>">
     <?php
     include TEMPLATE.LAYOUT."seo.php";
     include TEMPLATE.LAYOUT."menu.php";
     if($source=='index') include TEMPLATE.LAYOUT."slide.php";
-    else include TEMPLATE.LAYOUT."breadcrumb.php";
+    else include TEMPLATE.LAYOUT."banner.php";
+    if($template!='news/about_detail') include TEMPLATE.LAYOUT."breadcrumb.php";
     ?>
-    <?php if ($com!="du-toan-cong-trinh") {?>
-        <div class="wrap-main <?=($source=='index')?'wrap-home':''?> w-clear"><?php include TEMPLATE.$template."_tpl.php"; ?></div>
-    <?php }else{?>
-        <?php include TEMPLATE.$template."_tpl.php"; ?>
-    <?php } ?>
     <?php
+    include TEMPLATE.$template."_tpl.php";
     include TEMPLATE.LAYOUT."footer.php";
     include TEMPLATE.LAYOUT."mmenu.php";
     include TEMPLATE.LAYOUT."modal.php";

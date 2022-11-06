@@ -5,6 +5,7 @@ if(!defined('SOURCES')) die("Error");
 $favicon = $d->rawQueryOne("select photo from #_photo where type = ? and act = ? and hienthi > 0 limit 0,1",array('favicon','photo_static'));
 $social = $d->rawQuery("select ten$lang, photo, link from #_photo where type = ? and hienthi > 0 order by stt,id desc",array('mangxahoi'));
 $splistmenu = $d->rawQuery("select ten$lang as ten,titlesub$lang as titlesub,mota$lang as mota, tenkhongdau$lang as tenkhongdau, id,photo from #_product_list where type = ? and hienthi > 0 order by stt,id desc",array('product'));
+$about = $d->rawQueryOne("select tenkhongdau$lang as tenkhongdau from #_news where type = ? and hienthi > 0 order by stt,id desc limit 0,1",array('about'));
 $aboutCamhung = $d->rawQueryOne("select ten$lang as ten, tenkhongdau$lang as tenkhongdau, id from #_news where type = ? and menu > 0 and hienthi > 0 order by stt,id desc limit 0,1",array('about'));
 $aboutPhamchat = $d->rawQuery("select ten$lang as ten, tenkhongdau$lang as tenkhongdau, id from #_news where type = ? and menu1 > 0 and hienthi > 0 order by stt,id desc limit 0,2",array('about'));
 $listProductFooter = $d->rawQuery("select ten$lang, tenkhongdauvi, tenkhongdauen, id, photo from #_product_list where type = ? and footer > 0 and hienthi > 0 order by stt,id desc",array('product'));
@@ -20,6 +21,19 @@ if ($source=='index') {
     $custumer = $d->rawQuery("select ten$lang as ten, mota$lang as mota from #_news where type = ? and hienthi > 0 order by stt,id desc",array('cam-nhanh-khach-hang'));
     $motaDutoan = $d->rawQueryOne("select mota$lang as mota from #_static where type = ? limit 0,1",array('mota-dutoan'));
     $partner = $d->rawQuery("select ten$lang, link, photo from #_photo where type = ? and hienthi > 0 order by stt, id desc",array('doitac'));
+}
+
+if (@$type=='videos') {
+    $banner = true;
+    $catNav = $d->rawQuery("select ten$lang as ten,id,tenkhongdau$lang as tenkhongdau from #_news_list where type = ? and hienthi = 1 order by stt,id desc",array($type));
+}
+
+if (@$type=='quality') {
+    $banner = true;
+    /*Get quality list*/
+    $list = $d->rawQuery("select ten$lang as ten, tenkhongdau$lang as tenkhongdau,mota$lang as mota from #_news_list where type = ? and hienthi > 0 order by stt,id desc limit 0,4",array($type));
+    $newsQuality = $d->rawQuery("select ten$lang as ten, link,mota$lang as mota from #_photo where type = ? and hienthi > 0 order by stt,id desc limit 0,3",array('news-quality'));
+    $motaQuality = $d->rawQueryOne("select ten$lang as ten, mota$lang as mota,photo from #_static where type = ? and hienthi > 0 limit 0,1",array('mota-quality'));
 }
 
 

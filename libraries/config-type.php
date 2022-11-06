@@ -53,7 +53,7 @@ $config['newsletter'][$nametype]['file_type'] = 'doc|docx|pdf|rar|zip|ppt|pptx|D
 /* Dowload catalog */
 $nametype = "dowload-catalog";
 $config['newsletter'][$nametype]['title_main'] = "Dowload catalog";
-$config['newsletter'][$nametype]['source'] = true;
+$config['newsletter'][$nametype]['source'] = false;
 $config['newsletter'][$nametype]['qty'] = true;
 $config['newsletter'][$nametype]['product'] = true;
 $config['newsletter'][$nametype]['city'] = true;
@@ -76,7 +76,7 @@ $config['newsletter'][$nametype]['file_type'] = 'doc|docx|pdf|rar|zip|ppt|pptx|D
 /* Yêu cầu sản phẩm */
 $nametype = "yeucausanpham";
 $config['newsletter'][$nametype]['title_main'] = "Yêu cầu sản phẩm";
-$config['newsletter'][$nametype]['source'] = true;
+$config['newsletter'][$nametype]['source'] = false;
 $config['newsletter'][$nametype]['qty'] = true;
 $config['newsletter'][$nametype]['product'] = true;
 $config['newsletter'][$nametype]['city'] = false;
@@ -165,7 +165,7 @@ $config['seopage']['page'] = array(
     "quality" => "Phẩm chất",
     "ideas-how-tos" => "Ý tưởng cách làm",
     "about" => "Giới thiệu",
-    "catalog" => "Catalog",
+    "dowload-catalog" => "Dowload Catalog",
     "contact" => "Liên hệ",
     "du-toan-cong-trinh" => "Dự toán công trình",
     "tim-kiem" => "Tìm kiếm",

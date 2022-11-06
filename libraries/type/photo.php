@@ -4,16 +4,16 @@
 $nametype = "banner-about";
 $config['photo']['photo_static'][$nametype]['title_main'] = "Banner giới thiệu";
 $config['photo']['photo_static'][$nametype]['images'] = true;
-$config["photo"]['photo_static'][$nametype]["size_images"] = '1366x470';
-$config['photo']['photo_static'][$nametype]['thumb'] = '1366x470x1';
+$config["photo"]['photo_static'][$nametype]["size_images"] = '1920x470';
+$config['photo']['photo_static'][$nametype]['thumb'] = '1920x470x1';
 $config['photo']['photo_static'][$nametype]['img_type'] = '.jpg|.gif|.png|.jpeg|.gif|.JPG|.PNG|.JPEG|.Png|.GIF';
 
 /* Banner liên hệ */
 $nametype = "banner-contact";
 $config['photo']['photo_static'][$nametype]['title_main'] = "Banner liên hệ";
 $config['photo']['photo_static'][$nametype]['images'] = true;
-$config["photo"]['photo_static'][$nametype]["size_images"] = '1366x470';
-$config['photo']['photo_static'][$nametype]['thumb'] = '1366x470x1';
+$config["photo"]['photo_static'][$nametype]["size_images"] = '1920x470';
+$config['photo']['photo_static'][$nametype]['thumb'] = '1920x470x1';
 $config['photo']['photo_static'][$nametype]['img_type'] = '.jpg|.gif|.png|.jpeg|.gif|.JPG|.PNG|.JPEG|.Png|.GIF';
 
 /* Banner dự án */
@@ -31,18 +31,18 @@ $nametype = "banner-contact-project";
 $config['photo']['photo_static'][$nametype]['title_main'] = "Banner liên hệ dự án";
 $config['photo']['photo_static'][$nametype]['images'] = true;
 $config['photo']['photo_static'][$nametype]['tieude'] = true;
-$config["photo"]['photo_static'][$nametype]["size_images"] = '1366x470';
-$config['photo']['photo_static'][$nametype]['thumb'] = '1366x470x1';
+$config["photo"]['photo_static'][$nametype]["size_images"] = '1920x470';
+$config['photo']['photo_static'][$nametype]['thumb'] = '1920x470x1';
 $config['photo']['photo_static'][$nametype]['img_type'] = '.jpg|.gif|.png|.jpeg|.gif|.JPG|.PNG|.JPEG|.Png|.GIF';
 
 /* Banner phẩm chất */
 $nametype = "banner-quality";
 $config['photo']['photo_static'][$nametype]['title_main'] = "Banner phẩm chất";
 $config['photo']['photo_static'][$nametype]['images'] = true;
-$config['photo']['photo_static'][$nametype]['tieude'] = false;
+$config['photo']['photo_static'][$nametype]['tieude'] = true;
 $config['photo']['photo_static'][$nametype]['mota'] = true;
-$config["photo"]['photo_static'][$nametype]["size_images"] = '1366x470';
-$config['photo']['photo_static'][$nametype]['thumb'] = '1366x470x1';
+$config["photo"]['photo_static'][$nametype]["size_images"] = '1920x470';
+$config['photo']['photo_static'][$nametype]['thumb'] = '1920x470x1';
 $config['photo']['photo_static'][$nametype]['img_type'] = '.jpg|.gif|.png|.jpeg|.gif|.JPG|.PNG|.JPEG|.Png|.GIF';
 
 /* Banner ý tưởng cách làm */
@@ -51,8 +51,8 @@ $config['photo']['photo_static'][$nametype]['title_main'] = "Banner ý tưởng 
 $config['photo']['photo_static'][$nametype]['images'] = true;
 $config['photo']['photo_static'][$nametype]['tieude'] = true;
 $config['photo']['photo_static'][$nametype]['mota'] = true;
-$config["photo"]['photo_static'][$nametype]["size_images"] = '1366x470';
-$config['photo']['photo_static'][$nametype]['thumb'] = '1366x470x1';
+$config["photo"]['photo_static'][$nametype]["size_images"] = '1920x470';
+$config['photo']['photo_static'][$nametype]['thumb'] = '1920x470x1';
 $config['photo']['photo_static'][$nametype]['img_type'] = '.jpg|.gif|.png|.jpeg|.gif|.JPG|.PNG|.JPEG|.Png|.GIF';
 
 /* Banner videos */
@@ -61,8 +61,8 @@ $config['photo']['photo_static'][$nametype]['title_main'] = "Banner videos";
 $config['photo']['photo_static'][$nametype]['images'] = true;
 $config['photo']['photo_static'][$nametype]['tieude'] = true;
 $config['photo']['photo_static'][$nametype]['mota'] = true;
-$config["photo"]['photo_static'][$nametype]["size_images"] = '1366x470';
-$config['photo']['photo_static'][$nametype]['thumb'] = '1366x470x1';
+$config["photo"]['photo_static'][$nametype]["size_images"] = '1920x470';
+$config['photo']['photo_static'][$nametype]['thumb'] = '1920x470x1';
 $config['photo']['photo_static'][$nametype]['img_type'] = '.jpg|.gif|.png|.jpeg|.gif|.JPG|.PNG|.JPEG|.Png|.GIF';
 
 /* Banner sản phẩm */

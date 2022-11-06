@@ -3,6 +3,7 @@ ValidationFormSelf("validation-newsletter");
 ValidationFormSelf("validation-cart");
 ValidationFormSelf("validation-user");
 ValidationFormSelf("validation-contact");
+ValidationFormSelf("validation-getquote");
 
 /* Exists */
 $.fn.exists = function(){
@@ -253,18 +254,81 @@ WEBSIETE.swiper = function(){
             },
         });
     }
+    if($(".swiper-quality").exists())
+    {
+        var swiper = []
+        $('.swiper-quality').each(function(i) {
+            $(this).addClass("swiper-quality"+i);
+            $(this).siblings(".img-list-prev").addClass("img-list-prev"+i);
+            $(this).siblings(".img-list-next").addClass("img-list-next"+i);
+            swiper[i] = new Swiper('.swiper-quality' + i, {
+                slidesPerView: 1,
+                slidesPerGroup: 1,
+                loop: true,
+                navigation: {
+                    nextEl: '.img-list-next' + i,
+                    prevEl: '.img-list-prev' + i
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                },
+                autoHeight: true,
+                breakpoints: {
+                    750:{
+                        effect : 'slide'
+                    }
+                },
+                on: {
+                    slideChangeTransitionStart: function(){
+                        $(this.$el[0]).parents('.door-item').find(".thumb-item").eq(this.realIndex).addClass("active").siblings().removeClass("active")
+                    }
+                }
+            });
+        });
+        $(".thumb-item").on("click mouseenter",function(){
+            var i = $(this).parents(".thumb-con").index(".thumb-con");
+            $(this).addClass("active").siblings().removeClass("active");
+            swiper[i].slideToLoop($(this).index(), 500, false);
+        });
+    }
 };
 
-/* Ready */
-$(document).ready(function(){
-    WEBSIETE.slickPage();
-    WEBSIETE.Tools();
-    WEBSIETE.AltImages();
-    WEBSIETE.BackToTop();
+
+WEBSIETE.wardrobeScroll = function(e, i) {
+    function o(e, o) {
+        for (var s = o.length - 1; s >= 0; s--)
+            if (e + n >= o[s]) {
+                $(i).find(".item__quality").eq(s).addClass("active").siblings().removeClass("active");
+                break
+            }
+            e + n < o[0] ? $(i).find(".container").removeClass("fixed") : $(i).find(".container").addClass("fixed")
+        }
+        var s = [],
+        t = $(window).scrollTop(),
+        n = 120;
+        $(e).each(function() {
+            s.push($(this).position().top)
+        }), o(t, s), $(window).scroll(function() {
+            t = $(this).scrollTop(), o(t, s)
+        }), $(i).find(".item__quality").click(function() {
+            var e = $(this).index();
+            $("html, body").animate({
+                scrollTop: s[e] - n
+            })
+        })
+    }
+
+    /* Ready */
+    $(document).ready(function(){
+        WEBSIETE.slickPage();
+        WEBSIETE.Tools();
+        WEBSIETE.AltImages();
+        WEBSIETE.BackToTop();
     // WEBSIETE.FixMenu();
     WEBSIETE.video();
     WEBSIETE.Videos();
     WEBSIETE.Search();
     WEBSIETE.ClickActidve();
     WEBSIETE.swiper();
+    WEBSIETE.wardrobeScroll('.door-item', '.main-navPage');
 });

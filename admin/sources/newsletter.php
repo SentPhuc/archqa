@@ -185,14 +185,14 @@
 	/* Edit newsletter */
 	function get_item()
 	{
-		global $d, $func, $curPage, $item, $type;
+		global $d, $func, $curPage, $item, $type,$list;
 
 		$id = (isset($_GET['id'])) ? htmlspecialchars($_GET['id']) : 0;
 
 		if(!$id) $func->transfer("Không nhận được dữ liệu", "index.php?com=newsletter&act=man&type=".$type."&p=".$curPage, false);
 		
 		$item = $d->rawQueryOne("select * from #_newsletter where id = ? and type = ? limit 0,1",array($id,$type));
-
+		$list = $d->rawQuery("select tenvi as ten,id from #_product_list where type = ? and hienthi > 0 order by stt,id desc",array('product'));
 		if(!$item['id']) $func->transfer("Dữ liệu không có thực", "index.php?com=newsletter&act=man&type=".$type."&p=".$curPage, false);
 	}
 

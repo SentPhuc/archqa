@@ -1,8 +1,8 @@
 <?php
     $countNotify = 0;
-    $contactNotify = $d->rawQuery("select id from #_contact where hienthi = 0");
+    // $contactNotify = $d->rawQuery("select id from #_contact where hienthi = 0");
 
-    $countNotify += count($contactNotify);
+    // $countNotify += count($contactNotify);
     if(isset($config['newsletter']))
     {
         foreach($config['newsletter'] as $k => $v) 
@@ -77,8 +77,7 @@
             </a>
             <div class="dropdown-menu dropdown-menu-right shadow">
                 <span class="dropdown-item dropdown-header p-0">Thông báo</span>
-                <div class="dropdown-divider"></div>
-                <a href="index.php?com=contact&act=man" class="dropdown-item"><i class="fas fa-envelope mr-2"></i><span class="badge badge-danger mr-1"><?=count($contactNotify)?></span> Liên hệ</a>
+                <?php /*<div class="dropdown-divider"></div><a href="index.php?com=contact&act=man" class="dropdown-item"><i class="fas fa-envelope mr-2"></i><span class="badge badge-danger mr-1"><?=count($contactNotify)?></span> Liên hệ</a>*/ ?>
                 <?php if(isset($config['order']['active']) && $config['order']['active'] == true) { ?>
                     <div class="dropdown-divider"></div>
                     <a href="index.php?com=order&act=man" class="dropdown-item"><i class="fas fa-shopping-bag mr-2"></i><span class="badge badge-danger mr-1"><?=count($orderNotify)?></span> Đơn hàng</a>

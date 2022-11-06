@@ -1919,15 +1919,16 @@ class Functions
 		}
 
 		/* Show Menu Mutil */
-		public function ShowMenuMutil($type,$table,$lv)
+		public function ShowMenuMutil($type,$table,$lv,$id = 0)
 		{
 			global $lang;
+			$menu_cat = null;
 			$where = " and hienthi=1 and type='$type'";
 			$order_by = "order by stt,id desc";
 			$menu = $this->db->rawQuery("select id, ten$lang as ten, tenkhongdau$lang as tenkhongdau from #_$table where id<>0 $where $order_by");
 			$menu_list = $this->db->rawQuery("select id, ten$lang as ten, tenkhongdau$lang as tenkhongdau from #_$table".'_list'." where id<>0 $where $order_by");
+
 			if ($table!='project') {
-				$menu_cat = $this->db->rawQuery("select id, id_list, ten$lang as ten, tenkhongdau$lang as tenkhongdau, photo from #_$table".'_cat'." where FIND_IN_SET(id_list, '".$this->joinAttr($menu_list, 'id')."') $where $order_by");
 				$menu_item = $this->db->rawQuery("select id, id_list, id_cat, ten$lang as ten, tenkhongdau$lang as tenkhongdau, photo from #_$table".'_item'." where FIND_IN_SET(id_cat, '".$this->joinAttr($menu_cat, 'id')."') $where $order_by");
 				$menu_sub = $this->db->rawQuery("select id, id_list, id_cat, id_item, ten$lang as ten, tenkhongdau$lang as tenkhongdau, photo from #_$table".'_sub'." where FIND_IN_SET(id_item, '".$this->joinAttr($menu_item, 'id')."') $where $order_by");
 			}
@@ -1939,18 +1940,32 @@ class Functions
 			{
 				foreach($menu as $i => $item) {
 					$result .= '<li>';
-					$result .= '<a href='.$item['tenkhongdau'].'>'.$item['ten'].'</a>';
+					if ($type=='about' && $item['id'] == $id) {
+						$result .= '<a class="active" href='.$item['tenkhongdau'].'>'.$item['ten'].'</a>';
+					}else{
+						$result .= '<a href='.$item['tenkhongdau'].'>'.$item['ten'].'</a>';
+					}
 					$result .= '</li>';
 				}
 			}
 			else
 			{
 				foreach($menu_list as $i => $item) {
-					$result .= '<li>';
+					if ($table!='project') {
+						$menu_cat = $this->db->rawQuery("select id, id_list, ten$lang as ten, tenkhongdau$lang as tenkhongdau, photo from #_$table".'_cat'." where id_list = '".$item['id']."' $where $order_by");
+					}
+					if (count($menu_cat) > 0) {
+						$result .= '<li class="link-category">';
+					}else{
+						$result .= '<li>';
+					}
 					$result .= '<a href='.$item['tenkhongdau'].'>'.$item['ten'].'</a>';
 					if(count($lv)>=2)
-					{
-						$result .= '<ul>';
+					{	
+						if (count($menu_cat) > 0) {
+							$result.='<span class="action-menu"></span>';
+						}
+						$result .= '<ul class="cat-category">';
 						foreach($menu_cat as $j => $item2) {
 							if ($item2['id_list'] == $item['id']) {
 								$result .= '<li>';

@@ -34,7 +34,7 @@ $router->map('GET|POST', 'index.php', 'index', 'index');
 $router->map('GET|POST', 'sitemap.xml', 'sitemap', 'sitemap');
 $router->map('GET|POST', '[a:com]', 'allpage', 'show');
 // $router->map('GET|POST', '[a:com]/[a:lang]/', 'allpagelang', 'lang');
-// $router->map('GET|POST', '[a:com]/[a:action]', 'account', 'account');
+$router->map('GET|POST', '[a:com]/[a:action]', 'account', 'account');
 $router->map('GET', THUMBS.'/[i:w]x[i:h]x[i:z]/[**:src]', function($w,$h,$z,$src){
 	global $func;
 	$func->createThumb($w,$h,$z,$src,null,THUMBS);
@@ -152,6 +152,11 @@ if($com != 'tim-kiem' && $com != 'account' && $com != 'sitemap')
 /* Switch coms */
 switch($com)
 {
+
+	case 'bao-gia':
+	$source = "form_getquote";
+	break;
+
 	case 'du-toan-cong-trinh':
 	$source = "project_estimation";
 	$template = "static/project_estimation";
@@ -160,43 +165,36 @@ switch($com)
 	$title_crumb = 'Dự toán công trình';
 	break;
 
-	case 'lien-he':
+	case 'contact':
 	$source = "contact";
-	$template = "static/static";
+	$type = $com;
+	$template = "static/contact";
 	$seo->setSeo('type','object');
 	$title_crumb = lienhe;
 	break;
 
-	case 'gioi-thieu':
+	case 'dowload-catalog':
 	$source = "static";
-	$template = "static/static";
+	$type = $com;
+	$template = "static/dowload_catalog";
+	$seo->setSeo('type','object');
+	$title_crumb = 'Dowload Catalog';
+	break;
+
+	case 'quality':
+	$source = "news";
+	$type = $com;
+	$template = "news/quality";
+	$seo->setSeo('type','object');
+	$title_crumb = 'Chất lượng';
+	break;
+
+	case 'about':
+	$source = "news";
+	$template = "news/about_detail";
 	$type = $com;
 	$seo->setSeo('type','article');
 	$title_crumb = gioithieu;
-	break;
-
-	case 'tin-tuc':
-	$source = "news";
-	$template = isset($_GET['id']) ? "news/news_detail" : "news/news";
-	$seo->setSeo('type',isset($_GET['id']) ? "article" : "object");
-	$type = $com;
-	$title_crumb = tintuc;
-	break;
-
-	case 'tuyen-dung':
-	$source = "news";
-	$template = isset($_GET['id']) ? "news/news_detail" : "news/news";
-	$seo->setSeo('type',isset($_GET['id']) ? "article" : "object");
-	$type = $com;
-	$title_crumb = tuyendung;
-	break;
-
-	case 'chinh-sach':
-	$source = "news";
-	$template = isset($_GET['id']) ? "news/news_detail" : "";
-	$seo->setSeo('type','article');
-	$type = $com;
-	$title_crumb = null;
 	break;
 
 	case 'project':
@@ -232,9 +230,9 @@ switch($com)
 	$title_crumb = null;
 	break;
 
-	case 'video':
-	$source = "static";
-	$template = "static/static";
+	case 'videos':
+	$source = "news";
+	$template = "static/videos";
 	$type = $com;
 	$seo->setSeo('type','object');
 	$title_crumb = "Video";
@@ -242,6 +240,15 @@ switch($com)
 
 	case 'account':
 	$source = "user";
+	$type = $source;
+	break;
+
+	case 'quy-trinh-dat-hang':
+	$source = "news";
+	$template = isset($_GET['id']) ? "news/news_detail" : "news/news";
+	$seo->setSeo('type',isset($_GET['id']) ? "article" : "object");
+	$type = $com;
+	$title_crumb = 'Quy trình đặt hàng';
 	break;
 
 	case 'ngon-ngu':
