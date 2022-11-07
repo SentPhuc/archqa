@@ -93,13 +93,45 @@ foreach ($config['theme'][$nametype]['lv'] as $key => $value) {
     $config["product"][$nametype]["img_type_$value"] = '.jpg|.gif|.png|.jpeg|.gif|.JPG|.PNG|.JPEG|.Png|.GIF';
 }
 
-/* Filter Sản phẩm */
-$nametype = "filter-product";
-$config['product'][$nametype]['title_main'] = "Filter Sản phẩm";
-$config['product'][$nametype]['dropdown'] = true;
+/* Filter By Style */
+$nametype = "filter-by-style";
+$config['product'][$nametype]['title_main'] = "Filter By Style";
 $config['product'][$nametype]['list'] = true;
 $config['product'][$nametype]['check'] = array();
 $config['product'][$nametype]['gallery'] = array();
 
-$config["product"][$nametype]["title_main_list"] = "Filter Sản phẩm cấp ".($key+1);
-$config["product"][$nametype]["check_list"] = array();
+/* Filter By Color */
+$nametype = "filter-by-color";
+$config['product'][$nametype]['title_main'] = "Filter By Color";
+$config['product'][$nametype]['check'] = array();
+$config['product'][$nametype]['gallery'] = array();
+
+/* Filter By Finish Effect */
+$nametype = "filter-by-finish-effect";
+$config['product'][$nametype]['title_main'] = "Filter By Finish Effect";
+$config['product'][$nametype]['check'] = array();
+$config['product'][$nametype]['gallery'] = array();
+
+/* Filter By Layout */
+$nametype = "filter-by-layout";
+$config['product'][$nametype]['title_main'] = "Filter By Layout";
+$config['product'][$nametype]['check'] = array();
+$config['product'][$nametype]['gallery'] = array();
+
+/* Filter By Material */
+$nametype = "filter-by-material";
+$config['product'][$nametype]['title_main'] = "Filter By Material";
+$config['product'][$nametype]['check'] = array();
+$config['product'][$nametype]['gallery'] = array();
+
+/* Filter By Configuration */
+$nametype = "filter-by-configuration";
+$config['product'][$nametype]['title_main'] = "Filter By Configuration";
+$config['product'][$nametype]['check'] = array();
+$config['product'][$nametype]['gallery'] = array();
+
+/* Filter By type */
+$nametype = "filter-by-type";
+$config['product'][$nametype]['title_main'] = "Filter By type";
+$config['product'][$nametype]['check'] = array();
+$config['product'][$nametype]['gallery'] = array();

@@ -358,10 +358,12 @@ function save_item()
 			if (!empty($filter_group)) {
 				$d->rawQuery("delete from #_filter where id_pro = ?",array($id));
 				foreach ($filter_group as $key => $value) {
-					$dataFilter['id_pro'] = $id;
-					$dataFilter['id_list_filter'] = !empty($value['list']) ? $value['list'] : 0;
-					$dataFilter['id_filter'] = !empty($value['items']) ? $value['items'] : 0;
-					$d->insert('filter',$dataFilter);
+					if (!empty($value['items'])) {
+						$dataFilter['id_pro'] = $id;
+						$dataFilter['id_list_filter'] = !empty($value['list']) ? $value['list'] : 0;
+						$dataFilter['id_filter'] = !empty($value['items']) ? $value['items'] : 0;
+						$d->insert('filter',$dataFilter);
+					}
 				}
 			}
 
@@ -405,10 +407,12 @@ function save_item()
 
 			if (!empty($filter_group)) {
 				foreach ($filter_group as $key => $value) {
-					$dataFilter['id_pro'] = $id_insert;
-					$dataFilter['id_list_filter'] = $value['list'];
-					$dataFilter['id_filter'] = $value['items'];
-					$d->insert('filter',$dataFilter);
+					if (!empty($value['items'])) {
+						$dataFilter['id_pro'] = $id_insert;
+						$dataFilter['id_list_filter'] = $value['list'];
+						$dataFilter['id_filter'] = $value['items'];
+						$d->insert('filter',$dataFilter);
+					}
 				}
 			}
 

@@ -96,8 +96,11 @@ if($id!='')
 	$breadcr->setBreadCrumbs($row_detail[$sluglang],$row_detail['ten'.$lang]);
 	$breadcrumbs = $breadcr->getBreadCrumbs();
 }else if($idl!=''){
+
+	$banner = true;
+
 	/* Lấy cấp 1 detail */
-	$pro_list = $d->rawQueryOne("select id, ten$lang, tenkhongdauvi, tenkhongdauen, type, photo, options from #_product_list where id = ? and type = ? limit 0,1",array($idl,$type));
+	$pro_list = $d->rawQueryOne("select id, ten$lang, tenkhongdauvi, tenkhongdauen, type, photo, options,hienthi,mota$lang,cat,id_filter from #_product_list where id = ? and type = ? limit 0,1",array($idl,$type));
 
 	/* SEO */
 	$title_cat = $pro_list['ten'.$lang];
@@ -142,15 +145,28 @@ if($id!='')
 	/* breadCrumbs */
 	if(isset($title_crumb) && $title_crumb != '') $breadcr->setBreadCrumbs($com,$title_crumb);
 	if($pro_list != null) $breadcr->setBreadCrumbs($pro_list[$sluglang],$pro_list['ten'.$lang]);
-	$breadcrumbs = $breadcr->getBreadCrumbs();	
+	$breadcrumbs = $breadcr->getBreadCrumbs();
+
+	$catNav = null;
+	if ($pro_list['cat'] > 0) {
+        $catNav = $d->rawQuery("select ten$lang as ten,id,tenkhongdau$lang as tenkhongdau from #_product_cat where type = ? and id_list = ? and hienthi = 1 order by stt,id desc",array($type,$idl));
+    }
+    $listNav = $d->rawQuery("select ten$lang as ten,id,tenkhongdau$lang as tenkhongdau,photo1,photo2 from #_product_list where type = ? and hienthi = 1 order by stt,id desc",array($type));
+
+    $idlActive = $pro_list['id'];
+    $idcActive = null;
+    $linkAllCat = $pro_list['tenkhongdau'.$lang];
+    $filterList = explode(',',$pro_list['id_filter']);
+
 }
 else if($idc!='')
 {
+	$banner = false;
 	/* Lấy cấp 2 detail */
 	$pro_cat = $d->rawQueryOne("select id, id_list, ten$lang, tenkhongdauvi, tenkhongdauen, type, photo, options from #_product_cat where id = ? and type = ? limit 0,1",array($idc,$type));
 
 	/* Lấy cấp 1 */
-	$pro_list = $d->rawQueryOne("select id, ten$lang, tenkhongdauvi, tenkhongdauen from #_product_list where id = ? and type = ? limit 0,1",array($pro_cat['id_list'],$type));
+	$pro_list = $d->rawQueryOne("select id, ten$lang, tenkhongdauvi, tenkhongdauen,cat,id_filter from #_product_list where id = ? and type = ? limit 0,1",array($pro_cat['id_list'],$type));
 
 	/* Lấy sản phẩm */
 	$where = "";
@@ -197,6 +213,17 @@ else if($idc!='')
 	if($pro_list != null) $breadcr->setBreadCrumbs($pro_list[$sluglang],$pro_list['ten'.$lang]);
 	if($pro_cat != null) $breadcr->setBreadCrumbs($pro_cat[$sluglang],$pro_cat['ten'.$lang]);
 	$breadcrumbs = $breadcr->getBreadCrumbs();
+
+	$catNav = null;
+	if ($pro_list['cat'] > 0) {
+        $catNav = $d->rawQuery("select ten$lang as ten,id,tenkhongdau$lang as tenkhongdau from #_product_cat where type = ? and id_list = ? and hienthi = 1 order by stt,id desc",array($type,$pro_list['id']));
+    }
+    $listNav = $d->rawQuery("select ten$lang as ten,id,tenkhongdau$lang as tenkhongdau,photo1,photo2 from #_product_list where type = ? and hienthi = 1 order by stt,id desc",array($type));
+
+    $idlActive = $pro_list['id'];
+    $idcActive = $pro_cat['id'];
+    $linkAllCat = $pro_list['tenkhongdau'.$lang];
+    $filterList = explode(',',$pro_list['id_filter']);
 }
 else if($idi!='')
 {
@@ -369,6 +396,7 @@ else if($idb!='')
 }
 else
 {
+	$banner = false;
 
 	/* SEO */
 	$seopage = $d->rawQueryOne("select * from #_seopage where type = ? limit 0,1",array($type));
@@ -433,5 +461,12 @@ else
 	/* breadCrumbs */
 	if(isset($title_crumb) && $title_crumb != '') $breadcr->setBreadCrumbs($com,$title_crumb);
 	$breadcrumbs = $breadcr->getBreadCrumbs();
+
+	$catNav = null;
+    $listNav = $d->rawQuery("select ten$lang as ten,id,tenkhongdau$lang as tenkhongdau,photo1,photo2 from #_product_list where type = ? and hienthi = 1 order by stt,id desc",array($type));
+    $idlActive = null;
+    $idcActive = null;
+    $linkAllCat = null;
+    $filterList = null;
 }
 ?>

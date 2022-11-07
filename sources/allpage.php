@@ -44,7 +44,6 @@ if (@$type=='ideas-how-tos') {
     $listNav = $d->rawQuery("select ten$lang as ten,id,tenkhongdau$lang as tenkhongdau,photo1,photo2 from #_news_list where type = ? and hienthi = 1 order by stt,id desc",array($type));
 }
 
-
 /* Get statistic */
 $counter = $statistic->getCounter();
 $online = $statistic->getOnline();

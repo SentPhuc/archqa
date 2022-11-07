@@ -1536,16 +1536,24 @@ class Functions
 				for($i=0;$i<count($arr_tags);$i++) $temp[$i]=$arr_tags[$i];
 			}
 
-			$row_tags = $this->db->rawQuery("select tenvi, id from #_".$table_get." where type = ? order by stt,id desc",array($type_get));
+			$row_tags = array(
+				'id_bystyle' => 'By Style',
+				'id_bycolor' => 'By Color',
+				'id_byfinisheffect' => 'By Finish Effect',
+				'id_bylayout' => 'By Layout',
+				'id_bymaterial' => 'By Material',
+				'id_byconfiguration' => 'By Configuration',
+				'id_bytype' => 'By type',
+			);
 			$str = '<select id="'.$element.'" name="'.$element.'[]" class="select multiselect" multiple="multiple" >';
-			for($i=0;$i<count($row_tags);$i++){
+			foreach($row_tags as $key => $value){
 				if(isset($temp) && count($temp) > 0) {
-					if(in_array($row_tags[$i]['id'],$temp)) $selected = 'selected="selected"';
+					if(in_array($key,$temp)) $selected = 'selected="selected"';
 					else $selected = '';
 				} else {
 					$selected = '';
 				}
-				$str .= '<option value="'.$row_tags[$i]["id"].'" '.$selected.' /> '.$row_tags[$i]["tenvi"].'</option>';
+				$str .= '<option value="'.$key.'" '.$selected.' /> '.$value.'</option>';
 			}
 			$str .= '</select>';
 

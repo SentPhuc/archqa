@@ -213,7 +213,7 @@ switch($com)
 	$title_crumb = 'Dự án';
 	break;
 
-	case 'san-pham':
+	case 'product':
 	$source = "product";
 	$template = isset($_GET['id']) ? "product/product_detail" : "product/product";
 	$seo->setSeo('type',isset($_GET['id']) ? "article" : "object");

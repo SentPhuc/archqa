@@ -1,8 +1,11 @@
 <?php
-$banner = $d->rawQueryOne("select photo,hienthi,ten$lang as ten,mota$lang as mota from #_photo where type = ? and act = ? and hienthi > 0 limit 0,1",array('banner-'.$type,'photo_static'));
-if (!empty($banner) && $banner['hienthi']==1) {
+$banner = $d->rawQueryOne("select photo,hienthi,ten$lang as ten,mota$lang from #_photo where type = ? and act = ? and hienthi > 0 limit 0,1",array('banner-'.$type,'photo_static'));
+if (@$idl > 0 && @$type=='product') {
+	$banner = $pro_list;
+}
+if ((!empty($banner) && $banner['hienthi']==1)) {
 	$dataBannerten = !empty($banner['ten']) ? $banner['ten'] : $title_crumb;
-	$dataBannerMota = $banner['mota'];
+	$dataBannerMota = $banner['mota'.$lang];
 	$dataBannerLink = null;
 	$dataBannerPhoto = UPLOAD_PHOTO_L.$banner['photo'];
 
@@ -21,6 +24,12 @@ if (!empty($banner) && $banner['hienthi']==1) {
 			$dataBannerMota = ($com=='ideas-how-tos') ? $news_list['mota'.$lang]:$news_list['noidung'.$lang];
 			$dataBannerPhoto = UPLOAD_NEWS_L.$news_list['photo'];
 		}
+	}
+	if (@$type=='product') {
+		$dataBannerLink = 'contact';
+		$dataBannerten = !empty($pro_list['ten'.$lang]) ? $pro_list['ten'.$lang] : '';
+		$dataBannerMota = !empty($pro_list['mota'.$lang]) ? htmlspecialchars_decode($pro_list['mota'.$lang]) : '';;
+		$dataBannerPhoto = UPLOAD_PRODUCT_L.$pro_list['photo'];
 	}
 	?>
 	<div class="bannerIn" style="background:url(<?=THUMBS."/1366x470x1/".$dataBannerPhoto?>) no-repeat center/cover;">

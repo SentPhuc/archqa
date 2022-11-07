@@ -320,6 +320,24 @@ WEBSIETE.FixMenu = function(){
     });
 };
 
+/* Fix menu */
+WEBSIETE.FilterProduct = function(){
+    if($(".filter-item").exists())
+    {
+        var url = document.URL;
+        var IDs = [];
+        $('.filter-item').click(function(){
+            $(this).parents('ul').find('.filter-item').removeClass('active');
+            $(this).addClass("active");
+            var id = $('.filter-item.active').data('id');
+            if (IDs.indexOf(id) == -1) {
+                IDs.push(id);
+            }
+            console.log(IDs);
+        });
+    };
+};
+
 /* Ready */
 $(document).ready(function(){
     WEBSIETE.slickPage();
@@ -332,5 +350,6 @@ $(document).ready(function(){
     WEBSIETE.ClickActidve();
     WEBSIETE.swiper();
     WEBSIETE.FixMenu();
+    WEBSIETE.FilterProduct();
     WEBSIETE.wardrobeScroll('.door-item', '.main-navPage');
 });
