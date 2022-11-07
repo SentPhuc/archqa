@@ -7,11 +7,13 @@ if(!defined('SOURCES')) die("Error");
 @$idi = htmlspecialchars($_GET['idi']);
 @$ids = htmlspecialchars($_GET['ids']);
 
-$getDatasql = "id, ten$lang as ten, tenkhongdau$lang as tenkhongdau, photo, ngaytao, mota$lang as mota,link_video,type";
-$getDatasqlDetail = "id, luotxem, ngaytao, id_list, id_cat, id_item, id_sub, type, ten$lang, tenkhongdauvi, tenkhongdauen, noidung$lang, photo, options";
+$getDatasql = "id, ten$lang as ten,tieude_category$lang as tieude_category, tenkhongdau$lang as tenkhongdau, photo, ngaytao, mota$lang as mota,link_video,type";
+$getDatasqlDetail = "id, luotxem, ngaytao, id_list, id_cat, id_item, id_sub, type, ten$lang, tenkhongdauvi, tenkhongdauen, noidung$lang,mota$lang, photo, options";
 
 if($id!='')
 {
+	$banner = false;
+
 	/* Lấy bài viết detail */
 	$row_detail = $d->rawQueryOne("select $getDatasqlDetail from #_news where id = ? and type = ? and hienthi > 0 limit 0,1",array($id,$type));
 
@@ -75,7 +77,7 @@ if($id!='')
 	}
 
 	/* breadCrumbs */
-	if ($type!="about") {
+	if ($type!="about" && $type!="quy-trinh-dat-hang") {
 		if(isset($title_crumb) && $title_crumb != '') $breadcr->setBreadCrumbs($com,$title_crumb);
 	}
 	if($news_list != null) $breadcr->setBreadCrumbs($news_list[$sluglang],$news_list['ten'.$lang]);
@@ -89,12 +91,11 @@ if($id!='')
 		$banner = true;
 		$goichochungtoi = $d->rawQueryOne("select noidung$lang as noidung from #_static where type = ? and hienthi > 0",array('goi-cho-chung-toi'));
 	}
-
 }
 else if($idl!='')
 {
 	/* Lấy cấp 1 detail */
-	$news_list = $d->rawQueryOne("select id, ten$lang,noidung$lang, tenkhongdauvi, tenkhongdauen, type, photo, options from #_news_list where id = ? and type = ? limit 0,1",array($idl,$type));
+	$news_list = $d->rawQueryOne("select id, ten$lang,noidung$lang,mota$lang, tenkhongdauvi, tenkhongdauen, type, photo, options from #_news_list where id = ? and type = ? limit 0,1",array($idl,$type));
 
 	/* SEO */
 	$title_cat = $news_list['ten'.$lang];
@@ -317,8 +318,6 @@ else if($ids!='')
 }
 else
 {
-	$cat = null;
-	
 	/* SEO */
 	$seopage = $d->rawQueryOne("select * from #_seopage where type = ? limit 0,1",array($type));
 

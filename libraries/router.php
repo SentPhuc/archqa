@@ -197,6 +197,14 @@ switch($com)
 	$title_crumb = gioithieu;
 	break;
 
+	case 'ideas-how-tos':
+	$source = "news";
+	$template = isset($_GET['id']) ? "news/ideas_detail" : "news/ideas";
+	$seo->setSeo('type',isset($_GET['id']) ? "article" : "object");
+	$type = $com;
+	$title_crumb = 'Ý tưởng cách làm';
+	break;
+
 	case 'project':
 	$source = "product";
 	$template = isset($_GET['id']) ? "product/product_detail" : "product/product";

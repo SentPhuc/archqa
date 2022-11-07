@@ -1,5 +1,6 @@
 <?php
 if(!defined('SOURCES')) die("Error");
+$banner = false;
 
 /* Query allpage */
 $favicon = $d->rawQueryOne("select photo from #_photo where type = ? and act = ? and hienthi > 0 limit 0,1",array('favicon','photo_static'));
@@ -24,6 +25,7 @@ if ($source=='index') {
 }
 
 if (@$type=='videos') {
+    $listNav = null;
     $banner = true;
     $catNav = $d->rawQuery("select ten$lang as ten,id,tenkhongdau$lang as tenkhongdau from #_news_list where type = ? and hienthi = 1 order by stt,id desc",array($type));
 }
@@ -34,6 +36,12 @@ if (@$type=='quality') {
     $list = $d->rawQuery("select ten$lang as ten, tenkhongdau$lang as tenkhongdau,mota$lang as mota from #_news_list where type = ? and hienthi > 0 order by stt,id desc limit 0,4",array($type));
     $newsQuality = $d->rawQuery("select ten$lang as ten, link,mota$lang as mota from #_photo where type = ? and hienthi > 0 order by stt,id desc limit 0,3",array('news-quality'));
     $motaQuality = $d->rawQueryOne("select ten$lang as ten, mota$lang as mota,photo from #_static where type = ? and hienthi > 0 limit 0,1",array('mota-quality'));
+}
+
+if (@$type=='ideas-how-tos') {
+    $banner = true;
+    $catNav = null;
+    $listNav = $d->rawQuery("select ten$lang as ten,id,tenkhongdau$lang as tenkhongdau,photo1,photo2 from #_news_list where type = ? and hienthi = 1 order by stt,id desc",array($type));
 }
 
 

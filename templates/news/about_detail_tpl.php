@@ -15,13 +15,7 @@
 		<div class="right">
 			<?php include TEMPLATE.LAYOUT."breadcrumb.php"; ?>
 			<div class="content rp-images"><?=htmlspecialchars_decode($row_detail['noidung'.$lang])?></div>
-			<div class="share">
-				<b><?=chiase?>:</b>
-				<div class="social-plugin w-clear">
-					<div class="addthis_inline_share_toolbox_qj48"></div>
-					<div class="zalo-share-button" data-href="<?=$func->getCurrentPageURL()?>" data-oaid="<?=($optsetting['oaidzalo']!='')?$optsetting['oaidzalo']:'579745863508352884'?>" data-layout="1" data-color="blue" data-customize=false></div>
-				</div>
-			</div>
+			<?php include TEMPLATE.LAYOUT."social.php"; ?>
 		</div>
 		<div class="bottom">
 			<?php include TEMPLATE.LAYOUT."form_getquote.php"; ?>

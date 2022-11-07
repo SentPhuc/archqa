@@ -127,10 +127,11 @@
 	</script>
 
 	<!-- Like Share -->
-	<script src="//sp.zalo.me/plugins/sdk.js"></script>
+	<script async src="https://static.addtoany.com/menu/page.js"></script>
+	<?php /*<script src="//sp.zalo.me/plugins/sdk.js"></script>
     <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-55e11040eb7c994c" async="async"></script>
     <script type="text/javascript">
         var addthis_config = addthis_config||{};
         addthis_config.lang = 'vi'
-    </script>
+    </script>*/ ?>
 <?php } ?>

@@ -5,7 +5,7 @@
 		</div>
 		<div class="btn-project_estimation text-center">
 			<a href="dowload-catalog" title="Dowload catalog">Dowload catalog</a>
-			<a href="lien-he" title="Nhận báo giá miễn phí">Nhận báo giá miễn phí</a>
+			<a href="contact" title="Nhận báo giá miễn phí">Nhận báo giá miễn phí</a>
 		</div>
 		<div class="line-project_estimation"></div>
 		<div class="header-project_estimation">

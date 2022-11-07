@@ -10,7 +10,7 @@
     include TEMPLATE.LAYOUT."seo.php";
     include TEMPLATE.LAYOUT."menu.php";
     if($source=='index') include TEMPLATE.LAYOUT."slide.php";
-    else include TEMPLATE.LAYOUT."banner.php";
+    else if($template!='news/ideas_detail') include TEMPLATE.LAYOUT."banner.php";
     if($template!='news/about_detail') include TEMPLATE.LAYOUT."breadcrumb.php";
     ?>
     <?php
