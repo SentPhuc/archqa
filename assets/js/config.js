@@ -22,7 +22,7 @@ if($(".paging-product-category").exists())
     $(".paging-product-category").each(function(){
         var list = $(this).data("list");
         loadPagingAjax("ajax/ajax_product.php?perpage="+COUNTPRODUCT+"&type=san-pham&idList="+list,'.paging-product-category-'+list);
-    })
+    });
 }
 WEBSIETE.video = function(){
     $('body').on("click",".item-video",function(){
@@ -80,12 +80,12 @@ WEBSIETE.slickData = function(obj){
     };
 };
 WEBSIETE.slickPage = function(){
-    if($(".slick__page").length > 0)
+    if($(".slick__page").exists())
     {
         $(".slick__page").each(function(){
             WEBSIETE.slickData($(this));
         });
-    }
+    };
 };
 
 /* Back to top */
@@ -119,15 +119,7 @@ WEBSIETE.Tools = function(){
     if($(".toolbar").exists())
     {
         $(".footer").css({marginBottom:$(".toolbar").innerHeight()});
-    }
-};
-
-/* Mmenu */
-WEBSIETE.Mmenu = function(){
-    if($("#mmenu").exists())
-    {
-
-    }
+    };
 };
 
 /* Search */
@@ -148,7 +140,7 @@ WEBSIETE.Search = function(){
             document.getElementById($(this).next().find("input").attr('id')).focus();
             $('.icon-search i').toggleClass('fa fa-search fa fa-times');
         });
-    }
+    };
 };
 
 /* Videos */
@@ -165,7 +157,7 @@ WEBSIETE.Videos = function(){
             toolbar: true,
             hash: false
         });
-    }
+    };
 };
 
 /* ClickActidve */
@@ -175,7 +167,7 @@ WEBSIETE.ClickActidve = function(){
         $('.menu-login').click(function(){
             $('.user-header').stop().toggle();
         });
-    }
+    };
 
     if($(".hover-product-list").exists())
     {
@@ -186,7 +178,7 @@ WEBSIETE.ClickActidve = function(){
                 $('.box-menu').addClass("active");
             }
         });
-    }
+    };
 
     if($("#mmenu").exists())
     {
@@ -199,7 +191,7 @@ WEBSIETE.ClickActidve = function(){
                 $("#main-mmenu").addClass("active");
             }
         });
-    }
+    };
 
     if($(".hover-show-cat").exists())
     {
@@ -215,7 +207,7 @@ WEBSIETE.ClickActidve = function(){
                 $(this).addClass("active");
             }
         });
-    }
+    };
 
     if($(".action-menu").exists())
     {
@@ -229,7 +221,7 @@ WEBSIETE.ClickActidve = function(){
                 $(this).addClass("active");
             }
         });
-    }
+    };
 };
 
 /* swiper */
@@ -253,10 +245,11 @@ WEBSIETE.swiper = function(){
                 clickable: true,
             },
         });
-    }
+    };
+
     if($(".swiper-quality").exists())
     {
-        var swiper = []
+        var swiper = [];
         $('.swiper-quality').each(function(i) {
             $(this).addClass("swiper-quality"+i);
             $(this).siblings(".img-list-prev").addClass("img-list-prev"+i);
@@ -285,50 +278,59 @@ WEBSIETE.swiper = function(){
                 }
             });
         });
+
         $(".thumb-item").on("click mouseenter",function(){
             var i = $(this).parents(".thumb-con").index(".thumb-con");
             $(this).addClass("active").siblings().removeClass("active");
             swiper[i].slideToLoop($(this).index(), 500, false);
         });
-    }
+    };
 };
 
 
 WEBSIETE.wardrobeScroll = function(e, i) {
     function o(e, o) {
-        for (var s = o.length - 1; s >= 0; s--)
+        for (var s = o.length - 1; s >= 0; s--){
             if (e + n >= o[s]) {
                 $(i).find(".item__quality").eq(s).addClass("active").siblings().removeClass("active");
-                break
+                break;
             }
-            e + n < o[0] ? $(i).find(".container").removeClass("fixed") : $(i).find(".container").addClass("fixed")
+            e + n < o[0] ? $(i).find(".container").removeClass("fixed") : $(i).find(".container").addClass("fixed");
         }
-        var s = [],
-        t = $(window).scrollTop(),
-        n = 120;
-        $(e).each(function() {
-            s.push($(this).position().top)
-        }), o(t, s), $(window).scroll(function() {
-            t = $(this).scrollTop(), o(t, s)
-        }), $(i).find(".item__quality").click(function() {
-            var e = $(this).index();
-            $("html, body").animate({
-                scrollTop: s[e] - n
-            })
-        })
     }
 
-    /* Ready */
-    $(document).ready(function(){
-        WEBSIETE.slickPage();
-        WEBSIETE.Tools();
-        WEBSIETE.AltImages();
-        WEBSIETE.BackToTop();
-    // WEBSIETE.FixMenu();
+    var s = [],
+    t = $(window).scrollTop(),
+    n = 120;
+    $(e).each(function() {
+        s.push($(this).position().top);
+    }), o(t, s), $(window).scroll(function() {
+        t = $(this).scrollTop(), o(t, s);
+    }), $(i).find(".item__quality").click(function() {
+        var e = $(this).index();
+        $("html, body").animate({ scrollTop: s[e] - n});
+    });
+};
+
+/* Fix menu */
+WEBSIETE.FixMenu = function(){
+    $(window).scroll(function(){
+        if($(window).scrollTop() >= $(".menu").height()) $(".menu").addClass('fixed');
+        else $(".menu").removeClass('fixed');
+    });
+};
+
+/* Ready */
+$(document).ready(function(){
+    WEBSIETE.slickPage();
+    WEBSIETE.Tools();
+    WEBSIETE.AltImages();
+    WEBSIETE.BackToTop();
     WEBSIETE.video();
     WEBSIETE.Videos();
     WEBSIETE.Search();
     WEBSIETE.ClickActidve();
     WEBSIETE.swiper();
+    WEBSIETE.FixMenu();
     WEBSIETE.wardrobeScroll('.door-item', '.main-navPage');
 });

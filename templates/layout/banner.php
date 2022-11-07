@@ -4,19 +4,26 @@ if (!empty($banner) && $banner['hienthi']==1) {
 	$dataBannerten = !empty($banner['ten']) ? $banner['ten'] : $title_crumb;
 	$dataBannerMota = $banner['mota'];
 	$dataBannerLink = null;
+	$dataBannerPhoto = UPLOAD_PHOTO_L.$banner['photo'];
+
+	if ($type=='about') {
+		$dataBannerten = null;
+	}
+
 	if ($source=='contact') {
 		$dataBannerMota = $optsetting['diachi'];;
-		$dataBannerLink = 'dowload-catalog';
+		$dataBannerLink = 'contact';
 	}
-	if ($com=='quality') {
-		$dataBannerLink = 'dowload-catalog';
+	if ($com=='quality' || $com=='ideas-how-tos') {
+		$dataBannerLink = 'contact';
 		if (@$idl > 0) {
 			$dataBannerten = !empty($news_list['ten'.$lang]) ? $news_list['ten'.$lang] : '';
-			$dataBannerMota = $news_list['noidung'.$lang];
+			$dataBannerMota = ($com=='ideas-how-tos') ? $news_list['mota'.$lang]:$news_list['noidung'.$lang];
+			$dataBannerPhoto = UPLOAD_NEWS_L.$news_list['photo'];
 		}
 	}
 	?>
-	<div class="bannerIn" style="background:url(<?=THUMBS."/1366x470x1/".UPLOAD_PHOTO_L.$banner['photo']?>) no-repeat center/cover;">
+	<div class="bannerIn" style="background:url(<?=THUMBS."/1366x470x1/".$dataBannerPhoto?>) no-repeat center/cover;">
 		<?php if (!empty($dataBannerten) || !empty($dataBannerMota) || !empty($dataBannerLink)) {?>
 			<div class="infoBanner">
 				<div class="container d-flex align-items-start justify-content-between flex-wrap">
@@ -35,4 +42,4 @@ if (!empty($banner) && $banner['hienthi']==1) {
 			</div>
 		<?php } ?>
 	</div>
-	<?php } ?>
+<?php } ?>

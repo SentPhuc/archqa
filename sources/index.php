@@ -24,4 +24,5 @@
     }
 
     $breadcrumbs = null;
+    $banner = false;
 ?>

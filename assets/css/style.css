@@ -420,6 +420,10 @@ ul.slick__page{
 	position: fixed;
 }
 
+.menu.menuIn.menuInForBanner.fixed{
+	position: fixed;
+}
+
 .menu ul {
 	padding: 0px;
 	margin: 0px;
@@ -1413,21 +1417,52 @@ ul.slick__page{
 	max-width: 1300px;
 }
 
-.nav-cat{
+.nav-cat,.nav-list{
 	padding: 25px 0;
 }
 
-.nav-cat a{
+.nav-cat a,.nav-list a{
 	color: #4c4c4c;
 	position: relative;
 }
+.nav-list a{
+	color: #4d4d4d;
+	text-transform: capitalize;
+}
 
-.nav-cat a:not(:last-child){
+.nav-list a span.img{
+	display: inline-block;
+	position: relative;
+	margin-right: 5px;
+}
+
+.nav-list a span.img img{
+	vertical-align: middle;
+	opacity: 1;
+	transition: all 0.4s;
+}
+
+.nav-list a span.img img:nth-child(2){
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+}
+.nav-list a:hover span.img img:nth-child(1),.nav-list a.active span.img img:nth-child(1){
+	opacity: 0;
+}
+.nav-list a:hover span.img img:nth-child(2),.nav-list a.active span.img img:nth-child(2){
+	opacity: 1;
+}
+
+.nav-cat a:not(:last-child),.nav-list a:not(:last-child){
 	padding-right: 25px;
 	margin-right: 25px;
 }
 
-.nav-cat a:not(:last-child):before{
+.nav-cat a:not(:last-child):before,.nav-list a:not(:last-child):before{
 	content: "";
 	width: 1px;
 	height: 30px;
@@ -1437,7 +1472,7 @@ ul.slick__page{
 	top:calc(50% - 15px);
 }
 
-.nav-cat a.active,.nav-cat a:hover{
+.nav-cat a.active,.nav-cat a:hover,.nav-list a.active,.nav-list a:hover{
 	color: var(--color__orange);
 }
 /*Ennd nav main*/
@@ -2639,25 +2674,376 @@ ul.slick__page{
 
 .view-template-quality.isList .main-navPage{
 	background-color: var(--color__cover);
+	border-bottom: 1px solid #ccc;
 }
 
 .view-template-quality.isList .main-navPage .container{
 	border-top: none;
 }
+
+.view-template-quality.isList .main-navPage .container.fixed{
+	position: fixed;
+	top: 70px;
+	width: 100%;
+	left: 0;
+	background-color: var(--color__cover);
+	max-width: 100%;
+	z-index: 999;
+	border-bottom: 1px solid #dcdcdc;
+}
+
 .view-template-quality.isList .main-navPage .nav-cat{
 	padding-top: 0;
 }
+
+.view-template-quality.isList .main-navPage .nav-cat a{
+	text-transform: uppercase;
+}
+
+.view-template-quality.isList .main-navPage .container.fixed .nav-cat{
+	padding: 15px 0;
+	display: flex;
+	max-width: 1300px;
+	margin: 0 auto;
+}
+
+.itemQuality{
+	background-color: var(--color__cover);
+	padding: 60px 56px;
+	border: 1px solid #ccc;
+	margin-bottom: 60px;
+}
+
+.itemQuality .img-list-con{
+	width: 100%;
+	max-width: 400px;
+}
+
+.itemQuality .info{
+	width: calc(100% - 430px);
+}
+
+.itemQuality .info .name{
+	color: #262626;
+	text-transform: uppercase;
+	font:25px var(--Regular);
+	margin-bottom: 15px;
+}
+
+.itemQuality .info .desc{
+	color: #404040;
+	font-size: 15px;
+}
+
+.itemQuality .thumb-con{
+	display: flex;
+	align-items: center;
+	margin-top: 30px;
+	padding-top: 20px;
+	padding-left: 50px;
+	position: relative;
+}
+
+.itemQuality .thumb-con:before{
+	width: 100%;
+	content: "";
+	background-color: #f5f5f5;
+	height: 100px;
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+
+.itemQuality .thumb-con .thumb-item{
+	width: 110px;
+	min-height: 110px;
+	background-color: var(--color__cover);
+	border: 1px solid #ccc;
+	padding: 26px 20px;
+	margin-right: 10px;
+	margin-bottom: 5px;
+	cursor: pointer;
+	transition: all 0.4s;
+	position: relative;
+}
+.itemQuality .thumb-item:after {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: 2;
+	background: rgba(45,60,82,0.4);
+	opacity: 0;
+	-webkit-transition: all .2s ease;
+	-moz-transition: all .2s ease;
+	transition: all .2s ease;
+	display: block;
+	top: 0;
+	left: 0;
+	content: '';
+}
+.itemQuality .thumb-con .thumb-item:hover,.itemQuality .thumb-con .thumb-item.active{
+	border-color: #fa8106;
+}
+.itemQuality .thumb-con .thumb-item:hover:after,.itemQuality .thumb-con .thumb-item.active:after{
+	opacity: 1;
+}
+.itemQuality .swiper-pagination{
+	bottom: 0;
+	display: none;
+}
+.itemQuality .swiper-pagination-bullet.swiper-pagination-bullet-active{
+	background-color: var(--color__orange);
+}
+.itemQuality:nth-child(2n) .info{
+	order: -1;
+}
+.itemQuality:nth-child(2n) .thumb-con{
+	justify-content: flex-end;
+	padding-left: 0;
+	padding-right: 50px;
+}
+.itemQuality:nth-child(2n) .thumb-con .thumb-item{
+	margin-right: 0;
+	margin-left: 10px;
+}
+
+.box-main-supplier ul{
+	padding-left: 0;
+	margin-bottom: 0;
+	list-style: none;
+	display: flex;
+	flex-wrap: wrap;
+	border-left: 1px solid #dcdcdc;
+	border-top: 1px solid #dcdcdc;
+	background-color: #fff;
+}
+
+.box-main-supplier .title{
+	font-size: 40px;
+	color: #262626;
+	text-transform: uppercase;
+	text-align: center;
+	margin-bottom: 20px;
+}
+.box-main-supplier ul li{
+	width: calc(100% / 3);
+}
+
+.box-main-supplier ul li a{
+	display: block;
+	border-bottom: 1px solid #dcdcdc;
+	border-right: 1px solid #dcdcdc;
+}
 /*End phẩm chất*/
+
+/*Ý tưởng cách làm*/
+.view-template-ideas-how-tos .pd70-0{
+	background-color: #f5f5f5;
+}
+.view-template-ideas-how-tos .breadCrumbs .wrap-content .breadcrumb{
+	justify-content: flex-start;
+}
+.box-ideas{
+	margin: 0 -10px;
+}
+.item__ideas{
+	width: calc((100% / 3) - (10px * 2));
+	margin: 0 10px 50px 10px;
+}
+
+.item__ideas.item__ideas-outstanding{
+	width: calc((100% / 2) - (10px * 2));
+	margin: 0 10px 60px 10px;
+	background-color: #f5f5f5;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.item__ideas.item__ideas-outstanding .info{
+	padding: 50px 50px 60px 30px;
+}
+
+.item__ideas.item__ideas-outstanding .img{
+	position: relative;
+}
+
+.item__ideas.item__ideas-outstanding .img:before{
+	position: absolute;
+	content: "";
+	right: 0;
+	bottom: 0;
+	width: 70px;
+	height: 70px;
+	z-index: 1;
+	background: url(../images/icon33.jpg) no-repeat center;
+}
+
+.item__ideas a{
+	display: block;
+}
+
+.item__ideas .info{
+	padding-top: 20px;
+}
+
+.item__ideas .info .titleCategory__ideas-outstanding{
+	font:13px var(--medium);
+	color: var(--color__orange);
+	display: block;
+	margin-bottom: 15px;
+}
+.item__ideas.item__ideas-outstanding .info .titleCategory__ideas-outstanding{
+	padding: 0 22px;
+	background-color: var(--color__orange);
+	border-radius: 35px;
+	font-family: var(--Regular);
+	line-height: 35px;
+	color: var(--color__cover);
+	display: inline-block;
+}
+.item__ideas .info .name{
+	font:15px var(--medium);
+}
+
+.item__ideas:hover .info .name{
+	color: var(--color__orange);
+}
+
+.item__ideas .info .desc{
+	color: #666;
+	line-height: 1.8;
+}
+
+.item__ideas .info .date{
+	color: #808080;
+	margin-top: 10px;
+	display: block;
+}
+/*End ý tưởng cách làm*/
+
+/*Detail ý tưởng cách làm*/
+.news-detail{
+	padding-top: 50px;
+}
+.ideas-detail .left{
+	width: 340px;
+}
+.ideas-detail .left > span{
+	display: block;
+	font:18px var(--medium);
+	text-transform: uppercase;
+	margin-bottom: 32px;
+	position: relative;
+	padding-top: 30px;
+}
+.ideas-detail .left > span:before{
+	content: "";
+	background-color: var(--color__orange);
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 72px;
+	height: 3px;
+}
+
+.item__ideas-left{
+	display: block;
+}
+
+.item__ideas-left .name{
+	margin-bottom: 0;
+	margin-top: 20px;
+	font-family: var(--Regular);
+}
+
+.item__ideas-left:not(:last-child){
+	margin-bottom: 20px;
+}
+
+.ideas-detail .right{
+	width: calc(100% - 370px);
+}
+
+.ideas-detail .right .title-website span{
+	text-transform: inherit;
+}
+.header__ideas{
+	font-size: 15px;
+	color: #808080;
+	border-bottom: 1px solid #d8d8d8;
+	padding-bottom: 15px;
+	margin-bottom: 55px;
+}
+
+.header__ideas .desc{
+	text-align: center;
+	font-size: 16px;
+	color: #666;
+	line-height: 2;
+	text-align: center;
+	margin-top: 18px;
+}
+
+.count-views{
+	line-height: 21px;
+    display: inline-block;
+    background: url(../images/icon27.png) no-repeat left center;
+    padding-left: 20px;
+    font-size: 15px;
+    color: var(--color__text);
+}
+
+.header__ideas .date{
+	margin-right: 30px;
+}
+
+.header__ideas .social-plugin{
+	margin-left: 30px;
+}
+.btn-back{
+	margin-top: 75px;
+	border-top: 1px solid #e5e5e5;
+	padding-top: 30px;
+}
+.btn-back a{
+	text-decoration: none !important;
+	width: 100%;
+	max-width: 260px;
+	background-color: var(--color__orange);
+	color: var(--color__cover);
+	font-size: 15px;
+	line-height: 50px;
+	display: inline-block;
+	transition: all 0.4s;
+}
+
+.btn-back a:hover{
+	background-color: var(--color__hover);
+}
+/*End detail ý tưởng cách làm*/
 
 /* Like Share */
 .social-plugin {
 	display: flex;
-	justify-content: flex-start;
-	margin-top: 10px;
+	align-items: center;
 }
 
-.social-plugin .at-share-btn {
-	margin-bottom: 0px !important;
+.social-plugin > span {
+	font-size: 13px;
+	color: #4d4d4d;
+	display: inline-block;
+	margin-right: 8px;
+	line-height: 25px;
+}
+
+.social-plugin .a2a_svg{
+	width: 25px;
+	line-height: 25px;
+	height: 25px;
+}
+
+.social-plugin .a2a_svg.a2a_s__default.a2a_s_a2a{
+	background-color: #f05d49 !important;
 }
 
 .social-plugin .zalo-share-button {
@@ -3183,41 +3569,6 @@ coccocgrammar {
 	opacity: 1
 }
 
-/* Cart fix */
-.cart-fixed {
-	position: fixed;
-	right: 20px;
-	bottom: 390px;
-	z-index: 10;
-	background: #4b4f56;
-	width: 50px;
-	height: 50px;
-	text-align: center;
-	color: #fff !important;
-	border-radius: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-.cart-fixed i {
-	font-size: 20px;
-}
-
-.cart-fixed span {
-	position: absolute;
-	top: 0px;
-	right: -5px;
-	color: #fff;
-	width: 25px;
-	height: 25px;
-	background: var(--color__main);
-	text-align: center;
-	line-height: 25px;
-	font-size: 11px;
-	border-radius: 100%;
-}
-
 /* Toolbar */
 .toolbar {
 	background: var(--color__main);
@@ -3722,7 +4073,7 @@ coccocgrammar {
 		width: 100%;
 		text-align: center;
 	}
-	.menu ul,.detail-abouts .left{
+	.menu ul,.detail-abouts .left,.ideas-detail .left,.header__ideas .desc{
 		display: none !important;
 	}
 	.menu-map{
@@ -3736,6 +4087,20 @@ coccocgrammar {
 
 	.form-getquote .css-checkbox + label{
 		margin-right: 10px;
+	}
+	.news-detail{
+		padding-top: 30px;
+	}
+	.ideas-detail .right{
+		width: 100%;
+	}
+
+	.btn-back{
+		margin-top: 10px;
+		padding-top: 10px;
+	}
+	.header__ideas{
+		margin-bottom: 15px;
 	}
 }
 
@@ -3756,7 +4121,34 @@ coccocgrammar {
 	.news .name {
 		margin-top: 10px;
 	}
+	.itemQuality .swiper-container{
+		padding-bottom: 30px;
+	}
+	.itemQuality{
+		padding: 15px;
+		margin-bottom: 15px;
+		width: 100%;
+	}
+	.itemQuality .thumb-con{
+		display: none;
+	}
+	.itemQuality .swiper-pagination{
+		display: block;
+	}
+	.itemQuality .img-list-con{
+		margin: 0 auto 20px auto;
+	}
+	.itemQuality .info{
+		width: 100%;
+	}
 
+	.view-template-quality.isList .main-navPage .container{
+		padding: 0 10px;
+	}
+
+	.itemQuality:nth-child(2n) .info{
+		order: 2;
+	}
 }
 
 @media screen and (max-width:820px) {
@@ -3844,22 +4236,22 @@ coccocgrammar {
 		padding: 0 10px;
 	}
 
-	.nav-cat{
+	.nav-cat,.nav-list{
 		padding: 15px 0;
 		display: flex;
 		overflow: auto;
 	}
 
-	.nav-cat a:not(:last-child):before{
+	.nav-cat a:not(:last-child):before,.nav-list a:not(:last-child):before{
 		display: none;
 	}
 
-	.nav-cat a:not(:last-child){
+	.nav-cat a:not(:last-child),.nav-list a:not(:last-child){
 		padding-right: 0;
 		margin-right: 10px;
 	}
 
-	.nav-cat a{
+	.nav-cat a,.nav-list a{
 		white-space: nowrap;
 	}
 
@@ -4006,6 +4398,24 @@ coccocgrammar {
 	.bottom-contact .info{
 		padding: 20px;
 	}
+	.box-ideas{
+		margin: 0 -5px;
+	}
+	.item__ideas.item__ideas-outstanding .img:before{
+		display: none;
+	}
+	.item__ideas,.item__ideas.item__ideas-outstanding{
+		width: calc((100% / 2) - 10px);
+		margin: 0 5px 10px 5px;
+	}
+	.item__ideas.item__ideas-outstanding .info{
+		padding: 15px;
+	}
+	.item__ideas.item__ideas-outstanding .info .titleCategory__ideas-outstanding{
+		line-height: 25px;
+		padding: 0 5px;
+		font-size: 12px;
+	}
 }
 @media(max-width:540px) {
 	.box-newsQuality{
@@ -4066,7 +4476,11 @@ coccocgrammar {
 		margin: 0 0 10px 0;
 	}
 }
-
+@media(max-width:462px) {
+	.itemQuality .img-list-con{
+		max-width: 100%;
+	}
+}
 @media(max-width:440px) {
 	.top-contact .form-contact .button-contact .file-contact span b {
 		max-width: 105px;
@@ -4136,5 +4550,17 @@ coccocgrammar {
 	}
 	.box-listQuality .item__listQuality{
 		margin-top: 15px;
+	}
+	.item__ideas, .item__ideas.item__ideas-outstanding{
+		width: 100%;
+		margin: 0 0 10px 0;
+	}
+	.box-ideas{
+		margin: 0;
+	}
+
+	.header__ideas .social-plugin{
+		margin-left: 0;
+		margin-top: 5px;
 	}
 }
