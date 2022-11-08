@@ -405,7 +405,7 @@ ul.slick__page{
 .menu {
 	background-color: rgba(0, 0, 0, 0.7);
 	position: fixed;
-	z-index: 9999;
+	z-index: 99;
 	top: 0;
 	width: 100%;
 	left: 0;
@@ -1705,23 +1705,71 @@ ul.slick__page{
 .view-template-product .breadCrumbs .wrap-content .breadcrumb{
 	justify-content: flex-start;
 }
+.item__product{
+	margin-bottom: 40px;
+}
 .item__product .img {
 	background: #fff;
-	border-radius: 5px;
-	padding: 5px;
-	border: 1px solid #eee;
 	position: relative;
-	margin-bottom: 10px;
+	margin-bottom: 25px;
+}
+.btn-event{
+	position: absolute;
+	left: 0;
+	width: 100%;
+	bottom: 0;
+	display: flex;
+	justify-content: center;
+	padding-bottom: 18px;
+	opacity: 0;
+	visibility: hidden;
 }
 
-.item__product .img img {
+.item__product:hover .btn-event{
+	opacity: 1;
+	visibility: visible;
+}
+
+.btn-event a{
+	margin: 0 1px;
+	background-color: rgba(255,255,255,0.9);
+	height: 35px;
+	line-height: 35px;
+	padding: 0 10px;
+	display: inline-block;
+}
+
+.btn-event a img{
+	vertical-align: middle;
+}
+
+.btn-event a:first-child{
+	padding: 0 15px;
+}
+
+.btn-event a:first-child img{
+	margin-top: -8px;
+}
+
+.btn-event a span{
+	font-size: 16px;
+	color: var(--color__orange);
+	display: inline-block;
+	margin-left: 10px;
+}
+
+.item__product .img > img {
 	width: 100%;
-	border-radius: 3px;
 }
 
 .item__product .name {
-	font-size: 16px;
-	color: var(--color__text);
+	font:15px var(--medium);
+}
+
+.item__product .masp {
+	font-size: 15px;
+	color: #4c4c4c;
+	text-transform: uppercase;
 }
 
 .item__product:hover .name {

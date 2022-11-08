@@ -1,3 +1,23 @@
+function notifyToast(title,icon){
+    //success, error, warning, info, question
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    });
+
+    Toast.fire({
+        icon: icon,
+        title: title
+    });
+}
+
 function modalNotify(text)
 {
     $("#popup-notify").find(".modal-body").html(text);
@@ -378,4 +398,17 @@ function getTypeUrlFilter(key,id,type) {
 }
 
 return url;
+}
+
+function check_like_status(data, id) {
+    try {
+        if (id in data && data[id]) {
+            return true;
+        } else {
+            return false;
+        }
+    } catch (e) {
+        window.localStorage.clear();
+        return false;
+    }
 }

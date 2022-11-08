@@ -31,6 +31,7 @@ $js->setJs("./assets/magiczoomplus/magiczoomplus.js");
 $js->setJs("./assets/slick/slick.js");
 $js->setJs("./assets/fancybox3/jquery.fancybox.js");
 $js->setJs("./assets/swiper/swiper-bundle.min.js");
+$js->setJs("./assets/sweetalert2/sweetalert2.min.js");
     // $js->setJs("./assets/photobox/photobox.js");
     // $js->setJs("./assets/datetimepicker/php-date-formatter.min.js");
     // $js->setJs("./assets/datetimepicker/jquery.mousewheel.js");

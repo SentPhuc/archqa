@@ -10,29 +10,11 @@ if(!defined('SOURCES')) die("Error");
 
 if ($idl > 0 || $idc > 0) {
 	/* get data filter */
-	$whereFilter = "";
-	$arrId = [];
-	$idPros = [];
+	$whereFilter = $func->getDataFilter($_GET);
 	@$sort = !empty($_GET['sort']) ? htmlspecialchars($_GET['sort']) : '';
 	@$keyword = !empty($_GET['keyword']) ? htmlspecialchars($_GET['keyword']) : '';
-	foreach ($_GET as $key => $value) {
-		if ($key!='idl' && $key!='sort' && $key!='keyword') {
-			array_push($arrId,$value);
-		}
-	}
-	if (!empty($arrId)) {
-		$getPro = $d->rawQuery("select DISTINCT id_pro from #_filter where id_filter IN (".implode(',',$arrId).")");
-		foreach ($getPro as $value) {
-			array_push($idPros,$value['id_pro']);
-		}
-		if (!empty($idPros)) {
-			$whereFilter = " and id in (".implode(',',$idPros).")";
-		}else{
-			$whereFilter = " and id in (0)";
-		}
-	}
 }
-$getDatasql = "photo, ten$lang as ten, tenkhongdau$lang as tenkhongdau, giamoi, gia, giakm, id";
+$getDatasql = "photo, ten$lang as ten, tenkhongdau$lang as tenkhongdau, giamoi, gia, giakm, id,masp,countLike";
 $getDatasqlDetail = "type, id, ten$lang, tenkhongdauvi, tenkhongdauen, mota$lang, noidung$lang, masp, luotxem, id_brand, id_mau, id_size, id_list, id_cat, id_item, id_sub, id_tags, photo, options, giakm, giamoi, gia";
 
 if($id!='')

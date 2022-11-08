@@ -366,6 +366,61 @@ WEBSIETE.FilterProduct = function(){
     };
 };
 
+/* Filter Product */
+WEBSIETE.handleEvent = function(){
+    if($(".handle-event").exists())
+    {
+        $('.handle-event').click(function(){
+            var id = $(this).data('id');
+            var event = $(this).data('event');
+            var table = $(this).data('table');
+            var type = $(this).data('type');
+            if (event=='like') {
+                let storage = window.localStorage;
+                const storage_str_data = storage.getItem("plike_data");
+                let storage_json_data = JSON.parse(storage_str_data);
+                if (!storage_json_data) {
+                    storage_json_data = {}
+                }
+                const status = check_like_status(storage_json_data, id);
+                if (status) {
+                    notifyToast('Bạn đã thích nó rồi','error');
+                    return;
+                }
+            }
+            $.ajax({
+                url:'ajax/ajax_event.php',
+                type: "POST",
+                dataType: 'Json',
+                data: {id:id,event:event,table:table,type:type},
+                success: function(result){
+                    // if (result.status == 'success') {
+                    //     try {
+                    //         storage_json_data[id] = true;
+                    //     } catch (e) {
+                    //         window.localStorage.clear();
+                    //     }
+                    //     const d = JSON.stringify(storage_json_data);
+                    //     try {
+                    //         storage.setItem("plike_data", d);
+                    //     } catch (e) {
+                    //         if (e.code == 22) {
+                    //             window.localStorage.clear();
+                    //             storage.setItem("plike_data", d);
+                    //         }
+                    //     }
+                    //     notifyToast(result.data.message,'success');
+                    //     $(this).html(result.data.countLike);
+                    // } else {
+                    //     notifyToast('Thích thành công','success');
+                    //     return false;
+                    // }
+                }
+            });
+        });
+    };
+};
+
 /* Ready */
 $(document).ready(function(){
     WEBSIETE.slickPage();
@@ -380,4 +435,5 @@ $(document).ready(function(){
     WEBSIETE.FixMenu();
     WEBSIETE.FilterProduct();
     WEBSIETE.wardrobeScroll('.door-item', '.main-navPage');
+    WEBSIETE.handleEvent();
 });

@@ -45,10 +45,31 @@ class Functions
 		}
 		
 		if (!empty($id)) {
-			 $filterItem = $this->db->rawQueryOne("select ten$lang as ten from #_product where id = ? and hienthi = 1 order by stt,id desc",array($id));
-			 $title = $filterItem['ten'];
+			$filterItem = $this->db->rawQueryOne("select ten$lang as ten from #_product where id = ? and hienthi = 1 order by stt,id desc",array($id));
+			$title = $filterItem['ten'];
 		}
 		return $title;
+	}
+
+	public function getDataFilter($get){
+		$where = '';
+		if (!empty($get)) {
+			foreach ($get as $key => $value) {
+				if ($key!='idl' && $key!='sort' && $key!='keyword') {
+					$getPro = $this->db->rawQuery("select id_pro from #_filter where id_filter = '".$value."' and id_list_filter='".$key."'");
+					$idPros = [];
+					foreach ($getPro as $value) {
+						array_push($idPros,$value['id_pro']);
+					}
+					if (!empty($idPros)) {
+						$where .= " and id in (".implode(',',$idPros).")";
+					}else{
+						$where .= " and id in (0)";
+					}
+				}
+			}
+		}
+		return $where;
 	}
 
 	/* Check URL */
