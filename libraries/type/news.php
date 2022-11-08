@@ -196,7 +196,7 @@ foreach ($config['theme'][$nametype]['lv'] as $key => $value) {
     $config["news"][$nametype]["mota_$value"] = true;
     $config["news"][$nametype]["noidung_$value"] = true;
     $config["news"][$nametype]["seo_$value"] = true;
-    $config["news"][$nametype]["size_images_$value"] = '1366x470';
+    $config["news"][$nametype]["size_images_$value"] = '1920x470';
     $config["news"][$nametype]["thumb_$value"] = '100x100x1';
     $config["news"][$nametype]["img_type_$value"] = '.jpg|.gif|.png|.jpeg|.gif|.JPG|.PNG|.JPEG|.Png|.GIF';
 }
@@ -236,7 +236,7 @@ foreach ($config['theme'][$nametype]['lv'] as $key => $value) {
     $config["news"][$nametype]["gallery_$value"] = array();
     $config["news"][$nametype]["mota_$value"] = true;
     $config["news"][$nametype]["seo_$value"] = true;
-    $config["news"][$nametype]["size_images_$value"] = '1366x470';
+    $config["news"][$nametype]["size_images_$value"] = '1920x470';
     $config["news"][$nametype]["size_images1_$value"] = '24x24';
     $config["news"][$nametype]["thumb_$value"] = '100x100x1';
     $config["news"][$nametype]["img_type_$value"] = '.jpg|.gif|.png|.jpeg|.gif|.JPG|.PNG|.JPEG|.Png|.GIF';

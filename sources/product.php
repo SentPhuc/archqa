@@ -8,6 +8,30 @@ if(!defined('SOURCES')) die("Error");
 @$ids = htmlspecialchars($_GET['ids']);
 @$idb = htmlspecialchars($_GET['idb']);
 
+if ($idl > 0 || $idc > 0) {
+	/* get data filter */
+	$whereFilter = "";
+	$arrId = [];
+	$idPros = [];
+	@$sort = !empty($_GET['sort']) ? htmlspecialchars($_GET['sort']) : '';
+	@$keyword = !empty($_GET['keyword']) ? htmlspecialchars($_GET['keyword']) : '';
+	foreach ($_GET as $key => $value) {
+		if ($key!='idl' && $key!='sort' && $key!='keyword') {
+			array_push($arrId,$value);
+		}
+	}
+	if (!empty($arrId)) {
+		$getPro = $d->rawQuery("select DISTINCT id_pro from #_filter where id_filter IN (".implode(',',$arrId).")");
+		foreach ($getPro as $value) {
+			array_push($idPros,$value['id_pro']);
+		}
+		if (!empty($idPros)) {
+			$whereFilter = " and id in (".implode(',',$idPros).")";
+		}else{
+			$whereFilter = " and id in (0)";
+		}
+	}
+}
 $getDatasql = "photo, ten$lang as ten, tenkhongdau$lang as tenkhongdau, giamoi, gia, giakm, id";
 $getDatasqlDetail = "type, id, ten$lang, tenkhongdauvi, tenkhongdauen, mota$lang, noidung$lang, masp, luotxem, id_brand, id_mau, id_size, id_list, id_cat, id_item, id_sub, id_tags, photo, options, giakm, giamoi, gia";
 
@@ -126,17 +150,30 @@ if($id!='')
 	}
 
 	/* Lấy sản phẩm */
-	$where = "";
-	$where = "id_list = ? and type = ? and hienthi > 0";
+	$where = "id <> 0";
+	$orderBy = "order by stt,id desc";
+	if ($sort) {
+		if ($sort=='date') {
+			$orderBy = "order by ngaytao desc";
+		}else if($sort=='like'){
+			$orderBy = "order by countLike desc";
+		}
+	}
+
+	if ($keyword) {
+		$where .= " and (ten$lang LIKE '%$keyword%' or tenkhongdauvi LIKE '%$keyword%' or tenkhongdauen LIKE '%$keyword%')";
+	}
+
+	$where .= " and id_list = ? and type = ? and hienthi > 0";
 	$params = array($idl,$type);
 
 	$curPage = $get_page;
 	$per_page = $optsetting["countpro1"];
 	$startpoint = ($curPage * $per_page) - $per_page;
 	$limit = " limit ".$startpoint.",".$per_page;
-	$sql = "select $getDatasql from #_product where $where order by stt,id desc $limit";
+	$sql = "select $getDatasql from #_product where $where $whereFilter $orderBy $limit";
 	$product = $d->rawQuery($sql,$params);
-	$sqlNum = "select count(*) as 'num' from #_product where $where order by stt,id desc";
+	$sqlNum = "select count(*) as 'num' from #_product where $where $whereFilter $orderBy";
 	$count = $d->rawQueryOne($sqlNum,$params);
 	$total = $count['num'];
 	$url = $func->getCurrentPageURL();
@@ -149,14 +186,15 @@ if($id!='')
 
 	$catNav = null;
 	if ($pro_list['cat'] > 0) {
-        $catNav = $d->rawQuery("select ten$lang as ten,id,tenkhongdau$lang as tenkhongdau from #_product_cat where type = ? and id_list = ? and hienthi = 1 order by stt,id desc",array($type,$idl));
-    }
-    $listNav = $d->rawQuery("select ten$lang as ten,id,tenkhongdau$lang as tenkhongdau,photo1,photo2 from #_product_list where type = ? and hienthi = 1 order by stt,id desc",array($type));
+		$catNav = $d->rawQuery("select ten$lang as ten,id,tenkhongdau$lang as tenkhongdau from #_product_cat where type = ? and id_list = ? and hienthi = 1 order by stt,id desc",array($type,$idl));
+	}
+	$listNav = $d->rawQuery("select ten$lang as ten,id,tenkhongdau$lang as tenkhongdau,photo1,photo2 from #_product_list where type = ? and hienthi = 1 order by stt,id desc",array($type));
 
-    $idlActive = $pro_list['id'];
-    $idcActive = null;
-    $linkAllCat = $pro_list['tenkhongdau'.$lang];
-    $filterList = explode(',',$pro_list['id_filter']);
+	$idlActive = $pro_list['id'];
+	$idcActive = null;
+	$linkAllCat = $pro_list['tenkhongdau'.$lang];
+	$filterList = !empty($pro_list['id_filter']) ? explode(',',$pro_list['id_filter']) : null;
+	$pathFilters = $pro_list['tenkhongdau'.$lang];
 
 }
 else if($idc!='')
@@ -169,7 +207,19 @@ else if($idc!='')
 	$pro_list = $d->rawQueryOne("select id, ten$lang, tenkhongdauvi, tenkhongdauen,cat,id_filter from #_product_list where id = ? and type = ? limit 0,1",array($pro_cat['id_list'],$type));
 
 	/* Lấy sản phẩm */
-	$where = "";
+	$where = "id <> 0";
+	$orderBy = "order by stt,id desc";
+	if ($sort) {
+		if ($sort=='date') {
+			$orderBy = "order by ngaytao desc";
+		}else if($sort=='like'){
+			$orderBy = "order by countLike desc";
+		}
+	}
+
+	if ($keyword) {
+		$where .= " and (ten$lang LIKE '%$keyword%' or tenkhongdauvi LIKE '%$keyword%' or tenkhongdauen LIKE '%$keyword%')";
+	}
 	$where = "id_cat = ? and type = ? and hienthi > 0";
 	$params = array($idc,$type);
 
@@ -177,9 +227,9 @@ else if($idc!='')
 	$per_page = $optsetting["countpro1"];
 	$startpoint = ($curPage * $per_page) - $per_page;
 	$limit = " limit ".$startpoint.",".$per_page;
-	$sql = "select $getDatasql from #_product where $where order by stt,id desc $limit";
+	$sql = "select $getDatasql from #_product where $where $whereFilter $orderBy $limit";
 	$product = $d->rawQuery($sql,$params);
-	$sqlNum = "select count(*) as 'num' from #_product where $where order by stt,id desc";
+	$sqlNum = "select count(*) as 'num' from #_product where $where $whereFilter $orderBy";
 	$count = $d->rawQueryOne($sqlNum,$params);
 	$total = $count['num'];
 	$url = $func->getCurrentPageURL();
@@ -216,14 +266,15 @@ else if($idc!='')
 
 	$catNav = null;
 	if ($pro_list['cat'] > 0) {
-        $catNav = $d->rawQuery("select ten$lang as ten,id,tenkhongdau$lang as tenkhongdau from #_product_cat where type = ? and id_list = ? and hienthi = 1 order by stt,id desc",array($type,$pro_list['id']));
-    }
-    $listNav = $d->rawQuery("select ten$lang as ten,id,tenkhongdau$lang as tenkhongdau,photo1,photo2 from #_product_list where type = ? and hienthi = 1 order by stt,id desc",array($type));
+		$catNav = $d->rawQuery("select ten$lang as ten,id,tenkhongdau$lang as tenkhongdau from #_product_cat where type = ? and id_list = ? and hienthi = 1 order by stt,id desc",array($type,$pro_list['id']));
+	}
+	$listNav = $d->rawQuery("select ten$lang as ten,id,tenkhongdau$lang as tenkhongdau,photo1,photo2 from #_product_list where type = ? and hienthi = 1 order by stt,id desc",array($type));
 
-    $idlActive = $pro_list['id'];
-    $idcActive = $pro_cat['id'];
-    $linkAllCat = $pro_list['tenkhongdau'.$lang];
-    $filterList = explode(',',$pro_list['id_filter']);
+	$idlActive = $pro_list['id'];
+	$idcActive = $pro_cat['id'];
+	$linkAllCat = $pro_list['tenkhongdau'.$lang];
+	$filterList = !empty($pro_list['id_filter']) ? explode(',',$pro_list['id_filter']) : null;
+	$pathFilters = $pro_cat['tenkhongdau'.$lang];
 }
 else if($idi!='')
 {
@@ -463,10 +514,11 @@ else
 	$breadcrumbs = $breadcr->getBreadCrumbs();
 
 	$catNav = null;
-    $listNav = $d->rawQuery("select ten$lang as ten,id,tenkhongdau$lang as tenkhongdau,photo1,photo2 from #_product_list where type = ? and hienthi = 1 order by stt,id desc",array($type));
-    $idlActive = null;
-    $idcActive = null;
-    $linkAllCat = null;
-    $filterList = null;
+	$listNav = $d->rawQuery("select ten$lang as ten,id,tenkhongdau$lang as tenkhongdau,photo1,photo2 from #_product_list where type = ? and hienthi = 1 order by stt,id desc",array($type));
+	$idlActive = null;
+	$idcActive = null;
+	$linkAllCat = null;
+	$filterList = null;
+	$pathFilters = $com;
 }
 ?>

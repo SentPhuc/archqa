@@ -1,9 +1,16 @@
 <?php
 
 /* Config type - Group */
+
+$arrGroupProductInProduct = array("product");
+if (!empty($func->isArrayFilter('type'))) {
+    foreach ($func->isArrayFilter('type') as $value) {
+        array_push($arrGroupProductInProduct,$value);
+    }
+}
 $config['group'] = array(
     "Group sản phẩm" => array(
-        "product" => array("product","filter-by-style","filter-by-color","filter-by-finish-effect","filter-by-layout","filter-by-material","filter-by-configuration","filter-by-type"),
+        "product" => $arrGroupProductInProduct,
         "tags" => array("product"),
         "news" => array("quy-trinh-dat-hang"),
         "photo_static" => array("banner-san-pham"),

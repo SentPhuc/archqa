@@ -253,67 +253,47 @@ else
 						</div>
 					</div>
 					<?php if(isset($config['product'][$type]['filter']) && $config['product'][$type]['filter'] == true) { ?>
-						<?php if (!empty($_GET['id_list'])) {
-							$arrayBy = array(
-								'id_bystyle' => 'By Style',
-								'id_bycolor' => 'By Color',
-								'id_byfinisheffect' => 'By Finish Effect',
-								'id_bylayout' => 'By Layout',
-								'id_bymaterial' => 'By Material',
-								'id_byconfiguration' => 'By Configuration',
-								'id_bytype' => 'By type',
-							);
-
-							$filter = null;
-							$getList = $d->rawQueryOne("select id_filter from #_product_list where id = '".$_GET['id_list']."' and type = '".$type."' order by stt,id desc");
-							?>
-							<?php if (count($getList) > 0) {?>
-								<?php foreach (explode(',',$getList['id_filter']) as $keys => $values) {
-									$typeFilter = '';
-									if ($values=='id_bystyle') {
-										$typeFilter = 'filter-by-style';
-									}elseif($values=='id_bycolor'){
-										$typeFilter = 'filter-by-color';
-									}elseif($values=='id_byfinisheffect'){
-										$typeFilter = 'filter-by-finish-effect';
-									}elseif($values=='id_bylayout'){
-										$typeFilter = 'filter-by-layout';
-									}elseif($values=='id_bymaterial'){
-										$typeFilter = 'filter-by-material';
-									}elseif($values=='id_byconfiguration'){
-										$typeFilter = 'filter-by-configuration';
-									}else{
-										$typeFilter = 'filter-by-type';
-									}
-
-									$filter = $d->rawQuery("select tenvi, id from #_product where type = '".$typeFilter."' order by stt,id desc");
-									?>
-									<div class="card card-primary card-outline text-sm">
-										<div class="card-header">
-											<h3 class="card-title">Danh mục filter <?=$arrayBy[$values] ?></h3>
-											<div class="card-tools">
-												<button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+						<div id="load-filter">
+							<?php if (!empty($_GET['id_list'])) {
+								$arrayBy = $func->isArrayFilter();
+								$filter = null;
+								$getList = $d->rawQueryOne("select id_filter from #_product_list where id = '".$_GET['id_list']."' and type = '".$type."' order by stt,id desc");
+								?>
+								<?php if (!empty($getList['id_filter'])) {?>
+									<?php foreach (explode(',',$getList['id_filter']) as $keys => $values) {
+										$getIsArrayFilterType = $func->isArrayFilter('type');
+										if (!empty($values)) {
+											$typeFilter = $getIsArrayFilterType[$values];
+										}
+										$filter = $d->rawQuery("select tenvi, id from #_product where type = '".$typeFilter."' order by stt,id desc");
+										?>
+										<div class="card card-primary card-outline text-sm">
+											<div class="card-header">
+												<h3 class="card-title">Danh mục filter <?=$arrayBy[$values] ?></h3>
+												<div class="card-tools">
+													<button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+												</div>
 											</div>
-										</div>
-										<div class="card-body">
-											<div class="form-group-category row" id="load-filter">
-												<?php foreach ($filter as $key1 => $value1) {
-													$getidFilter = $d->rawQueryOne("select id_filter from #_filter where id_pro = '".$item['id']."' and id_list_filter = '".$values."' and id_filter = '".$value1['id']."'");
-													?>
-													<div class="form-group col-xl-4 col-sm-4 mb-1">
-														<div class="custom-control custom-radio">
-															<input class="custom-control-input" <?=($value1['id']==$getidFilter['id_filter']) ? "checked":""?> type="radio" id="filter-<?=$value1['id']?>" value="<?=$value1['id']?>" name="filter_group[<?=$values?>][items]">
-															<input type="hidden" value="<?=$values?>" name="filter_group[<?=$values?>][list]">
-															<label class="ml-1 custom-control-label" for="filter-<?=$value1['id']?>"><?=$value1['tenvi']?></label>
+											<div class="card-body">
+												<div class="form-group-category row">
+													<?php foreach ($filter as $key1 => $value1) {
+														$getidFilter = $d->rawQueryOne("select id_filter from #_filter where id_pro = '".$item['id']."' and id_list_filter = '".$values."' and id_filter = '".$value1['id']."'");
+														?>
+														<div class="form-group col-xl-4 col-sm-4 mb-1">
+															<div class="custom-control custom-radio">
+																<input class="custom-control-input" <?=($value1['id']==$getidFilter['id_filter']) ? "checked":""?> type="radio" id="filter-<?=$value1['id']?>" value="<?=$value1['id']?>" name="filter_group[<?=$values?>][items]">
+																<input type="hidden" value="<?=$values?>" name="filter_group[<?=$values?>][list]">
+																<label class="ml-1 custom-control-label" for="filter-<?=$value1['id']?>"><?=$value1['tenvi']?></label>
+															</div>
 														</div>
-													</div>
-												<?php } ?>
+													<?php } ?>
+												</div>
 											</div>
 										</div>
-									</div>
+									<?php } ?>
 								<?php } ?>
 							<?php } ?>
-						<?php } ?>
+						</div>
 					<?php } ?>
 				<?php } ?>
 				

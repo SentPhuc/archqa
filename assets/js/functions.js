@@ -40,12 +40,12 @@ function loadPagingAjax(url='',eShow='')
     }
 }
 
-function doEnter(event,obj)
+function doEnter(event,obj,type='')
 {
-    if(event.keyCode == 13 || event.which == 13) onSearch(obj);
+    if(event.keyCode == 13 || event.which == 13) onSearch(obj,type);
 }
 
-function onSearch(obj) 
+function onSearch(obj,type='') 
 {           
     var keyword = $("#"+obj).val();
     
@@ -56,7 +56,12 @@ function onSearch(obj)
     }
     else
     {
-        location.href = "tim-kiem?keyword="+encodeURI(keyword);
+        if (type) {
+            var url = pathFilters;
+        }else{
+            var url = "tim-kiem";
+        }
+        location.href = url+'?keyword='+encodeURI(keyword);
         loadPage(document.location);            
     }
 }
@@ -142,4 +147,235 @@ function load_ship(id=0)
             }
         }); 
     }
+}
+
+function getTypeUrlFilter(key,id,type) {
+    var url_bystyle = '',url_bycolor = '',url_byfinisheffect = '',url_bylayout = '',url_bymaterial = '',url_byconfiguration = '',url_bytype = '';
+    var url = '';
+    var id_bystyle = ($("#id_bystyle").val() > 0) ? $("#id_bystyle").val() : 0;
+    var id_bycolor = ($("#id_bycolor").val() > 0) ? $("#id_bycolor").val() : 0;
+    var id_byfinisheffect = ($("#id_byfinisheffect").val() > 0) ? $("#id_byfinisheffect").val() : 0;
+    var id_bylayout = ($("#id_bylayout").val() > 0) ? $("#id_bylayout").val() : 0;
+    var id_bymaterial = ($("#id_bymaterial").val() > 0) ? $("#id_bymaterial").val() : 0;
+    var id_byconfiguration = ($("#id_byconfiguration").val() > 0) ? $("#id_byconfiguration").val() : 0;
+    var id_bytype = ($("#id_bytype").val() > 0) ? $("#id_bytype").val() : 0;
+    if (type=='cat') {
+        if (key=='id_bystyle') {
+            url_bystyle = key+'='+id+'&';
+            if (id_bycolor > 0) {
+                url_bycolor = 'id_bycolor='+id_bycolor+'&';
+            }
+            if (id_byfinisheffect > 0) {
+                url_byfinisheffect = 'id_byfinisheffect='+id_byfinisheffect+'&';
+            }
+            if (id_bylayout > 0) {
+                url_bylayout = 'id_bylayout='+id_bylayout+'&';
+            }
+            if (id_bymaterial > 0) {
+                url_bymaterial = 'id_bymaterial='+id_bymaterial+'&';
+            }
+            if (id_byconfiguration > 0) {
+                url_byconfiguration = 'id_byconfiguration='+id_byconfiguration+'&';
+            }
+            if (id_bytype > 0) {
+                url_bytype = 'id_bytype='+id_bytype+'&';
+            }
+            if (id == 0 && key=='id_bystyle') {
+                url = url_bycolor + url_byfinisheffect + url_bylayout + url_bymaterial + url_byconfiguration + url_bytype;
+            }else{
+                url = url_bystyle + url_bycolor + url_byfinisheffect + url_bylayout + url_bymaterial + url_byconfiguration + url_bytype;
+            }
+        }
+
+        if (key=='id_bycolor') {
+            if (id_bystyle > 0) {
+                url_bystyle = 'id_bystyle='+id_bystyle+'&';
+            }
+            url_bycolor = key+'='+id+'&';
+            if (id_byfinisheffect > 0) {
+                url_byfinisheffect = 'id_byfinisheffect='+id_byfinisheffect+'&';
+            }
+            if (id_bylayout > 0) {
+                url_bylayout = 'id_bylayout='+id_bylayout+'&';
+            }
+            if (id_bymaterial > 0) {
+                url_bymaterial = 'id_bymaterial='+id_bymaterial+'&';
+            }
+            if (id_byconfiguration > 0) {
+                url_byconfiguration = 'id_byconfiguration='+id_byconfiguration+'&';
+            }
+            if (id_bytype > 0) {
+                url_bytype = 'id_bytype='+id_bytype+'&';
+            }
+            if (id == 0 && key=='id_bycolor') {
+                url = url_bystyle + url_byfinisheffect + url_bylayout + url_bymaterial + url_byconfiguration + url_bytype;
+            }else{
+                url = url_bystyle + url_bycolor + url_byfinisheffect + url_bylayout + url_bymaterial + url_byconfiguration + url_bytype;
+            }
+        }
+
+        if (key=='id_byfinisheffect') {
+            if (id_bystyle > 0) {
+                url_bystyle = 'id_bystyle='+id_bystyle+'&';
+            }
+            if (id_bycolor > 0) {
+                url_bycolor = 'id_bycolor='+id_bycolor+'&';
+            }
+            url_byfinisheffect = key+'='+id+'&';
+            if (id_bylayout > 0) {
+                url_bylayout = 'id_bylayout='+id_bylayout+'&';
+            }
+            if (id_bymaterial > 0) {
+                url_bymaterial = 'id_bymaterial='+id_bymaterial+'&';
+            }
+            if (id_byconfiguration > 0) {
+                url_byconfiguration = 'id_byconfiguration='+id_byconfiguration+'&';
+            }
+            if (id_bytype > 0) {
+                url_bytype = 'id_bytype='+id_bytype+'&';
+            }
+            if (id == 0 && key=='id_byfinisheffect') {
+                url = url_bystyle + url_bycolor + url_bylayout + url_bymaterial + url_byconfiguration + url_bytype;
+            }else{
+                url = url_bystyle + url_bycolor + url_byfinisheffect + url_bylayout + url_bymaterial + url_byconfiguration + url_bytype;
+            }
+        }
+
+        if (key=='id_bylayout') {
+            if (id_bystyle > 0) {
+                url_bystyle = 'id_bystyle='+id_bystyle+'&';
+            }
+            if (id_bycolor > 0) {
+                url_bycolor = 'id_bycolor='+id_bycolor+'&';
+            }
+            if (id_byfinisheffect > 0) {
+                url_byfinisheffect = 'id_byfinisheffect='+id_byfinisheffect+'&';
+            }
+            url_bylayout = key+'='+id+'&';
+            if (id_bymaterial > 0) {
+                url_bymaterial = 'id_bymaterial='+id_bymaterial+'&';
+            }
+            if (id_byconfiguration > 0) {
+                url_byconfiguration = 'id_byconfiguration='+id_byconfiguration+'&';
+            }
+            if (id_bytype > 0) {
+                url_bytype = 'id_bytype='+id_bytype+'&';
+            }
+            if (id == 0 && key=='id_bylayout') {
+                url = url_bystyle + url_bycolor + url_byfinisheffect + url_bymaterial + url_byconfiguration + url_bytype;
+            }else{
+                url = url_bystyle + url_bycolor + url_byfinisheffect + url_bylayout + url_bymaterial + url_byconfiguration + url_bytype;
+            }
+        }
+
+        if (key=='id_bymaterial') {
+            if (id_bystyle > 0) {
+                url_bystyle = 'id_bystyle='+id_bystyle+'&';
+            }
+            if (id_bycolor > 0) {
+                url_bycolor = 'id_bycolor='+id_bycolor+'&';
+            }
+            if (id_byfinisheffect > 0) {
+                url_byfinisheffect = 'id_byfinisheffect='+id_byfinisheffect+'&';
+            }
+            if (id_bylayout > 0) {
+                url_bylayout = 'id_bylayout='+id_bylayout+'&';
+            }
+            url_bymaterial = key+'='+id+'&';
+            if (id_byconfiguration > 0) {
+                url_byconfiguration = 'id_byconfiguration='+id_byconfiguration+'&';
+            }
+            if (id_bytype > 0) {
+                url_bytype = 'id_bytype='+id_bytype+'&';
+            }
+            if (id == 0 && key=='id_bymaterial') {
+                url = url_bystyle + url_bycolor + url_byfinisheffect + url_bylayout + url_byconfiguration + url_bytype;
+            }else{
+                url = url_bystyle + url_bycolor + url_byfinisheffect + url_bylayout + url_bymaterial + url_byconfiguration + url_bytype;
+            }
+        }
+
+        if (key=='id_byconfiguration') {
+            if (id_bystyle > 0) {
+                url_bystyle = 'id_bystyle='+id_bystyle+'&';
+            }
+            if (id_bycolor > 0) {
+                url_bycolor = 'id_bycolor='+id_bycolor+'&';
+            }
+            if (id_byfinisheffect > 0) {
+                url_byfinisheffect = 'id_byfinisheffect='+id_byfinisheffect+'&';
+            }
+            if (id_bylayout > 0) {
+                url_bylayout = 'id_bylayout='+id_bylayout+'&';
+            }
+            if (id_bymaterial > 0) {
+                url_bymaterial = 'id_bymaterial='+id_bymaterial+'&';
+            }
+            url_byconfiguration = key+'='+id+'&';
+            if (id_bytype > 0) {
+                url_bytype = 'id_bytype='+id_bytype+'&';
+            }
+            if (id == 0 && key=='id_byconfiguration') {
+                url = url_bystyle + url_bycolor + url_byfinisheffect + url_bylayout + url_bymaterial + url_bytype;
+            }else{
+                url = url_bystyle + url_bycolor + url_byfinisheffect + url_bylayout + url_bymaterial + url_byconfiguration + url_bytype;
+            }
+        }
+
+        if (key=='id_bytype') {
+            if (id_bystyle > 0) {
+                url_bystyle = 'id_bystyle='+id_bystyle+'&';
+            }
+            if (id_bycolor > 0) {
+                url_bycolor = 'id_bycolor='+id_bycolor+'&';
+            }
+            if (id_byfinisheffect > 0) {
+                url_byfinisheffect = 'id_byfinisheffect='+id_byfinisheffect+'&';
+            }
+            if (id_bylayout > 0) {
+                url_bylayout = 'id_bylayout='+id_bylayout+'&';
+            }
+            if (id_bymaterial > 0) {
+                url_bymaterial = 'id_bymaterial='+id_bymaterial+'&';
+            }
+            if (id_byconfiguration > 0) {
+                url_byconfiguration = 'id_byconfiguration='+id_byconfiguration+'&';
+            }
+            url_bytype = key+'='+id+'&';
+
+            if (id == 0 && key=='id_bytype') {
+                url = url_bystyle + url_bycolor + url_byfinisheffect + url_bylayout + url_bymaterial + url_byconfiguration;
+            }else{
+                url = url_bystyle + url_bycolor + url_byfinisheffect + url_bylayout + url_bymaterial + url_byconfiguration + url_bytype;
+            }
+        }
+    } else if(type=='sort'){
+        if (id_bystyle > 0) {
+            url += 'id_bystyle='+id_bystyle+'&';
+        }
+        if (id_bycolor > 0) {
+           url += 'id_bycolor='+id_bycolor+'&';
+       }
+       if (id_byfinisheffect > 0) {
+           url += 'id_byfinisheffect='+id_byfinisheffect+'&';
+       }
+       if (id_bylayout > 0) {
+           url += 'id_bylayout='+id_bylayout+'&';
+       }
+       if (id_bymaterial > 0) {
+           url += 'id_bymaterial='+id_bymaterial+'&';
+       }
+       if (id_byconfiguration > 0) {
+           url += 'id_byconfiguration='+id_byconfiguration+'&';
+       }
+       if (id_bytype > 0) {
+           url += 'id_byconfiguration='+id_byconfiguration+'&';
+       }
+       if ($('#keywordProuct').val()) {
+        url += 'keyword='+$('#keywordProuct').val()+'&';
+    }
+    url += 'sort='+key+'&';
+}
+
+return url;
 }

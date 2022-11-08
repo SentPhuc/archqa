@@ -2,37 +2,44 @@
 	<div class="main-navPage">
 		<div class="container">
 			<?php if (count($listNav) > 0) {?>
-				<div class="nav-list <?=$type?>">
-					<a class="text-decoration-none transition <?=($idlActive==null ? 'active':'')?>" href="<?=$com?>" title="Tất cả">
-							<span class="img">
-								<img onerror=src="<?=THUMBS."/24x24x1/"?>assets/images/noimage.png" src="<?=THUMBS."/24x24x1/"?>assets/images/icon-all.png" alt="Tất cả">
-								<img onerror=src="<?=THUMBS."/24x24x1/"?>assets/images/noimage.png" src="<?=THUMBS."/24x24x1/"?>assets/images/icon-all-active.png" alt="Tất cả">
-							</span>
-							Tất cả
-						</a>
-					<?php foreach ($listNav as $key => $value) {
-						$icon = THUMBS."/24x24x2/".UPLOAD_NEWS_L.$value['photo1'];
-						$iconHover = THUMBS."/24x24x2/".UPLOAD_NEWS_L.(!empty($value['photo2']) ? $value['photo2'] : $value['photo1']);
-						if ($type=='product') {
-							$icon = THUMBS."/24x24x2/".UPLOAD_PRODUCT_L.$value['photo1'];
-							$iconHover = THUMBS."/24x24x2/".UPLOAD_PRODUCT_L.(!empty($value['photo2']) ? $value['photo2'] : $value['photo1']);
-						}
-						$classActiveList = '';
-						if (@$idlActive == $value['id']) {
-							$classActiveList = 'active';
-						}else if($idl == $value['id']){
-							$classActiveList = 'active';
-						}
-
-						?>
-						<a class="text-decoration-none transition <?=$classActiveList?>" href="<?=$value['tenkhongdau']?>" title="<?=$value['ten']?>">
-							<span class="img">
-								<img onerror=src="<?=THUMBS."/24x24x1/"?>assets/images/noimage.png" src="<?=$icon?>" alt="<?=$value['ten']?>">
-								<img onerror=src="<?=THUMBS."/24x24x1/"?>assets/images/noimage.png" src="<?=$iconHover?>" alt="<?=$value['ten']?>">
-							</span>
-							<?=$value['ten']?>
-						</a>
-					<?php } ?>
+				<div class="nav-list classper <?=$type?>">
+					<div class="swiper-container">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide ">
+								<a class="text-decoration-none transition <?=($idlActive==null ? 'active':'')?>" href="<?=$com?>" title="Tất cả">
+									<span class="img">
+										<img onerror=src="<?=THUMBS."/24x24x1/"?>assets/images/noimage.png" src="<?=THUMBS."/24x24x1/"?>assets/images/icon-all.png" alt="Tất cả">
+										<img onerror=src="<?=THUMBS."/24x24x1/"?>assets/images/noimage.png" src="<?=THUMBS."/24x24x1/"?>assets/images/icon-all-active.png" alt="Tất cả">
+									</span>
+									Tất cả
+								</a>
+							</div>
+							<?php foreach ($listNav as $key => $value) {
+								$pathContant = UPLOAD_NEWS_L;
+								if ($type=='product') {
+									$pathContant = UPLOAD_PRODUCT_L;
+								}
+								$classActiveList = '';
+								if (@$idlActive == $value['id']) {
+									$classActiveList = 'active';
+								}else if($idl == $value['id']){
+									$classActiveList = 'active';
+								}
+								?>
+								<div class="swiper-slide">
+									<a class="text-decoration-none transition <?=$classActiveList?>" href="<?=$value['tenkhongdau']?>" title="<?=$value['ten']?>">
+										<?php if (!empty($value['photo1'])) {?>
+											<span class="img">
+												<img onerror=src="<?=THUMBS."/24x24x1/"?>assets/images/noimage.png" src="<?=THUMBS."/24x24x2/".$pathContant.$value['photo1']?>" alt="<?=$value['ten']?>">
+												<img onerror=src="<?=THUMBS."/24x24x1/"?>assets/images/noimage.png" src="<?=THUMBS."/24x24x2/".$pathContant.(!empty($value['photo2']) ? $value['photo2'] : $value['photo1'])?>" alt="<?=$value['ten']?>">
+											</span>
+										<?php } ?>
+										<?=$value['ten']?>
+									</a>
+								</div>
+							<?php } ?>
+						</div>
+					</div>
 				</div>
 			<?php } ?>
 			<?php if (count($catNav) > 0) {
@@ -63,4 +70,4 @@
 			<?php } ?>
 		</div>
 	</div>
-<?php } ?>
+	<?php } ?>

@@ -8,6 +8,7 @@
     var config_responsive = '<?=$config['website']['responsive']?>';
     var config_mobile = '<?=$config['website']['mobile']?>';
     var COUNTPRODUCT = '<?=!empty($optsetting['countpro'])?$optsetting['countpro']:0?>';
+    var pathFilters = '<?=!empty($pathFilters)?$config_base.$pathFilters:''?>';
     var language = {
         'no_keywords': '<?=chuanhaptukhoatimkiem?>',
         'delete_product_from_cart': '<?=banmuonxoasanphamnay?>',
@@ -16,7 +17,6 @@
         'back_to_home': '<?=vetrangchu?>',
     };
 </script>
-
 <!-- Js Files -->
 <?php
 $js->setCache("filejs");

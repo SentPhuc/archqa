@@ -9,6 +9,48 @@ class Functions
 		$this->db = $d;
 	}
 
+	public function isArrayFilter($kind=''){
+		$data = array(
+			'id_bystyle' => 'Theo phong cách',
+			'id_bycolor' => 'Theo màu sắc',
+			'id_byfinisheffect' => 'Theo hiệu ứng kết thúc',
+			'id_bylayout' => 'Theo bố cục',
+			'id_bymaterial' => 'Theo chất liệu',
+			'id_byconfiguration' => 'Theo cấu hình',
+			'id_bytype' => 'Theo loại',
+		);
+		if ($kind=='type') {
+			$data = array(
+				'id_bystyle' => 'filter-by-style',
+				'id_bycolor' => 'filter-by-color',
+				'id_byfinisheffect' => 'filter-by-finish-effect',
+				'id_bylayout' => 'filter-by-layout',
+				'id_bymaterial' => 'filter-by-material',
+				'id_byconfiguration' => 'filter-by-configuration',
+				'id_bytype' => 'filter-by-type',
+			);
+		}
+
+		if ($kind=='key') {
+			$data = array('id_bystyle','id_bycolor','id_byfinisheffect','id_bylayout','id_bymaterial','id_byconfiguration','id_bytype');
+		}
+		return $data;
+	}
+
+	public function setTitleFilter($id,$key,$onlyTitle = false){
+		global $lang;
+		$title = '';
+		if ($onlyTitle == false) {
+			$title = $this->isArrayFilter()[$key];
+		}
+		
+		if (!empty($id)) {
+			 $filterItem = $this->db->rawQueryOne("select ten$lang as ten from #_product where id = ? and hienthi = 1 order by stt,id desc",array($id));
+			 $title = $filterItem['ten'];
+		}
+		return $title;
+	}
+
 	/* Check URL */
 	public function checkURL($index=false)
 	{
@@ -1535,18 +1577,9 @@ class Functions
 				
 				for($i=0;$i<count($arr_tags);$i++) $temp[$i]=$arr_tags[$i];
 			}
-
-			$row_tags = array(
-				'id_bystyle' => 'By Style',
-				'id_bycolor' => 'By Color',
-				'id_byfinisheffect' => 'By Finish Effect',
-				'id_bylayout' => 'By Layout',
-				'id_bymaterial' => 'By Material',
-				'id_byconfiguration' => 'By Configuration',
-				'id_bytype' => 'By type',
-			);
+			
 			$str = '<select id="'.$element.'" name="'.$element.'[]" class="select multiselect" multiple="multiple" >';
-			foreach($row_tags as $key => $value){
+			foreach($this->isArrayFilter() as $key => $value){
 				if(isset($temp) && count($temp) > 0) {
 					if(in_array($key,$temp)) $selected = 'selected="selected"';
 					else $selected = '';

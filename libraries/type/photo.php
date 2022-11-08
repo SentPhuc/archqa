@@ -65,9 +65,9 @@ $config["photo"]['photo_static'][$nametype]["size_images"] = '1920x470';
 $config['photo']['photo_static'][$nametype]['thumb'] = '1920x470x1';
 $config['photo']['photo_static'][$nametype]['img_type'] = '.jpg|.gif|.png|.jpeg|.gif|.JPG|.PNG|.JPEG|.Png|.GIF';
 
-/* Banner sản phẩm */
+/* Banner menu sản phẩm */
 $nametype = "banner-san-pham";
-$config['photo']['photo_static'][$nametype]['title_main'] = "Banner sản phẩm";
+$config['photo']['photo_static'][$nametype]['title_main'] = "Banner menu sản phẩm";
 $config['photo']['photo_static'][$nametype]['images'] = true;
 $config["photo"]['photo_static'][$nametype]["size_images"] = '320x200';
 $config['photo']['photo_static'][$nametype]['thumb'] = '320x200x1';

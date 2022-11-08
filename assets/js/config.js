@@ -222,6 +222,13 @@ WEBSIETE.ClickActidve = function(){
             }
         });
     };
+
+    if($(".views-menuFilter").exists())
+    {
+        $('.views-menuFilter').click(function(){
+            $(this).parent('.item__filter').find('ul').stop().slideToggle('fast');
+        });
+    };
 };
 
 /* swiper */
@@ -285,6 +292,29 @@ WEBSIETE.swiper = function(){
             swiper[i].slideToLoop($(this).index(), 500, false);
         });
     };
+
+    if($(".classper").exists())
+    {
+        $('.classper .swiper-slide').click(function() {
+            $('.classper .swiper-slide').removeClass('on').eq($(this).index()).addClass('on');
+            $('.Ideamlis .Ideams').removeClass('on').eq($(this).index()).addClass('on');
+            classper.slideTo($(this).index(), 800, false);
+        })
+        var classper = new Swiper('.classper .swiper-container', {
+            preventClicks: false,
+            paginationClickable: true,
+            slidesPerView: 'auto',
+            observer: true,
+            observeParents: true,
+            prevButton: '.classper .bl',
+            nextButton: '.classper .br',
+            pagination: '.classper .swiper-pagination',
+        });
+        classper.slideTo($('.classper .swiper-slide.on').index(), 800, false);
+        $('.pal .page').click(function() {
+            $('.pal .page').removeClass('on').eq($(this).index()).addClass('on');
+        })
+    };
 };
 
 
@@ -320,20 +350,18 @@ WEBSIETE.FixMenu = function(){
     });
 };
 
-/* Fix menu */
+/* Filter Product */
 WEBSIETE.FilterProduct = function(){
     if($(".filter-item").exists())
     {
-        var url = document.URL;
-        var IDs = [];
         $('.filter-item').click(function(){
-            $(this).parents('ul').find('.filter-item').removeClass('active');
-            $(this).addClass("active");
-            var id = $('.filter-item.active').data('id');
-            if (IDs.indexOf(id) == -1) {
-                IDs.push(id);
-            }
-            console.log(IDs);
+            var url = '';
+            var id = $(this).data('id');
+            var key = $(this).data('key');
+            var type = $(this).data('type');
+            url += getTypeUrlFilter(key,id,type);
+            var allUrl = '?' + url;
+            window.location.href = pathFilters+allUrl.slice(0,-1);
         });
     };
 };

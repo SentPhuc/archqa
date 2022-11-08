@@ -35,7 +35,9 @@
                                         </ul>
                                         <div class="img">
                                             <h3 class="name"><?=$value['ten']?></h3>
-                                            <?=$func->get_photo_static("",THUMBS."/320x200x1",false,UPLOAD_PRODUCT_L.$value['photo']);?>
+                                            <?php if (!empty($value['photo'])) {?>
+                                                <?=$func->get_photo_static("",THUMBS."/320x200x1",false,UPLOAD_PRODUCT_L.$value['photo']);?>
+                                            <?php } ?>
                                             <div class="desc line-3"><?=strip_tags(htmlspecialchars_decode($value['mota']))?></div>
                                         </div>
                                     </div>

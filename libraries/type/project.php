@@ -59,7 +59,7 @@ foreach ($config['theme'][$nametype]['lv'] as $key => $value) {
 	$config["project"][$nametype]["gallery_$value"] = array();
 	$config["project"][$nametype]["mota_$value"] = true;
 	$config["project"][$nametype]["seo_$value"] = true;
-	$config["project"][$nametype]["size_images_$value"] = '1366x470';
+	$config["project"][$nametype]["size_images_$value"] = '1920x470';
 	$config["project"][$nametype]["thumb_$value"] = '100x100x1';
 	$config["project"][$nametype]["img_type_$value"] = '.jpg|.gif|.png|.jpeg|.gif|.JPG|.PNG|.JPEG|.Png|.GIF';
 }
