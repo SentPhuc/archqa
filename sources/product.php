@@ -8,11 +8,13 @@ if(!defined('SOURCES')) die("Error");
 @$ids = htmlspecialchars($_GET['ids']);
 @$idb = htmlspecialchars($_GET['idb']);
 
-if ($idl > 0 || $idc > 0) {
+if ($idl > 0 || $idc > 0 || $com == 'product') {
 	/* get data filter */
-	$whereFilter = $func->getDataFilter($_GET);
 	@$sort = !empty($_GET['sort']) ? htmlspecialchars($_GET['sort']) : '';
-	@$keyword = !empty($_GET['keyword']) ? htmlspecialchars($_GET['keyword']) : '';
+	if ($idl > 0 || $idc > 0) {
+		@$keyword = !empty($_GET['keyword']) ? htmlspecialchars($_GET['keyword']) : '';
+		$whereFilter = $func->getDataFilter($_GET);
+	}
 }
 $getDatasql = "photo, ten$lang as ten, tenkhongdau$lang as tenkhongdau, giamoi, gia, giakm, id,masp,countLike";
 $getDatasqlDetail = "type, id, ten$lang, tenkhongdauvi, tenkhongdauen, mota$lang, noidung$lang, masp, luotxem, id_brand, id_mau, id_size, id_list, id_cat, id_item, id_sub, id_tags, photo, options, giakm, giamoi, gia";
@@ -28,7 +30,7 @@ if($id!='')
 	$d->update('product',$data_luotxem);
 
 	/* Lấy tags */
-	if($row_detail['id_tags']) $pro_tags = $d->rawQuery("select id, ten$lang, tenkhongdauvi, tenkhongdauen from #_tags where id in (".$row_detail['id_tags'].") and type='".$type."'");
+	$tags = $func->getTagsInCategoryOrProduct($row_detail['id_tags'],0,$type);
 
 	/* Lấy thương hiệu */
 	$pro_brand = $d->rawQuery("select ten$lang, tenkhongdauvi, tenkhongdauen, id from #_product_brand where id = ? and type = ? and hienthi > 0",array($row_detail['id_brand'],$type));
@@ -106,7 +108,12 @@ if($id!='')
 	$banner = true;
 
 	/* Lấy cấp 1 detail */
-	$pro_list = $d->rawQueryOne("select id, ten$lang, tenkhongdauvi, tenkhongdauen, type, photo, options,hienthi,mota$lang,cat,id_filter from #_product_list where id = ? and type = ? limit 0,1",array($idl,$type));
+	$pro_list = $d->rawQueryOne("select id, ten$lang, tenkhongdauvi, tenkhongdauen, type, photo, options,hienthi,mota$lang,noidung$lang,cat,id_filter from #_product_list where id = ? and type = ? limit 0,1",array($idl,$type));
+
+	$getQA = $d->rawQuery("select ten$lang, mota$lang from #_gallery where id_photo = ? and com='product' and type = ? and kind='man_list' and val = ? and hienthi > 0 order by stt,id desc",array($pro_list['id'],$type,'tuy-chinh'));
+
+	$contentPro = $pro_list['noidung'.$lang];
+	$tags = $func->getTagsInCategoryOrProduct(0,$idl,$type);
 
 	/* SEO */
 	$title_cat = $pro_list['ten'.$lang];
@@ -186,7 +193,11 @@ else if($idc!='')
 	$pro_cat = $d->rawQueryOne("select id, id_list, ten$lang, tenkhongdauvi, tenkhongdauen, type, photo, options from #_product_cat where id = ? and type = ? limit 0,1",array($idc,$type));
 
 	/* Lấy cấp 1 */
-	$pro_list = $d->rawQueryOne("select id, ten$lang, tenkhongdauvi, tenkhongdauen,cat,id_filter from #_product_list where id = ? and type = ? limit 0,1",array($pro_cat['id_list'],$type));
+	$pro_list = $d->rawQueryOne("select id, ten$lang, tenkhongdauvi, tenkhongdauen,cat,id_filter,noidung$lang from #_product_list where id = ? and type = ? limit 0,1",array($pro_cat['id_list'],$type));
+
+	$contentPro = $pro_list['noidung'.$lang];
+
+	$getQA = $d->rawQuery("select ten$lang, mota$lang from #_gallery where id_photo = ? and com='product' and type = ? and kind='man_list' and val = ? and hienthi > 0 order by stt,id desc",array($pro_list['id'],$type,'tuy-chinh'));
 
 	/* Lấy sản phẩm */
 	$where = "id <> 0";
@@ -436,6 +447,15 @@ else
 
 	/* Lấy tất cả sản phẩm */
 	$where = "";
+	$orderBy = "order by stt,id desc";
+	if ($sort) {
+		if ($sort=='date') {
+			$orderBy = "order by ngaytao desc";
+		}else if($sort=='like'){
+			$orderBy = "order by countLike desc";
+		}
+	}
+
 	$where = "type = ? and hienthi > 0";
 	$params = array($type);
 
@@ -483,9 +503,9 @@ else
 	$per_page = $optsetting["countpro1"];
 	$startpoint = ($curPage * $per_page) - $per_page;
 	$limit = " limit ".$startpoint.",".$per_page;
-	$sql = "select $getDatasql from #_product where $where order by stt,id desc $limit";
+	$sql = "select $getDatasql from #_product where $where $orderBy $limit";
 	$product = $d->rawQuery($sql,$params);
-	$sqlNum = "select count(*) as 'num' from #_product where $where order by stt,id desc";
+	$sqlNum = "select count(*) as 'num' from #_product where $where $orderBy";
 	$count = $d->rawQueryOne($sqlNum,$params);
 	$total = $count['num'];
 	$url = $func->getCurrentPageURL();

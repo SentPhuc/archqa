@@ -73,7 +73,7 @@ $config = array(
 		)
 	),'theme' => array(
 		'product' => array('tbl' => 'product','dir' => UPLOAD_PRODUCT_L,'column' => 'photo','size' => THUMBS.'/425x300x1','lv' => array('list','cat')),
-		'project' => array('tbl' => 'project','dir' => UPLOAD_PRODUCT_L,'column' => 'photo','size' => THUMBS.'/425x300x1','lv' => array('list')),
+		'project' => array('tbl' => 'project','dir' => UPLOAD_PROJECT_L,'column' => 'photo','size' => THUMBS.'/425x300x1','lv' => array('list')),
 		'quy-trinh-dat-hang' => array('tbl' => 'news','dir' => UPLOAD_NEWS_L,'column' => 'photo','size' => THUMBS.'/36x36x1','lv' => array()),
 		'about' => array('tbl' => 'news','dir' => UPLOAD_NEWS_L,'column' => 'photo','size' => THUMBS.'/305x288x1','lv' => array()),
 		'videos' => array('tbl' => 'news','dir' => UPLOAD_NEWS_L,'column' => 'photo','size' => THUMBS.'/406x306x1','lv' => array('list')),

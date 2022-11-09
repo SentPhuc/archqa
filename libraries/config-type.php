@@ -50,9 +50,9 @@ $config['newsletter'][$nametype]['showdienthoai'] = true;
 $config['newsletter'][$nametype]['showngaytao'] = true;
 $config['newsletter'][$nametype]['file_type'] = 'doc|docx|pdf|rar|zip|ppt|pptx|DOC|DOCX|PDF|RAR|ZIP|PPT|PPTX|xls|jpg|png|gif|JPG|PNG|GIF|xls|XLS';
 
-/* Dowload catalog */
+/* Download catalog */
 $nametype = "dowload-catalog";
-$config['newsletter'][$nametype]['title_main'] = "Dowload catalog";
+$config['newsletter'][$nametype]['title_main'] = "Download catalog";
 $config['newsletter'][$nametype]['source'] = false;
 $config['newsletter'][$nametype]['qty'] = true;
 $config['newsletter'][$nametype]['product'] = true;

@@ -11,7 +11,7 @@
     include TEMPLATE.LAYOUT."menu.php";
     if($source=='index') include TEMPLATE.LAYOUT."slide.php";
     else if($template!='news/ideas_detail') include TEMPLATE.LAYOUT."banner.php";
-    if($template!='news/about_detail') include TEMPLATE.LAYOUT."breadcrumb.php";
+    if($template!='news/about_detail' && ($template!='project/project' && @$idl!=0)) include TEMPLATE.LAYOUT."breadcrumb.php";
     ?>
     <?php
     include TEMPLATE.$template."_tpl.php";

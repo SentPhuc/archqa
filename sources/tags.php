@@ -1,8 +1,6 @@
 <?php  
 	if(!defined('SOURCES')) die("Error");
-		
 	$id = htmlspecialchars($_GET['id']);
-	
 	if($id)
 	{
 		/* Lấy tag detail */
@@ -14,7 +12,7 @@
 		$params = array($type);
 
 		/* Column for sản phẩm */
-		if($table == 'product') $col = "photo, ten$lang, tenkhongdauvi, tenkhongdauen, giamoi, gia, giakm, id";
+		if($table == 'product') $col = "photo, ten$lang as ten, tenkhongdau$lang as tenkhongdau, giamoi, gia, giakm, id,masp,countLike";
 
 		/* Column for bài viết */
 		if($table == 'news') $col = "photo, ten$lang, tenkhongdauvi, tenkhongdauen, mota$lang, noidung$lang, ngaytao, id";

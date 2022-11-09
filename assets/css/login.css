@@ -1,6 +1,6 @@
-.wrap-user{width:100%;max-width:550px;margin:auto;border:1px solid #bce8f1;border-radius:5px;}
-.title-user{background-color:#d9edf7;padding:12px 15px;border-radius:5px 5px 0px 0px;}
-.title-user span{color:#31708f;}
+.wrap-user{width:100%;max-width:550px;margin:auto;border:1px solid #c7c7c7;border-radius:5px;}
+.title-user{background-color:#c7c7c7;padding:12px 15px;border-radius:5px 5px 0px 0px;}
+.title-user span{color:var(--color__text);}
 .title-user a{color:#0056b3;font-size:12px;}
 .form-user{padding:20px 15px;}
 .input-user{margin-bottom:0.75rem;}

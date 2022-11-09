@@ -1,4 +1,4 @@
-<div class="wrap-user">
+<div class="wrap-user mt40">
     <div class="title-user">
         <span><?=thongtincanhan?></span>
     </div>

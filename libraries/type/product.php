@@ -63,6 +63,8 @@ foreach ($config['theme'][$nametype]['lv'] as $key => $value) {
         $config["product"][$nametype]["filter_$value"] = true;
         $config["product"][$nametype]["mota_$value"] = true;
         $config["product"][$nametype]["mota_cke_$value"] = true;
+        $config["product"][$nametype]["noidung_$value"] = true;
+        $config["product"][$nametype]["noidung_cke_$value"] = true;
         $config["product"][$nametype]["check_$value"] = array("noibat" => "Nổi bật","footer" => "Footer","cat" => "Show cat In");
         $config["product"][$nametype]["titlesub_$value"] = true;
         $config["product"][$nametype]["images_$value"] = true;
@@ -73,7 +75,7 @@ foreach ($config['theme'][$nametype]['lv'] as $key => $value) {
         $config["product"][$nametype]["size_images1_$value"] = '25x25';
         $config["product"][$nametype]["images2_$value"] = true;
         $config["product"][$nametype]["size_images2_$value"] = '1920x470';
-        $config["product"][$nametype]["images3_$value"] = true;
+        $config["product"][$nametype]["images3_$value"] = false;
         $config["product"][$nametype]["size_images3_$value"] = '1300x300';
     }
     $config["product"][$nametype]["show_gallery_$value"] = true;

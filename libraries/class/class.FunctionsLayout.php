@@ -40,7 +40,7 @@ class FunctionsLayout extends Functions
     }
     private function theme()
     {
-        global $config;
+        global $config,$login_member;
         foreach($this->varible as $i => $item) { ?>
             <div class="<?=$this->class?>">
                 <div class="img">
@@ -57,7 +57,7 @@ class FunctionsLayout extends Functions
                                     <img src="assets/images/icon14.png" alt="">
                                     <span class="couter-like"><?=(!empty($item["countLike"]))?$item["countLike"]:0?></span>
                                 </a>
-                                <a data-id="<?=$item['id']?>" data-event="save" data-table="<?=$this->tbl?>" data-type="<?=$this->type?>" class="handle-event text-decoration-none" href="javascript:;" title="Save">
+                                <a data-id="<?=$item['id']?>" data-user="<?=!empty($_SESSION[$login_member]['id']) ? $_SESSION[$login_member]['id'] : 0?>" data-event="save" data-table="<?=$this->tbl?>" data-type="<?=$this->type?>" class="handle-event text-decoration-none" href="javascript:;" title="Save">
                                     <img src="assets/images/icon15.png" alt="">
                                 </a>
                             </div>

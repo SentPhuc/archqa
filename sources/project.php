@@ -8,7 +8,7 @@ if(!defined('SOURCES')) die("Error");
 @$ids = htmlspecialchars($_GET['ids']);
 @$idb = htmlspecialchars($_GET['idb']);
 
-$getDatasql = "photo, ten$lang as ten, tenkhongdau$lang as tenkhongdau, giamoi, gia, giakm, id";
+$getDatasql = "photo, ten$lang as ten, tenkhongdau$lang as tenkhongdau, giamoi, gia, giakm, id,address,year,units";
 $getDatasqlDetail = "type, id, ten$lang, tenkhongdauvi, tenkhongdauen, mota$lang, noidung$lang, masp, luotxem, id_brand, id_mau, id_size, id_list, id_cat, id_item, id_sub, id_tags, photo, options, giakm, giamoi, gia";
 
 if($id!='')
@@ -76,12 +76,12 @@ if($id!='')
 	$img_json_bar = (isset($row_detail['options']) && $row_detail['options'] != '') ? json_decode($row_detail['options'],true) : null;
 	if($img_json_bar == null || ($img_json_bar['p'] != $row_detail['photo']))
 	{
-		$img_json_bar = $func->getImgSize($row_detail['photo'],UPLOAD_PRODUCT_L.$row_detail['photo']);
+		$img_json_bar = $func->getImgSize($row_detail['photo'],UPLOAD_PROJECT_L.$row_detail['photo']);
 		$seo->updateSeoDB(json_encode($img_json_bar),'project',$row_detail['id']);
 	}
 	if(count($img_json_bar) > 0)
 	{
-		$seo->setSeo('photo',$config_base.THUMBS.'/'.$img_json_bar['w'].'x'.$img_json_bar['h'].'x2/'.UPLOAD_PRODUCT_L.$row_detail['photo']);
+		$seo->setSeo('photo',$config_base.THUMBS.'/'.$img_json_bar['w'].'x'.$img_json_bar['h'].'x2/'.UPLOAD_PROJECT_L.$row_detail['photo']);
 		$seo->setSeo('photo:width',$img_json_bar['w']);
 		$seo->setSeo('photo:height',$img_json_bar['h']);
 		$seo->setSeo('photo:type',$img_json_bar['m']);
@@ -95,6 +95,7 @@ if($id!='')
 	if($pro_sub != null) $breadcr->setBreadCrumbs($pro_sub[$sluglang],$pro_sub['ten'.$lang]);
 	$breadcr->setBreadCrumbs($row_detail[$sluglang],$row_detail['ten'.$lang]);
 	$breadcrumbs = $breadcr->getBreadCrumbs();
+
 }else if($idl!=''){
 	/* Lấy cấp 1 detail */
 	$pro_list = $d->rawQueryOne("select id, ten$lang, tenkhongdauvi, tenkhongdauen, type, photo, options from #_project_list where id = ? and type = ? limit 0,1",array($idl,$type));
@@ -111,12 +112,12 @@ if($id!='')
 	$img_json_bar = (isset($pro_list['options']) && $pro_list['options'] != '') ? json_decode($pro_list['options'],true) : null;
 	if($img_json_bar == null || ($img_json_bar['p'] != $pro_list['photo']))
 	{
-		$img_json_bar = $func->getImgSize($pro_list['photo'],UPLOAD_PRODUCT_L.$pro_list['photo']);
+		$img_json_bar = $func->getImgSize($pro_list['photo'],UPLOAD_PROJECT_L.$pro_list['photo']);
 		$seo->updateSeoDB(json_encode($img_json_bar),'project_list',$pro_list['id']);
 	}
 	if(count($img_json_bar) > 0)
 	{
-		$seo->setSeo('photo',$config_base.THUMBS.'/'.$img_json_bar['w'].'x'.$img_json_bar['h'].'x2/'.UPLOAD_PRODUCT_L.$pro_list['photo']);
+		$seo->setSeo('photo',$config_base.THUMBS.'/'.$img_json_bar['w'].'x'.$img_json_bar['h'].'x2/'.UPLOAD_PROJECT_L.$pro_list['photo']);
 		$seo->setSeo('photo:width',$img_json_bar['w']);
 		$seo->setSeo('photo:height',$img_json_bar['h']);
 		$seo->setSeo('photo:type',$img_json_bar['m']);
@@ -146,7 +147,6 @@ if($id!='')
 }
 else
 {
-
 	/* SEO */
 	$seopage = $d->rawQueryOne("select * from #_seopage where type = ? limit 0,1",array($type));
 
@@ -196,7 +196,7 @@ else
 	}
 
 	$curPage = $get_page;
-	$per_page = $optsetting["countpro1"];
+	$per_page = 4;
 	$startpoint = ($curPage * $per_page) - $per_page;
 	$limit = " limit ".$startpoint.",".$per_page;
 	$sql = "select $getDatasql from #_project where $where order by stt,id desc $limit";
@@ -210,5 +210,13 @@ else
 	/* breadCrumbs */
 	if(isset($title_crumb) && $title_crumb != '') $breadcr->setBreadCrumbs($com,$title_crumb);
 	$breadcrumbs = $breadcr->getBreadCrumbs();
+	$banner = true;
+
+	$bannerProject = $d->rawQueryOne("select photo,hienthi,ten$lang as ten from #_photo where type = ? and act = ? and hienthi > 0 limit 0,1",array('banner-contact-project','photo_static'));
+	$describeProject = $d->rawQueryOne("select ten$lang as ten,mota$lang as mota from #_static where type = ? limit 0,1",array('mota-project'));
+	$newsProject = $d->rawQuery("select ten$lang as ten, mota$lang as mota,theme,id,type from #_news where type = ? and hienthi > 0 order by stt,id desc",array('news-project'));
+	$partner = $d->rawQuery("select ten$lang, link, photo from #_photo where type = ? and hienthi > 0 order by stt, id desc",array('doitac'));
+	$serviceProject = $d->rawQuery("select ten$lang as ten, mota$lang as mota,photo from #_news where type = ? and hienthi > 0 order by stt,id desc",array('dich-vu-chuyen-nghiep'));
+	$pro_list = $d->rawQuery("select tenkhongdauvi, tenkhongdauen from #_project_list where type = ? order by id,stt asc",array($type));
 }
 ?>

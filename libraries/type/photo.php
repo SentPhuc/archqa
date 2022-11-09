@@ -19,11 +19,12 @@ $config['photo']['photo_static'][$nametype]['img_type'] = '.jpg|.gif|.png|.jpeg|
 /* Banner dự án */
 $nametype = "banner-project";
 $config['photo']['photo_static'][$nametype]['title_main'] = "Banner dự án";
+$config['photo']['photo_static'][$nametype]['link'] = true;
 $config['photo']['photo_static'][$nametype]['images'] = true;
 $config['photo']['photo_static'][$nametype]['tieude'] = true;
 $config['photo']['photo_static'][$nametype]['mota'] = true;
-$config["photo"]['photo_static'][$nametype]["size_images"] = '1366x260';
-$config['photo']['photo_static'][$nametype]['thumb'] = '1366x260x1';
+$config["photo"]['photo_static'][$nametype]["size_images"] = '1920x768';
+$config['photo']['photo_static'][$nametype]['thumb'] = '1920x768x1';
 $config['photo']['photo_static'][$nametype]['img_type'] = '.jpg|.gif|.png|.jpeg|.gif|.JPG|.PNG|.JPEG|.Png|.GIF';
 
 /* Banner liên hệ dự án */

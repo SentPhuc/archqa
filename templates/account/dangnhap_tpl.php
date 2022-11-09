@@ -1,4 +1,4 @@
-<div class="wrap-user">
+<div class="wrap-user mt40">
     <div class="title-user d-flex align-items-end justify-content-between">
         <span><?=dangnhap?></span>
         <a href="account/quen-mat-khau" title="<?=quenmatkhau?>"><?=quenmatkhau?></a>

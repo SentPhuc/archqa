@@ -1,5 +1,5 @@
 <?php include TEMPLATE.LAYOUT."nav_page.php"; ?>
-<div class="box-product">
+<div class="box-product <?=($source=='tags') ? 'pt40':''?>">
     <div class="container">
         <?php if ($com!='tim-kiem') {?>
             <div class="box-filterProduct d-flex align-items-stretch justify-content-between flex-wrap">
@@ -37,26 +37,28 @@
                     <?php } ?>
                 <?php } ?>
             </div>
-            <div class="header-product d-flex align-items-center justify-content-between flex-wrap">
-                <span class="title"><?=(@$title_cat!='')?$title_cat:@$title_crumb?></span>
-                <div class="info d-flex align-items-center justify-content-between">
-                    <div class="sort-product">
-                        <span>
-                            Sắp xếp theo:
-                        </span>
-                        <span class="item-sort-product filter-item <?=(@$_GET['sort'] == 'date') ? 'active':''?>" data-id="0" data-key="date" data-type="sort">
-                            Thời gian
-                        </span>
-                        <span class="item-sort-product filter-item <?=(@$_GET['sort'] == 'like') ? 'active':''?>" data-id="0" data-key="like" data-type="sort">
-                            Thích
-                        </span>
-                    </div>
-                    <div class="search-product d-flex align-items-center justify-content-between">
-                        <input value="<?=@$_GET['keyword']?>" type="text" name="keywordProuct" id="keywordProuct" placeholder="Tìm kiếm sản phẩm ..." onkeypress="doEnter(event,'keywordProuct','product');"/>
-                        <p class="transition" onclick="onSearch('keywordProuct','product');"><i class="fa fa-search"></i></p>
+            <?php if($source!='tags'){?>
+                <div class="header-product d-flex align-items-center justify-content-between flex-wrap">
+                    <span class="title"><?=(@$title_cat!='')?$title_cat:@$title_crumb?></span>
+                    <div class="info d-flex align-items-center justify-content-between">
+                        <div class="sort-product">
+                            <span>
+                                Sắp xếp theo:
+                            </span>
+                            <span class="item-sort-product filter-item <?=(@$_GET['sort'] == 'date') ? 'active':''?>" data-id="0" data-key="date" data-type="sort">
+                                Thời gian
+                            </span>
+                            <span class="item-sort-product filter-item <?=(@$_GET['sort'] == 'like') ? 'active':''?>" data-id="0" data-key="like" data-type="sort">
+                                Thích
+                            </span>
+                        </div>
+                        <div class="search-product d-flex align-items-center justify-content-between">
+                            <input value="<?=@$_GET['keyword']?>" type="text" name="keywordProuct" id="keywordProuct" placeholder="Tìm kiếm sản phẩm ..." onkeypress="doEnter(event,'keywordProuct','product');"/>
+                            <p class="transition" onclick="onSearch('keywordProuct','product');"><i class="fa fa-search"></i></p>
+                        </div>
                     </div>
                 </div>
-            </div>
+            <?php } ?>
             <?php foreach ($func->isArrayFilter('key') as $value) {?>
                 <input type="hidden" value="<?=!empty($_GET[$value]) ? $_GET[$value] : 0?>" id="<?=$value?>">
             <?php } ?>
@@ -78,6 +80,47 @@
             </div>
         <?php } ?>
         <div class="clear"></div>
-        <div class="pagination-home"><?=(isset($paging) && $paging != '') ? $paging : ''?></div>
+        <div class="pagination-home mb-4"><?=(isset($paging) && $paging != '') ? $paging : ''?></div>
     </div>
 </div>
+<?php if (!empty($idl) || !empty($idc)) {?>
+    <div class="box-infoOther background-gray pt70">
+        <div class="container">
+            <?php if (!empty($tags)) {?>
+                <div class="box-tags">
+                    <div class="title-box">
+                        Tags từ khóa của <?=@$title_crumb?> <?=$setting['ten'.$lang]?>
+                    </div>
+                    <div class="box d-flex align-items-start justify-content-between flex-wrap">
+                        <?php foreach ($tags as $key => $value) {?>
+                            <a class="text-decoration-none transition" href="<?=$value['tenkhongdau'.$lang]?>" title="<?=$value['ten'.$lang]?>"><?=$value['ten'.$lang]?></a>
+                        <?php } ?>
+                    </div>
+                </div>
+            <?php } ?>
+            <?php if (!empty($contentPro)) {?>
+                <div class="box-contentProduct">
+                    <?=htmlspecialchars_decode($contentPro)?>
+                </div>
+            <?php } ?>
+            <?php if (!empty($getQA)) {?>
+                <div class="box-productQa">
+                    <div class="title-box">
+                        Tùy chỉnh lựa chọn <?=@$title_crumb?> tại <?=$setting['ten'.$lang]?>
+                    </div>
+                    <div class="box">
+                        <?php foreach ($getQA as $key => $value) {?>
+                            <div class="item__Qa">
+                                <span class="title">+ <?=$value['ten'.$lang]?></span>
+                                <div class="desc"><?=$value['mota'.$lang]?></div>
+                            </div>
+                        <?php } ?>
+                    </div>
+                </div>
+            <?php } ?>
+            <div class="pd70-0">
+                <?php include TEMPLATE.LAYOUT."form_getquote.php"; ?>
+            </div>
+        </div>
+    </div>
+<?php } ?>

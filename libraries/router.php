@@ -206,8 +206,8 @@ switch($com)
 	break;
 
 	case 'project':
-	$source = "product";
-	$template = isset($_GET['id']) ? "product/product_detail" : "product/product";
+	$source = "project";
+	$template = isset($_GET['id']) ? "project/project_detail" : "project/project";
 	$seo->setSeo('type',isset($_GET['id']) ? "article" : "object");
 	$type = $com;
 	$title_crumb = 'Dự án';

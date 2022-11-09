@@ -1,5 +1,5 @@
-<div class="grid-pro-detail w-clear">
-    <div class="left-pro-detail w-clear">
+<div class="grid-pro-detail">
+    <div class="left-pro-detail">
         <a id="Zoom-1" class="MagicZoom" data-options="zoomMode: off; hint: off; rightClick: true; selectorTrigger: hover; expandCaption: false; history: false;" href="<?=THUMBS."/540x540x1/".UPLOAD_PRODUCT_L.$row_detail['photo']?>" title="<?=$row_detail['ten'.$lang]?>"><img onerror="this.src='<?=THUMBS?>/540x540x2/assets/images/noimage.png';" src="<?=THUMBS."/540x540x1/".UPLOAD_PRODUCT_L.$row_detail['photo']?>" alt="<?=$row_detail['ten'.$lang]?>"></a>
         <?php if($hinhanhsp) { if(count($hinhanhsp) > 0) { ?>
             <div class="gallery-thumb-pro">
@@ -15,9 +15,9 @@
         <?php } } ?>
     </div>
 
-    <div class="right-pro-detail w-clear">
+    <div class="right-pro-detail">
         <p class="title-pro-detail"><?=$row_detail['ten'.$lang]?></p>
-        <div class="social-plugin social-plugin-pro-detail w-clear">
+        <div class="social-plugin social-plugin-pro-detail">
             <div class="addthis_inline_share_toolbox_qj48"></div>
             <div class="zalo-share-button" data-href="<?=$func->getCurrentPageURL()?>" data-oaid="<?=($optsetting['oaidzalo']!='')?$optsetting['oaidzalo']:'579745863508352884'?>" data-layout="1" data-color="blue" data-customize=false></div>
         </div>
@@ -87,11 +87,11 @@
             </div>
         <?php } ?>
     </div>
-    <?php if (count(@$pro_tags)>0) {?>
+    <?php if (count(@$tags)>0) {?>
         <div class="clear"></div>
-        <div class="tags-pro-detail w-clear">
-            <?php if(isset($pro_tags) && count($pro_tags) > 0) { foreach($pro_tags as $v) { ?>
-                <a class="transition text-decoration-none w-clear" href="<?=$v[$sluglang]?>" title="<?=$v['ten'.$lang]?>"><i class="fas fa-tags"></i><?=$v['ten'.$lang]?></a>
+        <div class="tags-pro-detail">
+            <?php if(isset($tags) && count($tags) > 0) { foreach($tags as $v) { ?>
+                <a class="transition text-decoration-none" href="<?=$v[$sluglang]?>" title="<?=$v['ten'.$lang]?>"><i class="fas fa-tags"></i><?=$v['ten'.$lang]?></a>
             <?php } } ?>
         </div>
     <?php } ?>
@@ -117,7 +117,7 @@
 </div>
 
 <div class="title-website"><span><?=sanphamcungloai?></span></div>
-<div class="content-main w-clear">
+<div class="content-main">
     <?php if(isset($product) && count($product) > 0) { ?>
         <div class="row__item">
             <?php $funcLayout->setTbl('product');?>

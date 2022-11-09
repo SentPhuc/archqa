@@ -143,6 +143,12 @@
                                                 <input type="text" class="form-control" name="data[ten<?=$k?>]" id="ten<?=$k?>" placeholder="Tiêu đề (<?=$k?>)" value="<?=@$item['ten'.$k]?>">
                                             </div>
                                         <?php } ?>
+                                        <?php if(isset($config[$com][$type][$dfgallery][$val]['mota_photo']) && $config[$com][$type][$dfgallery][$val]['mota_photo'] == true) { ?>
+                                                <div class="form-group">
+                                                    <label for="mota<?=$k?>">Mô tả (<?=$k?>):</label>
+                                                    <textarea class="form-control" name="data[mota<?=$k?>]" id="mota<?=$k?>" rows="5" placeholder="Mô tả (<?=$k?>)"><?=@$item['mota'.$k]?></textarea>
+                                                </div>
+                                            <?php } ?>
                                     </div>
                                 <?php } ?>
                             </div>

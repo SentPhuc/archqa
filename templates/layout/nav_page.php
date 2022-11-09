@@ -1,7 +1,7 @@
-<?php if (count($catNav) > 0 || count($listNav) > 0) {?>
+<?php if (!empty($listNav) || !empty($catNav)) {?>
 	<div class="main-navPage">
 		<div class="container">
-			<?php if (count($listNav) > 0) {?>
+			<?php if (!empty($listNav)) {?>
 				<div class="nav-list classper <?=$type?>">
 					<div class="swiper-container">
 						<div class="swiper-wrapper">
@@ -42,7 +42,7 @@
 					</div>
 				</div>
 			<?php } ?>
-			<?php if (count($catNav) > 0) {
+			<?php if (!empty($catNav)) {
 				$classActiveCatAll = '';
 				if ($type=='product') {
 					if ($idl > 0 && $idc > 0) {

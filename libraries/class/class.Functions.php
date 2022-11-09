@@ -72,6 +72,23 @@ class Functions
 		return $where;
 	}
 
+	public function getTagsInCategoryOrProduct($id_tags,$idl,$type){
+		global $lang;
+		$tags = null;
+		if (empty($id_tags) && $idl > 0) {
+			$stringTags = null;
+			$product = $this->db->rawQuery("select id_tags from #_product where id_list = '".$idl."' and type='".$type."'");
+			foreach ($product as $value) {
+				if ($value['id_tags']) {
+					$stringTags .= $value['id_tags'].',';
+				}
+			}
+			$id_tags = implode(',',array_unique(explode(',',rtrim($stringTags, ","))));
+		}
+		$tags = $this->db->rawQuery("select id, ten$lang, tenkhongdauvi, tenkhongdauen from #_tags where id in (".$id_tags.") and type='".$type."'");
+		return $tags;
+	}
+
 	/* Check URL */
 	public function checkURL($index=false)
 	{

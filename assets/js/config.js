@@ -169,17 +169,6 @@ WEBSIETE.ClickActidve = function(){
         });
     };
 
-    if($(".hover-product-list").exists())
-    {
-        $('.hover-product-list').hover(function(){
-            if ($('.box-menu').hasClass('active')) {
-                $('.box-menu').removeClass("active");
-            } else {
-                $('.box-menu').addClass("active");
-            }
-        });
-    };
-
     if($("#mmenu").exists())
     {
         $('#mmenu').click(function(){
@@ -227,6 +216,19 @@ WEBSIETE.ClickActidve = function(){
     {
         $('.views-menuFilter').click(function(){
             $(this).parent('.item__filter').find('ul').stop().slideToggle('fast');
+        });
+    };
+
+    if($(".item__Qa").exists())
+    {
+        $('.item__Qa').click(function(){
+            if ($(this).hasClass('active')) {
+                $(this).find('.desc').stop().slideUp();
+                $(this).removeClass('active');
+            }else{
+                $(this).find('.desc').stop().slideDown();
+                $(this).addClass('active');
+            }
         });
     };
 };
@@ -375,6 +377,7 @@ WEBSIETE.handleEvent = function(){
             var event = $(this).data('event');
             var table = $(this).data('table');
             var type = $(this).data('type');
+            var user = $(this).data('user');
             if (event=='like') {
                 let storage = window.localStorage;
                 const storage_str_data = storage.getItem("plike_data");
@@ -387,6 +390,13 @@ WEBSIETE.handleEvent = function(){
                     notifyToast('Bạn đã thích nó rồi','error');
                     return;
                 }
+            }
+            if (event=='save' && user == 0) {
+                notifyToast('Bạn cần đăng nhập để lưu vào danh sách yêu thích','error');
+                setTimeout(function(){
+                    window.location.href = 'account/dang-nhap';
+                }, 3000);
+                return;
             }
             $.ajax({
                 url:'ajax/ajax_event.php',
