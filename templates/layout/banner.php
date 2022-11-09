@@ -30,11 +30,13 @@ if ((!empty($banner) && $banner['hienthi']==1)) {
 		$dataBannerMota = !empty($pro_list['mota'.$lang]) ? htmlspecialchars_decode($pro_list['mota'.$lang]) : '';;
 		$dataBannerPhoto = UPLOAD_PRODUCT_L.$pro_list['photo'];
 	}
-	if ($com=='project') {
+	if ($com=='project' && @$idl==0) {
 		$thumbBanner = "/1920x768x1/";
+	}else{
+		$dataBannerLink = 'contact';
 	}
 	?>
-	<div class="bannerIn <?=($com=='project') ? 'bannerInForProject':''?>" style="background:url(<?=THUMBS.$thumbBanner.$dataBannerPhoto?>) no-repeat center/cover;">
+	<div class="bannerIn <?=($com=='project' && @$idl==0) ? 'bannerInForProject':''?>" style="background:url(<?=THUMBS.$thumbBanner.$dataBannerPhoto?>) no-repeat center/cover;">
 		<?php if (!empty($dataBannerten) || !empty($dataBannerMota) || !empty($dataBannerLink)) {?>
 			<div class="infoBanner">
 				<div class="container d-flex align-items-start justify-content-between flex-wrap">
@@ -45,10 +47,12 @@ if ((!empty($banner) && $banner['hienthi']==1)) {
 						<?php if (!empty($dataBannerMota)) {?>
 							<span><?=$dataBannerMota?></span>
 						<?php } ?>
-						<div class="btn-banner">
-							<a class="text-decoration-none transition" href="<?=$banner['link']?>" title="All project">All project</a>
-							<a class="text-decoration-none transition" href="dowload-catalog" title="Download catalog">Download catalog</a>
-						</div>
+						<?php if ($com=='project' && @$idl==0) { ?>
+							<div class="btn-banner">
+								<a class="text-decoration-none transition" href="<?=$banner['link']?>" title="All project">All project</a>
+								<a class="text-decoration-none transition" href="dowload-catalog" title="Download catalog">Download catalog</a>
+							</div>
+						<?php } ?>
 					</div>
 					<?php if (!empty($dataBannerLink)) {?>
 						<a href="<?=$dataBannerLink?>" title="Nhận báo giá">Nhận báo giá</a>

@@ -1,4 +1,36 @@
 <div class="box-project">
+    <?php if (!empty($filterLocation) || !empty($filterType)) {?>
+        <div class="main-navPage">
+            <div class="container">
+                <?php if (!empty($filterLocation)) {?>
+                    <div class="nav-cat">
+                        <span>Vị trí:</span>
+                        <?php foreach ($filterLocation as $key => $value) {
+                            $urlFilter = $pro_list['tenkhongdau'.$lang].'?id_location='.$value['id'];
+                            if (!empty($_GET['id_type'])) {
+                                $urlFilter .= '&id_type='.$_GET['id_type'];
+                            }
+                            ?>
+                            <a class="text-decoration-none transition <?=($value['id'] == @$_GET['id_location']) ? 'active':''?>" href="<?=$urlFilter?>" title="<?=$value['ten']?>"><?=$value['ten']?></a>
+                        <?php } ?>
+                    </div>
+                <?php } ?>
+                <?php if (!empty($filterType)) {?>
+                    <div class="nav-cat">
+                        <span>Kiểu:</span>
+                        <?php foreach ($filterType as $key => $value) {
+                            $urlFilter = $pro_list['tenkhongdau'.$lang].'?id_type='.$value['id'];
+                            if (!empty($_GET['id_location'])) {
+                                $urlFilter .= '&id_location='.$_GET['id_location'];
+                            }
+                            ?>
+                            <a class="text-decoration-none transition <?=($value['id'] == @$_GET['id_type']) ? 'active':''?>" href="<?=$urlFilter?>" title="<?=$value['ten']?>"><?=$value['ten']?></a>
+                        <?php } ?>
+                    </div>
+                <?php } ?>
+            </div>
+        </div>
+    <?php } ?>
     <div class="container">
         <?php if (!empty($describeProject)) {?>
             <div class="project__outstanding">
@@ -141,7 +173,7 @@
     </div>
 <?php } ?>
 <?php if(!empty($serviceProject)) { ?>
-    <div class="box__serviceProject d-none pd70-0">
+    <div class="box__serviceProject pd70-0">
         <div class="container">
             <div class="title">Dịch vụ chuyên nghiệp</div>
             <div class="box d-flex align-items-start justify-content-between flex-wrap">

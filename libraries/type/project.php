@@ -32,6 +32,7 @@ $config['project'][$nametype]['gallery'] = array
 		"img_type_photo" => '.jpg|.gif|.png|.jpeg|.gif|.JPG|.PNG|.JPEG|.Png|.GIF'
 	)
 );
+$config['project'][$nametype]['ma'] = true;
 $config['project'][$nametype]['address'] = true;
 $config['project'][$nametype]['year'] = true;
 $config['project'][$nametype]['units'] = true;

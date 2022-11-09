@@ -8,7 +8,7 @@ if(!defined('SOURCES')) die("Error");
 @$ids = htmlspecialchars($_GET['ids']);
 @$idb = htmlspecialchars($_GET['idb']);
 
-$getDatasql = "photo, ten$lang as ten, tenkhongdau$lang as tenkhongdau, giamoi, gia, giakm, id,address,year,units";
+$getDatasql = "photo, ten$lang as ten, tenkhongdau$lang as tenkhongdau, giamoi, gia, giakm, id,address,year,units,masp";
 $getDatasqlDetail = "type, id, ten$lang, tenkhongdauvi, tenkhongdauen, mota$lang, noidung$lang, masp, luotxem, id_brand, id_mau, id_size, id_list, id_cat, id_item, id_sub, id_tags, photo, options, giakm, giamoi, gia";
 
 if($id!='')
@@ -97,6 +97,11 @@ if($id!='')
 	$breadcrumbs = $breadcr->getBreadCrumbs();
 
 }else if($idl!=''){
+	$banner = true;
+
+	@$id_location = !empty($_GET['id_location']) ? htmlspecialchars($_GET['id_location']) : 0;
+	@$id_type = !empty($_GET['id_type']) ? htmlspecialchars($_GET['id_type']) : 0;
+
 	/* Lấy cấp 1 detail */
 	$pro_list = $d->rawQueryOne("select id, ten$lang, tenkhongdauvi, tenkhongdauen, type, photo, options from #_project_list where id = ? and type = ? limit 0,1",array($idl,$type));
 
@@ -124,8 +129,17 @@ if($id!='')
 	}
 
 	/* Lấy sản phẩm */
-	$where = "";
-	$where = "id_list = ? and type = ? and hienthi > 0";
+	$where = "id<>0";
+
+	if ($id_location) {
+		$where .= " and id_vitri='".$id_location."'";
+	}
+
+	if ($id_type) {
+		$where .= " and id_kieu='".$id_type."'";
+	}
+
+	$where .= " and id_list = ? and type = ? and hienthi > 0";
 	$params = array($idl,$type);
 
 	$curPage = $get_page;
@@ -143,7 +157,10 @@ if($id!='')
 	/* breadCrumbs */
 	if(isset($title_crumb) && $title_crumb != '') $breadcr->setBreadCrumbs($com,$title_crumb);
 	if($pro_list != null) $breadcr->setBreadCrumbs($pro_list[$sluglang],$pro_list['ten'.$lang]);
-	$breadcrumbs = $breadcr->getBreadCrumbs();	
+	$breadcrumbs = $breadcr->getBreadCrumbs();
+
+	$filterLocation = $d->rawQuery("select ten$lang as ten,id from #_project where type = ? and hienthi = 1 order by stt,id desc",array('filter-vitri-project')); 
+	$filterType = $d->rawQuery("select ten$lang as ten,id from #_project where type = ? and hienthi = 1 order by stt,id desc",array('filter-kieu-project')); 
 }
 else
 {
@@ -210,6 +227,7 @@ else
 	/* breadCrumbs */
 	if(isset($title_crumb) && $title_crumb != '') $breadcr->setBreadCrumbs($com,$title_crumb);
 	$breadcrumbs = $breadcr->getBreadCrumbs();
+	$breadcrumbs = null;
 	$banner = true;
 
 	$bannerProject = $d->rawQueryOne("select photo,hienthi,ten$lang as ten from #_photo where type = ? and act = ? and hienthi > 0 limit 0,1",array('banner-contact-project','photo_static'));

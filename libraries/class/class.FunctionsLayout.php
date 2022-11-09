@@ -68,21 +68,25 @@ class FunctionsLayout extends Functions
                     <h3>
                         <a class="text-decoration-none name line-1" href="<?=(!empty($item["tenkhongdau"]))?$item["tenkhongdau"]:"javascript:;"?>" title="<?=$item['ten']?>">
                             <?=$item['ten']?>
+                            <?php if(!empty($item['masp'])) { ?>
+                                <span class="masp"> - <?=$item["masp"]?></span>
+                            <?php } ?>
                         </a>
                     </h3>
                     <?php if ($this->theme=="san-pham") {?>
-                        <?php /*
-                            <p class="price-product">
-                            <?php if(!empty($item['giamoi'])) { ?>
-                                <span class="price-new"><?=$this->format_money(@$item['giamoi'])?></span>
-                                <span class="price-old"><?=$this->format_money(@$item['gia'])?></span>
-                            <?php } else { ?>
-                                <span class="price-new"><?=(!empty($item['gia'])) ? $this->format_money(@$item['gia']) : lienhe?></span>
-                            <?php } ?>
-                        </p>
-                        */ ?>
                         <?php if(!empty($item['masp'])) { ?>
                             <span class="masp"><?=$item["masp"]?></span>
+                        <?php } ?>
+                    <?php } ?>
+                    <?php if ($this->theme=="project") {?>
+                        <?php if(!empty($item['address'])) { ?>
+                            <span class="info-project"><?=$item["address"]?></span>
+                        <?php } ?>
+                        <?php if(!empty($item['year'])) { ?>
+                            <span class="info-project"><?=$item["year"]?></span>
+                        <?php } ?>
+                        <?php if(!empty($item['units'])) { ?>
+                            <span class="info-project"><?=$item["units"]?> đơn vị</span>
                         <?php } ?>
                     <?php } ?>
                     <?php if ($this->theme=="news") {?>
