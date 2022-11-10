@@ -427,7 +427,7 @@ ul.slick__page{
 	position: absolute;
 	right: calc(50% - 80px);
 	top: calc(100% + 10px);
-	width: 160px;
+	width: 200px;
 	background-color: rgba(0, 0, 0, 0.7);
 	padding: 10px;
 	display: none;
@@ -1802,12 +1802,21 @@ ul.slick__page{
 	line-height: 35px;
 	padding: 0 10px;
 	display: inline-block;
+	position: relative;
 }
-
 .btn-event a img{
 	vertical-align: middle;
 }
-
+.btn-event a img:last-child{
+	position: absolute;
+	left: calc(50% - 8px);
+	top: calc(50% - 7px);
+	opacity: 0;
+	transition: all 0.4s;
+}
+.btn-event a.active-save img:last-child{
+	opacity: 1;
+}
 .btn-event a:first-child{
 	padding: 0 15px;
 }

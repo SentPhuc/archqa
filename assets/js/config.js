@@ -59,11 +59,11 @@ WEBSIETE.slickData = function(obj){
         if((config_responsive==true || config_mobile==true) && (lg_item && md_item && sm_item && xs_item))
         {
             var responsive = [
-            {breakpoint: 1024,settings:{slidesToShow: lg_item,}},
-            {breakpoint: 992,settings:{slidesToShow: md_item,}},
-            {breakpoint: 768,settings:{slidesToShow: sm_item,}},
-            {breakpoint: 480,settings:{slidesToShow: xs_item,}},
-            ];        
+                {breakpoint: 1024,settings:{slidesToShow: lg_item,}},
+                {breakpoint: 992,settings:{slidesToShow: md_item,}},
+                {breakpoint: 768,settings:{slidesToShow: sm_item,}},
+                {breakpoint: 480,settings:{slidesToShow: xs_item,}},
+                ];        
         }
         obj.slick({
             slidesToShow: slidesToShow,
@@ -377,16 +377,16 @@ WEBSIETE.FilterProduct = function(){
 WEBSIETE.handleEvent = function(){
     if($(".handle-event").exists())
     {
-        $('.handle-event').click(function(){
+        $('body').on('click','.handle-event',function(){
             var id = $(this).data('id');
             var event = $(this).data('event');
             var table = $(this).data('table');
             var type = $(this).data('type');
-            var user = $(this).data('user');
+            var user = $(this).data('user') > 0 ? $(this).data('user') : 0;
             if (event=='like') {
-                let storage = window.localStorage;
-                const storage_str_data = storage.getItem("plike_data");
-                let storage_json_data = JSON.parse(storage_str_data);
+                var storage = window.localStorage;
+                var storage_str_data = storage.getItem("plike_data");
+                var storage_json_data = JSON.parse(storage_str_data);
                 if (!storage_json_data) {
                     storage_json_data = {}
                 }
@@ -407,29 +407,34 @@ WEBSIETE.handleEvent = function(){
                 url:'ajax/ajax_event.php',
                 type: "POST",
                 dataType: 'Json',
-                data: {id:id,event:event,table:table,type:type},
+                data: {id:id,event:event,table:table,type:type,user:user},
                 success: function(result){
-                    // if (result.status == 'success') {
-                    //     try {
-                    //         storage_json_data[id] = true;
-                    //     } catch (e) {
-                    //         window.localStorage.clear();
-                    //     }
-                    //     const d = JSON.stringify(storage_json_data);
-                    //     try {
-                    //         storage.setItem("plike_data", d);
-                    //     } catch (e) {
-                    //         if (e.code == 22) {
-                    //             window.localStorage.clear();
-                    //             storage.setItem("plike_data", d);
-                    //         }
-                    //     }
-                    //     notifyToast(result.data.message,'success');
-                    //     $(this).html(result.data.countLike);
-                    // } else {
-                    //     notifyToast('Thích thành công','success');
-                    //     return false;
-                    // }
+                    if (result.status == 'success') {
+                        if (event=='like') {
+                            try {
+                                storage_json_data[id] = true;
+                            } catch (e) {
+                                window.localStorage.clear();
+                            }
+                            const d = JSON.stringify(storage_json_data);
+                            try {
+                                storage.setItem("plike_data", d);
+                            } catch (e) {
+                                if (e.code == 22) {
+                                    window.localStorage.clear();
+                                    storage.setItem("plike_data", d);
+                                }
+                            }
+                            $('.handle-event-'+id).find('.couter-like').html(result.countLike);
+                        }
+                        if (event=='save') {
+                            $('.handle-event-'+id).addClass('active-save');
+                        }
+                        notifyToast(result.message,result.status);
+                    }else {
+                        notifyToast(result.message,result.status);
+                        return false;
+                    }
                 }
             });
         });

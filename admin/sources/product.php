@@ -483,6 +483,9 @@ function delete_item()
 			/* Xóa filter */
 			$d->rawQuery("delete from #_filter where id_pro = ?",array($id));
 
+			/* Xóa sản phẩm đã save */
+			$d->rawQuery("delete from #_product_save where id_pro = ? and type = ?",array($id,$type));
+
 			/* Xóa gallery */
 			$row = $d->rawQuery("select id, photo, taptin from #_gallery where id_photo = ? and kind = ? and com = ?",array($id,'man',$com));
 
@@ -520,6 +523,9 @@ function delete_item()
 				$func->delete_file(UPLOAD_PRODUCT.$row['photo']);
 				$d->rawQuery("delete from #_product where id = ?",array($id));
 
+				/* Xóa sản phẩm đã save */
+				$d->rawQuery("delete from #_product_save where id_pro = ? and type = ?",array($id,$type));
+				
 				/* Xóa filter */
 				$d->rawQuery("delete from #_filter where id_pro = ?",array($id));
 

@@ -2,7 +2,7 @@
 <div class="box-product <?=($source=='tags') ? 'pt40':''?>">
     <div class="container">
         <?php if ($com!='tim-kiem') {?>
-            <div class="box-filterProduct d-flex align-items-stretch justify-content-between flex-wrap">
+            <div class="box-filterProduct d-flex align-items-stretch justify-content-between flex-wrap <?=!empty($kind) ? 'mt-4':''?>">
                 <div class="item__filter" style="width: <?=(100/(count($filterList) + 1))?>%;">
                     <span>Bộ lọc (<?=$total?>)</span>
                     <?php if (@$pro_list['id'] > 0 && @$idc > 0) {?>
@@ -40,23 +40,25 @@
             <?php if($source!='tags'){?>
                 <div class="header-product d-flex align-items-center justify-content-between flex-wrap">
                     <span class="title"><?=(@$title_cat!='')?$title_cat:@$title_crumb?></span>
-                    <div class="info d-flex align-items-center justify-content-between">
-                        <div class="sort-product">
-                            <span>
-                                Sắp xếp theo:
-                            </span>
-                            <span class="item-sort-product filter-item <?=(@$_GET['sort'] == 'date') ? 'active':''?>" data-id="0" data-key="date" data-type="sort">
-                                Thời gian
-                            </span>
-                            <span class="item-sort-product filter-item <?=(@$_GET['sort'] == 'like') ? 'active':''?>" data-id="0" data-key="like" data-type="sort">
-                                Thích
-                            </span>
+                    <?php if ($kind=='') {?>
+                        <div class="info d-flex align-items-center justify-content-between">
+                            <div class="sort-product">
+                                <span>
+                                    Sắp xếp theo:
+                                </span>
+                                <span class="item-sort-product filter-item <?=(@$_GET['sort'] == 'date') ? 'active':''?>" data-id="0" data-key="date" data-type="sort">
+                                    Thời gian
+                                </span>
+                                <span class="item-sort-product filter-item <?=(@$_GET['sort'] == 'like') ? 'active':''?>" data-id="0" data-key="like" data-type="sort">
+                                    Thích
+                                </span>
+                            </div>
+                            <div class="search-product d-flex align-items-center justify-content-between">
+                                <input value="<?=@$_GET['keyword']?>" type="text" name="keywordProuct" id="keywordProuct" placeholder="Tìm kiếm sản phẩm ..." onkeypress="doEnter(event,'keywordProuct','product');"/>
+                                <p class="transition" onclick="onSearch('keywordProuct','product');"><i class="fa fa-search"></i></p>
+                            </div>
                         </div>
-                        <div class="search-product d-flex align-items-center justify-content-between">
-                            <input value="<?=@$_GET['keyword']?>" type="text" name="keywordProuct" id="keywordProuct" placeholder="Tìm kiếm sản phẩm ..." onkeypress="doEnter(event,'keywordProuct','product');"/>
-                            <p class="transition" onclick="onSearch('keywordProuct','product');"><i class="fa fa-search"></i></p>
-                        </div>
-                    </div>
+                    <?php } ?>
                 </div>
             <?php } ?>
             <?php foreach ($func->isArrayFilter('key') as $value) {?>
@@ -123,4 +125,4 @@
             </div>
         </div>
     </div>
-<?php } ?>
+    <?php } ?>

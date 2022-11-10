@@ -38,6 +38,8 @@ $config['product'][$nametype]['gallery'] = array
         "img_type_photo" => '.jpg|.gif|.png|.jpeg|.gif|.JPG|.PNG|.JPEG|.Png|.GIF'
     )
 );
+$config['product'][$nametype]['like'] = true;
+$config['product'][$nametype]['save'] = true;
 $config['product'][$nametype]['ma'] = true;
 $config['product'][$nametype]['gia'] = false;
 $config['product'][$nametype]['giamoi'] = false;

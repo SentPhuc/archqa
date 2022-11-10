@@ -65,9 +65,9 @@
                 <?php if(array_key_exists($login_member, $_SESSION) && $_SESSION[$login_member]['active'] == true) { ?>
                     <div class="user-header">
                         <a href="account/thong-tin">
-                            <span>Hi, <?=$_SESSION[$login_member]['username']?></span>
+                            <span><i class="fas fa-info-circle"></i> Hi, <?=$_SESSION[$login_member]['username']?></span>
                         </a>
-                        <a href="account/thong-tin">
+                        <a href="product?kind=save">
                             <i class="fas fa-heart"></i>
                             <span>Sản phẩm đã thích</span>
                         </a>

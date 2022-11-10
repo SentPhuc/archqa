@@ -5,6 +5,15 @@ class FunctionsLayout extends Functions
     {
         $this->db = $db;
     }
+
+    public function checkSave($id,$type)
+    {
+        global $login_member;
+        $id_user = !empty($_SESSION[$login_member]['id']) ? $_SESSION[$login_member]['id'] : 0;
+        $get = $this->db->rawQueryOne("select value from #_product_save where id_pro = '".$id."' and id_user = '".$id_user."' and type = '".$type."'");
+        return !empty($get) ? 'active-save' : '';
+    }
+
     public function setTbl($tbl)
     {
         $this->tbl = $tbl;
@@ -41,7 +50,7 @@ class FunctionsLayout extends Functions
     private function theme()
     {
         global $config,$login_member;
-        foreach($this->varible as $i => $item) { ?>
+        foreach($this->varible as $i => $item) {?>
             <div class="<?=$this->class?>">
                 <div class="img">
                     <a class="text-decoration-none <?=$this->hvr?>" href="<?=(!empty($item["tenkhongdau"]))?$item["tenkhongdau"]:"javascript:;"?>" title="<?=$item['ten']?>">
@@ -53,12 +62,13 @@ class FunctionsLayout extends Functions
                     <?php if ($this->theme=="san-pham") {?>
                         <div class="btn-event transition">
                             <div class="info">
-                                <a data-id="<?=$item['id']?>" data-event="like" data-table="<?=$this->tbl?>" data-type="<?=$this->type?>" class="handle-event text-decoration-none" href="javascript:;" title="Like">
+                                <a data-id="<?=$item['id']?>" data-event="like" data-table="<?=$this->tbl?>" data-type="<?=$this->type?>" class="handle-event handle-event-<?=$item['id']?> text-decoration-none" href="javascript:;" title="Like">
                                     <img src="assets/images/icon14.png" alt="">
                                     <span class="couter-like"><?=(!empty($item["countLike"]))?$item["countLike"]:0?></span>
                                 </a>
-                                <a data-id="<?=$item['id']?>" data-user="<?=!empty($_SESSION[$login_member]['id']) ? $_SESSION[$login_member]['id'] : 0?>" data-event="save" data-table="<?=$this->tbl?>" data-type="<?=$this->type?>" class="handle-event text-decoration-none" href="javascript:;" title="Save">
+                                <a data-id="<?=$item['id']?>" data-user="<?=!empty($_SESSION[$login_member]['id']) ? $_SESSION[$login_member]['id'] : 0?>" data-event="save" data-table="product_save" data-type="<?=$this->type?>" class="handle-event handle-event-<?=$item['id']?> text-decoration-none <?=$this->checkSave($item['id'],$this->type)?>" href="javascript:;" title="Save">
                                     <img src="assets/images/icon15.png" alt="">
+                                    <img src="assets/images/icon15-act.png" alt="">
                                 </a>
                             </div>
                         </div>

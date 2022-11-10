@@ -7,6 +7,7 @@ if(!defined('SOURCES')) die("Error");
 @$idi = htmlspecialchars($_GET['idi']);
 @$ids = htmlspecialchars($_GET['ids']);
 @$idb = htmlspecialchars($_GET['idb']);
+@$kind = !empty($_GET['kind']) ? htmlspecialchars($_GET['kind']) : '';
 
 if ($idl > 0 || $idc > 0 || $com == 'product') {
 	/* get data filter */
@@ -440,13 +441,11 @@ else if($idb!='')
 }
 else
 {
-	$banner = false;
-
 	/* SEO */
 	$seopage = $d->rawQueryOne("select * from #_seopage where type = ? limit 0,1",array($type));
 
 	/* Lấy tất cả sản phẩm */
-	$where = "";
+	$where = "id<>0";
 	$orderBy = "order by stt,id desc";
 	if ($sort) {
 		if ($sort=='date') {
@@ -456,7 +455,23 @@ else
 		}
 	}
 
-	$where = "type = ? and hienthi > 0";
+	$where .= " and type = ? and hienthi > 0";
+
+	if (!empty($kind)) {
+		$arrayIDs = [];
+		$id_user = !empty($_SESSION[$login_member]['id']) ? $_SESSION[$login_member]['id'] : 0;
+		$listNav = null;
+		$title_crumb = 'Sản phẩm yêu thích';
+		$getProductSave = $d->rawQuery("select id_pro from #_product_save where value > 0 and id_user = ? and type = ?",array($id_user,$type));
+		foreach ($getProductSave as $value) {
+			array_push($arrayIDs,$value['id_pro']);
+		}
+		if (!empty($arrayIDs)) $where .= " and id in (".implode(',',$arrayIDs).")";
+
+	}else{
+		$listNav = $d->rawQuery("select ten$lang as ten,id,tenkhongdau$lang as tenkhongdau,photo1,photo2 from #_product_list where type = ? and hienthi = 1 order by stt,id desc",array($type));
+	}
+
 	$params = array($type);
 
 	/* Tìm kiếm sản phẩm */
@@ -515,8 +530,8 @@ else
 	if(isset($title_crumb) && $title_crumb != '') $breadcr->setBreadCrumbs($com,$title_crumb);
 	$breadcrumbs = $breadcr->getBreadCrumbs();
 
+	$banner = false;
 	$catNav = null;
-	$listNav = $d->rawQuery("select ten$lang as ten,id,tenkhongdau$lang as tenkhongdau,photo1,photo2 from #_product_list where type = ? and hienthi = 1 order by stt,id desc",array($type));
 	$idlActive = null;
 	$idcActive = null;
 	$linkAllCat = null;
