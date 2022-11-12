@@ -15,7 +15,7 @@
     // $css->setCss("./assets/simplyscroll/jquery.simplyscroll-style.css");
     // $css->setCss("./assets/fotorama/fotorama.css");
     // $css->setCss("./assets/fotorama/fotorama-style.css");
-    $css->setCss("./assets/magiczoomplus/magiczoomplus.css");
+    // $css->setCss("./assets/magiczoomplus/magiczoomplus.css");
     $css->setCss("./assets/swiper/swiper-bundle.min.css");
     $css->setCss("./assets/sweetalert2/sweetalert2.min.css");
     // $css->setCss("./assets/datetimepicker/jquery.datetimepicker.css");

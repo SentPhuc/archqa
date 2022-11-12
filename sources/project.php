@@ -9,7 +9,7 @@ if(!defined('SOURCES')) die("Error");
 @$idb = htmlspecialchars($_GET['idb']);
 
 $getDatasql = "photo, ten$lang as ten, tenkhongdau$lang as tenkhongdau, giamoi, gia, giakm, id,address,year,units,masp";
-$getDatasqlDetail = "type, id, ten$lang, tenkhongdauvi, tenkhongdauen, mota$lang, noidung$lang, masp, luotxem, id_brand, id_mau, id_size, id_list, id_cat, id_item, id_sub, id_tags, photo, options, giakm, giamoi, gia";
+$getDatasqlDetail = "type, id, ten$lang, tenkhongdauvi, tenkhongdauen, mota$lang, noidung$lang,chatluongcao$lang,chuoicungungtoancau$lang, masp, luotxem, id_brand, id_mau, id_size, id_list, id_cat, id_item, id_sub, id_tags, photo, options, giakm, giamoi, gia,address,year,units";
 
 if($id!='')
 {
@@ -24,29 +24,11 @@ if($id!='')
 	/* Lấy tags */
 	if($row_detail['id_tags']) $pro_tags = $d->rawQuery("select id, ten$lang, tenkhongdauvi, tenkhongdauen from #_tags where id in (".$row_detail['id_tags'].") and type='".$type."'");
 
-	/* Lấy thương hiệu */
-	$pro_brand = $d->rawQuery("select ten$lang, tenkhongdauvi, tenkhongdauen, id from #_project_brand where id = ? and type = ? and hienthi > 0",array($row_detail['id_brand'],$type));
-
-	/* Lấy màu */
-	if($row_detail['id_mau']) $mau = $d->rawQuery("select loaihienthi, photo, mau, id from #_project_mau where type='".$type."' and find_in_set(id,'".$row_detail['id_mau']."') and hienthi > 0 order by stt,id desc");
-
-	/* Lấy size */
-	if($row_detail['id_size']) $size = $d->rawQuery("select id, ten$lang from #_project_size where type='".$type."' and find_in_set(id,'".$row_detail['id_size']."') and hienthi > 0 order by stt,id desc");
-
 	/* Lấy cấp 1 */
 	$pro_list = $d->rawQueryOne("select id, ten$lang, tenkhongdauvi, tenkhongdauen from #_project_list where id = ? and type = ? and hienthi > 0 limit 0,1",array($row_detail['id_list'],$type));
 
-	/* Lấy cấp 2 */
-	$pro_cat = $d->rawQueryOne("select id, ten$lang, tenkhongdauvi, tenkhongdauen from #_project_cat where id = ? and type = ? and hienthi > 0 limit 0,1",array($row_detail['id_cat'],$type));
-
-	/* Lấy cấp 3 */
-	$pro_item = $d->rawQueryOne("select id, ten$lang, tenkhongdauvi, tenkhongdauen from #_project_item where id = ? and type = ? and hienthi > 0 limit 0,1",array($row_detail['id_item'],$type));
-
-	/* Lấy cấp 4 */
-	$pro_sub = $d->rawQueryOne("select id, ten$lang, tenkhongdauvi, tenkhongdauen from #_project_sub where id = ? and type = ? and hienthi > 0 limit 0,1",array($row_detail['id_sub'],$type));
-	
 	/* Lấy hình ảnh con */
-	$hinhanhsp = $d->rawQuery("select photo from #_gallery where id_photo = ? and com='project' and type = ? and kind='man' and val = ? and hienthi > 0 order by stt,id desc",array($row_detail['id'],$type,$type));
+	$gallery = $d->rawQuery("select photo from #_gallery where id_photo = ? and com='project' and type = ? and kind='man' and val = ? and hienthi > 0 order by stt,id desc",array($row_detail['id'],$type,$type));
 
 	/* Lấy sản phẩm cùng loại */
 	$where = "";
@@ -56,7 +38,8 @@ if($id!='')
 	$curPage = $get_page;
 	$per_page = 8;
 	$startpoint = ($curPage * $per_page) - $per_page;
-	$limit = " limit ".$startpoint.",".$per_page;
+	// $limit = " limit ".$startpoint.",".$per_page;
+	$limit = "";
 	$sql = "select $getDatasql from #_project where $where order by stt,id desc $limit";
 	$project = $d->rawQuery($sql,$params);
 	$sqlNum = "select count(*) as 'num' from #_project where $where order by stt,id desc";
@@ -90,9 +73,6 @@ if($id!='')
 	/* breadCrumbs */
 	if(isset($title_crumb) && $title_crumb != '') $breadcr->setBreadCrumbs($com,$title_crumb);
 	if($pro_list != null) $breadcr->setBreadCrumbs($pro_list[$sluglang],$pro_list['ten'.$lang]);
-	if($pro_cat != null) $breadcr->setBreadCrumbs($pro_cat[$sluglang],$pro_cat['ten'.$lang]);
-	if($pro_item != null) $breadcr->setBreadCrumbs($pro_item[$sluglang],$pro_item['ten'.$lang]);
-	if($pro_sub != null) $breadcr->setBreadCrumbs($pro_sub[$sluglang],$pro_sub['ten'.$lang]);
 	$breadcr->setBreadCrumbs($row_detail[$sluglang],$row_detail['ten'.$lang]);
 	$breadcrumbs = $breadcr->getBreadCrumbs();
 

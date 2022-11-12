@@ -100,7 +100,7 @@
                     $limit = ' limit 0,3';
                 }
                 if ($value['theme']==2) {
-                    $attributes = 'class="slick__page img" :show="1" :arrows="true"';
+                    $attributes = 'class="slick__page slick__page-themeArraw img" :show="1" :arrows="true"';
                 }
                 $imagesMutil = $d->rawQuery("select photo from #_gallery where id_photo = ? and com='news' and type = ? and kind='man' and val = ? and hienthi > 0 order by stt,id desc $limit",array($value['id'],$value['type'],'news-project'));
                 $statistical = $d->rawQuery("select ten$lang as ten,value from #_gallery where id_photo = ? and com='news' and type = ? and kind='man' and val = ? and hienthi > 0 order by stt,id desc",array($value['id'],$value['type'],'thongke'));
@@ -177,7 +177,7 @@
         <div class="container">
             <div class="title">Dịch vụ chuyên nghiệp</div>
             <div class="box d-flex align-items-start justify-content-between flex-wrap">
-                <div class="img slick__page" :show="1" :autoplay="true" :arrows="true" :dots="true">
+                <div class="img slick__page slick__page-themeArraw" :show="1" :autoplay="true" :arrows="true" :dots="true">
                     <?php foreach ($serviceProject as $key => $value) {?>
                         <img onerror=src="<?=THUMBS."/635x800x1/"?>assets/images/noimage.png" src="<?=THUMBS.'/635x800x1/'.UPLOAD_NEWS_L.$value['photo']?>" alt="<?=$value['ten']?>">
                     <?php } ?>

@@ -6,14 +6,6 @@ class FunctionsLayout extends Functions
         $this->db = $db;
     }
 
-    public function checkSave($id,$type)
-    {
-        global $login_member;
-        $id_user = !empty($_SESSION[$login_member]['id']) ? $_SESSION[$login_member]['id'] : 0;
-        $get = $this->db->rawQueryOne("select value from #_product_save where id_pro = '".$id."' and id_user = '".$id_user."' and type = '".$type."'");
-        return !empty($get) ? 'active-save' : '';
-    }
-
     public function setTbl($tbl)
     {
         $this->tbl = $tbl;

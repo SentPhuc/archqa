@@ -27,7 +27,7 @@ $js->setJs("./assets/mmenu/mmenu.js");
     // $js->setJs("./assets/simplyscroll/jquery.simplyscroll.js");
     // $js->setJs("./assets/fotorama/fotorama.js");
     // $js->setJs("./assets/owlcarousel2/owl.carousel.js");
-$js->setJs("./assets/magiczoomplus/magiczoomplus.js");
+// $js->setJs("./assets/magiczoomplus/magiczoomplus.js");
 $js->setJs("./assets/slick/slick.js");
 $js->setJs("./assets/fancybox3/jquery.fancybox.js");
 $js->setJs("./assets/swiper/swiper-bundle.min.js");
@@ -61,6 +61,13 @@ echo $js->getJs();
                 grecaptcha.execute('<?=$config['googleAPI']['recaptcha']['sitekey']?>', { action: 'getquote' }).then(function (token) {
                     var recaptchaResponseGetquote = document.getElementById('recaptchaResponseGetquote');
                     recaptchaResponseGetquote.value = token;
+                });
+            }
+
+            if ($("#recaptchaResponseYeucausanpham").length) {
+                grecaptcha.execute('<?=$config['googleAPI']['recaptcha']['sitekey']?>', { action: 'getquote' }).then(function (token) {
+                    var recaptchaResponseYeucausanpham = document.getElementById('recaptchaResponseYeucausanpham');
+                    recaptchaResponseYeucausanpham.value = token;
                 });
             }
         });

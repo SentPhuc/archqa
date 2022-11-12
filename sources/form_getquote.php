@@ -1,6 +1,6 @@
 <?php 
 if(!defined('SOURCES')) die("Error");
-if(isset($_POST['submit-getquote']))
+if(isset($_POST['submit-getquote']) || sset($_POST['submit-getquote-detail']))
 {
 	$responseCaptcha = $_POST['recaptcha_response_getquote'];
 	$resultCaptcha = $func->checkRecaptcha($responseCaptcha);
@@ -17,6 +17,15 @@ if(isset($_POST['submit-getquote']))
 			if($file = $func->uploadImage("file", 'doc|docx|pdf|rar|zip|ppt|pptx|DOC|DOCX|PDF|RAR|ZIP|PPT|PPTX|xls|xlsx|jpg|png|gif|JPG|PNG|GIF', UPLOAD_FILE_L, $file_name))
 			{
 				$data['taptin'] = $file;
+			}
+		}
+
+		if(isset($_FILES["file1"]))
+		{
+			$file1_name = $func->uploadName($_FILES["file1"]["name"]);
+			if($file1 = $func->uploadImage("file1", 'doc|docx|pdf|rar|zip|ppt|pptx|DOC|DOCX|PDF|RAR|ZIP|PPT|PPTX|xls|xlsx|jpg|png|gif|JPG|PNG|GIF', UPLOAD_FILE_L, $file1_name))
+			{
+				$data['taptin'] = $file1;
 			}
 		}
 

@@ -17,7 +17,7 @@
                     <p><?=$optsetting['hotline']?></p>
                 </div>
             </div>
-            <div class="item__footer">
+            <div class="item__footer item__footer-rp">
                 <h2 class="title-footer">Sản phẩm</h2>
                 <ul class="footer-ul">
                     <?php foreach($listProductFooter as $v) { ?>
@@ -25,7 +25,7 @@
                     <?php } ?>
                 </ul>
             </div>
-            <div class="item__footer">
+            <div class="item__footer item__footer-rp">
                 <h2 class="title-footer">Dịch vụ</h2>
                 <ul class="footer-ul">
                     <?php foreach($quytrinhFooter as $v) { ?>
@@ -33,7 +33,7 @@
                     <?php } ?>
                 </ul>
             </div>
-            <div class="item__footer">
+            <div class="item__footer item__footer-rp">
                 <h2 class="title-footer">Giá trị</h2>
                 <ul class="footer-ul">
                     <?php foreach($qualityFooter as $v) { ?>
@@ -41,7 +41,7 @@
                     <?php } ?>
                 </ul>
             </div>
-            <div class="item__footer">
+            <div class="item__footer item__footer-rp">
                 <h2 class="title-footer">Về chúng tôi</h2>
                 <ul class="footer-ul">
                     <?php foreach($aboutFooter as $v) { ?>

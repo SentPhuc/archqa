@@ -20,16 +20,18 @@
                         }
                         $idcActive = !empty($_GET[$value]) ? $_GET[$value] : 0;
                         $title_cat .= ($idcActive) ? ' - '.$func->setTitleFilter($idcActive,$value,true) : '';
+
                         ?>
                         <div class="item__filter" style="width: <?=(100/(count($filterList) + 1))?>%;">
                             <span class="views-menuFilter"><?=$func->setTitleFilter($idcActive,$value)?></span>
-                            <ul>
-                                <li class="filter-item" data-id="0" data-type="cat" data-key="<?=$value?>">
-                                    <?=$func->setTitleFilter(0,$value)?>
+                            <ul class="item-filter-cat">
+                                <li data-id="0" data-type="cat" data-key="<?=$value?>">
+                                    <a href="<?=$func->fullUrlGetKeyProduct($value,$pathFilters,0);?>" title=""><?=$func->setTitleFilter(0,$value)?></a>
                                 </li>
-                                <?php foreach ($filterItem as $keyItem => $valueItem) {?>
-                                    <li class="filter-item" data-id="<?=$valueItem['id']?>" data-type="cat" data-key="<?=$value?>">
-                                        <?=$valueItem['ten']?>
+                                <?php foreach ($filterItem as $keyItem => $valueItem) {
+                                    ?>
+                                    <li data-id="<?=$valueItem['id']?>" data-type="cat" data-key="<?=$value?>">
+                                        <a href="<?=$func->fullUrlGetKeyProduct($value,$pathFilters,$valueItem['id']);?>" title=""><?=$valueItem['ten']?></a>
                                     </li>
                                 <?php } ?>
                             </ul>
@@ -125,4 +127,4 @@
             </div>
         </div>
     </div>
-    <?php } ?>
+<?php } ?>

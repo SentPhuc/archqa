@@ -9,6 +9,14 @@ class Functions
 		$this->db = $d;
 	}
 
+	public function checkSave($id,$type)
+    {
+        global $login_member;
+        $id_user = !empty($_SESSION[$login_member]['id']) ? $_SESSION[$login_member]['id'] : 0;
+        $get = $this->db->rawQueryOne("select value from #_product_save where id_pro = '".$id."' and id_user = '".$id_user."' and type = '".$type."'");
+        return !empty($get) ? 'active-save' : '';
+    }
+
 	public function isArrayFilter($kind=''){
 		$data = array(
 			'id_bystyle' => 'Theo phong cách',
@@ -55,7 +63,7 @@ class Functions
 		$where = '';
 		if (!empty($get)) {
 			foreach ($get as $key => $value) {
-				if ($key!='idl' && $key!='sort' && $key!='keyword') {
+				if ($key!='idl' && $key!='sort' && $key!='keyword' && $value > 0) {
 					$getPro = $this->db->rawQuery("select id_pro from #_filter where id_filter = '".$value."' and id_list_filter='".$key."'");
 					$idPros = [];
 					foreach ($getPro as $value) {
@@ -70,6 +78,16 @@ class Functions
 			}
 		}
 		return $where;
+	}
+
+	public function fullUrlGetKeyProduct($key,$url,$id){
+		$url.= '?'.$key.'='.$id;
+		foreach ($this->isArrayFilter('key') as $value) {
+			if (!empty($_GET[$value]) && ($key != $value)) {
+				$url.= '&'.$value.'='.$_GET[$value];
+			}
+		}
+		return $url;
 	}
 
 	public function getTagsInCategoryOrProduct($id_tags,$idl,$type){

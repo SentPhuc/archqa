@@ -3,7 +3,15 @@
     <div class="time-main"><i class="fas fa-calendar-week"></i><span><?=ngaydang?>: <?=date("d/m/Y h:i A",$row_detail['ngaytao'])?></span></div>
     <?php if(isset($row_detail['noidung'.$lang]) && $row_detail['noidung'.$lang] != '') { ?>
         <div class="content-main rp-images w-clear"><?=htmlspecialchars_decode($row_detail['noidung'.$lang])?></div>
-        <?php include TEMPLATE.LAYOUT."social.php"; ?>
+        <div class="social-plugin">
+            <span>Chia sẻ với chúng tôi:</span>
+            <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+                <a class="a2a_button_facebook"></a>
+                <a class="a2a_button_twitter"></a>
+                <a class="a2a_button_linkedin"></a>
+                <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+            </div>
+        </div>
     <?php } else { ?>
         <div class="alert alert-warning" role="alert">
             <strong><?=noidungdangcapnhat?></strong>

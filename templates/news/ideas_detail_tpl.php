@@ -20,7 +20,15 @@
 			<div class="header__ideas d-flex align-items-center justify-content-center flex-wrap">
 				<span class="date"><?=date('d \T\h\á\n\g m \N\ă\m Y',$row_detail['ngaytao'])?></span>
 				<span class="count-views"><?=$row_detail['luotxem']?></span>
-				<?php include TEMPLATE.LAYOUT."social.php"; ?>
+				<div class="social-plugin">
+					<span>Chia sẻ với chúng tôi:</span>
+					<div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+						<a class="a2a_button_facebook"></a>
+						<a class="a2a_button_twitter"></a>
+						<a class="a2a_button_linkedin"></a>
+						<a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+					</div>
+				</div>
 				<?php if(isset($row_detail['mota'.$lang]) && $row_detail['mota'.$lang] != '') { ?>
 					<div class="desc w-100">
 						<?=htmlspecialchars_decode($row_detail['mota'.$lang])?>

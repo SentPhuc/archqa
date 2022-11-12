@@ -4,42 +4,13 @@ ValidationFormSelf("validation-cart");
 ValidationFormSelf("validation-user");
 ValidationFormSelf("validation-contact");
 ValidationFormSelf("validation-getquote");
+ValidationFormSelf("validation-getquote-detail");
 
 /* Exists */
 $.fn.exists = function(){
     return this.length;
 };
 
-/* Paging ajax */
-if($(".paging-product").exists())
-{
-    loadPagingAjax("ajax/ajax_product.php?perpage="+COUNTPRODUCT+"&type=san-pham",'.paging-product');
-}
-
-/* Paging category ajax */
-if($(".paging-product-category").exists())
-{
-    $(".paging-product-category").each(function(){
-        var list = $(this).data("list");
-        loadPagingAjax("ajax/ajax_product.php?perpage="+COUNTPRODUCT+"&type=san-pham&idList="+list,'.paging-product-category-'+list);
-    });
-}
-WEBSIETE.video = function(){
-    $('body').on("click",".item-video",function(){
-        var id = $(this).attr('data-id');
-        var width = $(this).attr('data-width');
-        var height = $(this).attr('data-height');
-        $.ajax({
-            url:'ajax/ajax_video.php',
-            type: "POST",
-            dataType: 'html',
-            data: {id:id,height:height,width:width},
-            success: function(result){
-                $('.sub-video1').html(result);
-            }
-        });
-    });
-};
 WEBSIETE.slickData = function(obj){
     // :lg-item="4" :md-item="3" :sm-item="2" :xs-item="1"
     if(obj.length > 0)
@@ -148,23 +119,6 @@ WEBSIETE.Search = function(){
     };
 };
 
-/* Videos */
-WEBSIETE.Videos = function(){
-    if($(".video").exists())
-    {
-        $('[data-fancybox="video"]').fancybox({
-            transitionEffect: "fade",
-            transitionDuration: 800,
-            animationEffect: "fade",
-            animationDuration: 800,
-            arrows: true,
-            infobar: false,
-            toolbar: true,
-            hash: false
-        });
-    };
-};
-
 /* ClickActidve */
 WEBSIETE.ClickActidve = function(){
     if($(".menu-login").exists())
@@ -227,6 +181,19 @@ WEBSIETE.ClickActidve = function(){
     if($(".item__Qa").exists())
     {
         $('.item__Qa').click(function(){
+            if ($(this).hasClass('active')) {
+                $(this).find('.desc').stop().slideUp();
+                $(this).removeClass('active');
+            }else{
+                $(this).find('.desc').stop().slideDown();
+                $(this).addClass('active');
+            }
+        });
+    };
+
+    if($(".item__footer-rp").exists())
+    {
+        $('.item__footer-rp').click(function(){
             if ($(this).hasClass('active')) {
                 $(this).find('.desc').stop().slideUp();
                 $(this).removeClass('active');
@@ -447,8 +414,6 @@ $(document).ready(function(){
     WEBSIETE.Tools();
     WEBSIETE.AltImages();
     WEBSIETE.BackToTop();
-    WEBSIETE.video();
-    WEBSIETE.Videos();
     WEBSIETE.Search();
     WEBSIETE.ClickActidve();
     WEBSIETE.swiper();

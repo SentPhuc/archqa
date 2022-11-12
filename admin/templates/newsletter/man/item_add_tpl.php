@@ -123,30 +123,32 @@ $linkSave = "index.php?com=newsletter&act=save&type=".$type."&p=".$curPage;
                 <?php if(isset($config['newsletter'][$type]['product']) && $config['newsletter'][$type]['product'] == true) { ?>
                     <div class="form-group">
                         <label for="product">Danh mục sản phẩm đã chọn:</label>
-                        <ul class="list-group">
-                            <?php foreach ($list as $key => $value) {?>
-                                <li class="list-group-item <?=(in_array($value['id'],explode(',',$item['product']))) ? 'list-group-item-success':''?>"><i class="fas <?=(in_array($value['id'],explode(',',$item['product']))) ? 'fa-check':'fa-times'?> mr-2"></i> <?=$value['ten']?></li>
-                          <?php } ?>
-                      </ul>
-                  </div>
-              <?php } ?>
-              <?php if(isset($config['newsletter'][$type]['ghichu']) && $config['newsletter'][$type]['ghichu'] == true) { ?>
+                        <?php if (!empty($list)) {?>
+                            <ul class="list-group">
+                                <?php foreach ($list as $key => $value) {?>
+                                    <li class="list-group-item <?=(in_array($value['id'],explode(',',$item['product']))) ? 'list-group-item-success':''?>"><i class="fas <?=(in_array($value['id'],explode(',',$item['product']))) ? 'fa-check':'fa-times'?> mr-2"></i> <?=$value['ten']?></li>
+                                <?php } ?>
+                            </ul>
+                        <?php } ?>
+                    </div>
+                <?php } ?>
+                <?php if(isset($config['newsletter'][$type]['ghichu']) && $config['newsletter'][$type]['ghichu'] == true) { ?>
+                    <div class="form-group">
+                        <label for="ghichu">Ghi chú:</label>
+                        <textarea class="form-control" name="data[ghichu]" id="ghichu" rows="5" placeholder="Ghi chú"><?=@$item['ghichu']?></textarea>
+                    </div>
+                <?php } ?>
                 <div class="form-group">
-                    <label for="ghichu">Ghi chú:</label>
-                    <textarea class="form-control" name="data[ghichu]" id="ghichu" rows="5" placeholder="Ghi chú"><?=@$item['ghichu']?></textarea>
+                    <label for="stt" class="d-inline-block align-middle mb-0 mr-2">Số thứ tự:</label>
+                    <input type="number" class="form-control form-control-mini d-inline-block align-middle" min="0" name="data[stt]" id="stt" placeholder="Số thứ tự" value="<?=isset($item['stt']) ? $item['stt'] : 1?>">
                 </div>
-            <?php } ?>
-            <div class="form-group">
-                <label for="stt" class="d-inline-block align-middle mb-0 mr-2">Số thứ tự:</label>
-                <input type="number" class="form-control form-control-mini d-inline-block align-middle" min="0" name="data[stt]" id="stt" placeholder="Số thứ tự" value="<?=isset($item['stt']) ? $item['stt'] : 1?>">
             </div>
         </div>
-    </div>
-    <div class="card-footer text-sm">
-        <button type="submit" class="btn btn-sm bg-gradient-primary"><i class="far fa-save mr-2"></i>Lưu</button>
-        <button type="reset" class="btn btn-sm bg-gradient-secondary"><i class="fas fa-redo mr-2"></i>Làm lại</button>
-        <a class="btn btn-sm bg-gradient-danger" href="<?=$linkMan?>" title="Thoát"><i class="fas fa-sign-out-alt mr-2"></i>Thoát</a>
-        <input type="hidden" name="id" value="<?=(isset($item['id']) && $item['id'] > 0) ? $item['id'] : ''?>">
-    </div>
-</form>
+        <div class="card-footer text-sm">
+            <button type="submit" class="btn btn-sm bg-gradient-primary"><i class="far fa-save mr-2"></i>Lưu</button>
+            <button type="reset" class="btn btn-sm bg-gradient-secondary"><i class="fas fa-redo mr-2"></i>Làm lại</button>
+            <a class="btn btn-sm bg-gradient-danger" href="<?=$linkMan?>" title="Thoát"><i class="fas fa-sign-out-alt mr-2"></i>Thoát</a>
+            <input type="hidden" name="id" value="<?=(isset($item['id']) && $item['id'] > 0) ? $item['id'] : ''?>">
+        </div>
+    </form>
 </section>

@@ -119,6 +119,7 @@ $requick = array(
 
 	/* Dowload catalog */
 	array("tbl"=>"","field"=>"id","source"=>"","com"=>"dowload-catalog","type"=>"",'menu'=>true),
+	array("tbl"=>"static","field"=>"id","source"=>"static","com"=>"cau-hoi-thuong-gap","type"=>"cau-hoi-thuong-gap",'menu'=>false),
 
 	/* Liên hệ */
 	array("tbl"=>"","field"=>"id","source"=>"","com"=>"lien-he","type"=>"",'menu'=>true),
@@ -155,6 +156,14 @@ switch($com)
 
 	case 'bao-gia':
 	$source = "form_getquote";
+	break;
+
+	case 'cau-hoi-thuong-gap':
+	$source = "static";
+	$template = "static/static";
+	$type = $com;
+	$seo->setSeo('type','object');
+	$title_crumb = 'Câu hỏi thường gặp';
 	break;
 
 	case 'du-toan-cong-trinh':

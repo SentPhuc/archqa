@@ -18,7 +18,7 @@ if ($idl > 0 || $idc > 0 || $com == 'product') {
 	}
 }
 $getDatasql = "photo, ten$lang as ten, tenkhongdau$lang as tenkhongdau, giamoi, gia, giakm, id,masp,countLike";
-$getDatasqlDetail = "type, id, ten$lang, tenkhongdauvi, tenkhongdauen, mota$lang, noidung$lang, masp, luotxem, id_brand, id_mau, id_size, id_list, id_cat, id_item, id_sub, id_tags, photo, options, giakm, giamoi, gia";
+$getDatasqlDetail = "type, id, ten$lang, tenkhongdauvi, tenkhongdauen, mota$lang, noidung$lang, masp, luotxem, id_brand, id_mau, id_size, id_list, id_cat, id_item, id_sub, id_tags, photo, options, giakm, giamoi, gia,countLike";
 
 if($id!='')
 {
@@ -43,7 +43,9 @@ if($id!='')
 	if($row_detail['id_size']) $size = $d->rawQuery("select id, ten$lang from #_product_size where type='".$type."' and find_in_set(id,'".$row_detail['id_size']."') and hienthi > 0 order by stt,id desc");
 
 	/* Lấy cấp 1 */
-	$pro_list = $d->rawQueryOne("select id, ten$lang, tenkhongdauvi, tenkhongdauen from #_product_list where id = ? and type = ? and hienthi > 0 limit 0,1",array($row_detail['id_list'],$type));
+	$pro_list = $d->rawQueryOne("select id, ten$lang,noidung$lang, tenkhongdauvi, tenkhongdauen from #_product_list where id = ? and type = ? and hienthi > 0 limit 0,1",array($row_detail['id_list'],$type));
+
+	$splist = $d->rawQuery("select ten$lang as ten, id from #_product_list where type = ? and hienthi > 0 order by stt,id desc",array($type));
 
 	/* Lấy cấp 2 */
 	$pro_cat = $d->rawQueryOne("select id, ten$lang, tenkhongdauvi, tenkhongdauen from #_product_cat where id = ? and type = ? and hienthi > 0 limit 0,1",array($row_detail['id_cat'],$type));
@@ -55,7 +57,12 @@ if($id!='')
 	$pro_sub = $d->rawQueryOne("select id, ten$lang, tenkhongdauvi, tenkhongdauen from #_product_sub where id = ? and type = ? and hienthi > 0 limit 0,1",array($row_detail['id_sub'],$type));
 	
 	/* Lấy hình ảnh con */
-	$hinhanhsp = $d->rawQuery("select photo from #_gallery where id_photo = ? and com='product' and type = ? and kind='man' and val = ? and hienthi > 0 order by stt,id desc",array($row_detail['id'],$type,$type));
+	$gallery = $d->rawQuery("select photo from #_gallery where id_photo = ? and com='product' and type = ? and kind='man' and val = ? and hienthi > 0 order by stt,id desc",array($row_detail['id'],$type,$type));
+
+	$contentPro = $pro_list['noidung'.$lang];
+	$getQA = $d->rawQuery("select ten$lang, mota$lang from #_gallery where id_photo = ? and com='product' and type = ? and kind='man_list' and val = ? and hienthi > 0 order by stt,id desc",array($pro_list['id'],$type,'tuy-chinh'));
+
+	$orderingProcess = $d->rawQuery("select ten$lang as ten, tenkhongdau$lang as tenkhongdau,photo,photo1 from #_news where type = ? and hienthi > 0 order by stt,id desc limit 0,6",array('quy-trinh-dat-hang'));
 
 	/* Lấy sản phẩm cùng loại */
 	$where = "";

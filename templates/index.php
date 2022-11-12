@@ -5,12 +5,12 @@
     <?php include TEMPLATE.LAYOUT."bundle_css.php"; ?>
 </head>
 <!-- get type and css for template view-template-$type -->
-<body class="view-template-<?=@$type?> <?=!empty($idl) ? 'isList':''?>">
+<body class="view-template-<?=@$type?> <?=!empty($idl) ? 'isList':''?> <?=!empty($id) ? 'isDetail':''?>">
     <?php
     include TEMPLATE.LAYOUT."seo.php";
     include TEMPLATE.LAYOUT."menu.php";
     if($source=='index') include TEMPLATE.LAYOUT."slide.php";
-    else if($template!='news/ideas_detail') include TEMPLATE.LAYOUT."banner.php";
+    else if($template!='news/ideas_detail' && @$id == 0) include TEMPLATE.LAYOUT."banner.php";
     if($template!='news/about_detail') include TEMPLATE.LAYOUT."breadcrumb.php";
     ?>
     <?php
